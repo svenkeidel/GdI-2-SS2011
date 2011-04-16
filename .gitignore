@@ -1,0 +1,12 @@
+### Maven Files ###
+# ignore mvn building directorys
+target/
+
+# ignore java-binary
+*.class
+
+### Eclipse Files ###
+# ignore each users depending eclipse porperties
+.classpath
+.project
+.settings/
