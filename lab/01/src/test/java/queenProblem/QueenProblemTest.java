@@ -28,7 +28,7 @@ public class QueenProblemTest {
 	private boolean[][] field_15x15;
 	private QueenProblemSolver solver;
 	private static double counter;
-
+	private static Logger logger = Logger.getRootLogger();
 	/**
 	 * inits the counter
 	 */
@@ -36,8 +36,7 @@ public class QueenProblemTest {
 	public static void init() {
 		counter = 0;
 		BasicConfigurator.configure();
-		Logger logger = Logger.getRootLogger();
-		logger.setLevel(Level.DEBUG);
+		logger.setLevel(Level.INFO);
 	}
 
 	@Before
@@ -50,13 +49,11 @@ public class QueenProblemTest {
 	public void setLegalQueenTest() {
 		solver = new QueenProblemSolver(field_5x5, 0);
 		Assert.assertTrue("setQueen return value was wrongly false", solver.setQueen(0, 1));
-		try{Thread.sleep(100);} catch (Exception e) {}
 		Assert.assertTrue("Legal queen wasn't set.", solver.getPlayField()[0][1]);
 	}
 
 	public void trySetQueen(int row, int col) {
 		Assert.assertFalse("setQueen return value was wrongly true", solver.setQueen(row, col));
-		try{Thread.sleep(100);} catch (Exception e) {}
 		Assert.assertFalse(
 				"Queen was set at a illegal position ["+row+", "+col+"]", 
 				solver.getPlayField()[row][col]);
@@ -75,7 +72,19 @@ public class QueenProblemTest {
 		trySetQueen(4, 2);
 		trySetQueen(4, 0);
 		trySetQueen(2, 0);
-		Assert.assertFalse("setQueen return value was wrongly true", solver.setQueen(2, 2));
+	}
+
+	@Test
+	public void illegalFieldTest() {
+		boolean[][] illegalfield = new boolean[5][5];
+		illegalfield[1][1] = true;
+		illegalfield[4][4] = true;
+		try {
+			solver = new QueenProblemSolver(illegalfield, 0);
+			Assert.fail("A illegal play field was accepted");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	/**

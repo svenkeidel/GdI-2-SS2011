@@ -1,7 +1,5 @@
 package queenProblem;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 import org.apache.log4j.Logger;
 
 /**
@@ -11,12 +9,13 @@ import org.apache.log4j.Logger;
  * @version 1.0
  * 
  */
-public class PlayField implements PropertyChangeListener {
+public class PlayField {
 
-	private boolean[][] playField;
+	private boolean[][] fieldOrig;
+	private boolean[][] field;
 	private int length;
-	private static Logger logger = Logger.getRootLogger();
 
+	private static Logger logger = Logger.getRootLogger();
 
 	/**
 	 * constructor
@@ -25,89 +24,137 @@ public class PlayField implements PropertyChangeListener {
 	 *            the playField to set
 	 * @param delay
 	 */
-	public PlayField(boolean[][] playField) {
-		if (playField.length == playField[0].length) {
+	public PlayField(boolean[][] field) {
+		if (field.length == field[0].length) {
 			// Set the length of the field
-			this.length = playField.length;
+			this.length = field.length;
 			// Initiate the playField
-			this.playField = playField;
+			this.field = field;
+
+			if(!isLegalPlayField())
+				throw new IllegalArgumentException(
+						"The given play field is illegal");
+
+			this.fieldOrig = new boolean[length][length];
+			for(int i=0; i<length; i++)
+				System.arraycopy(field[i], 0, fieldOrig[i], 0, length);
 		} else {
 			System.out.println("The Array must be quadratic!");
 		}
 	}
-	
 
 	/**
-	 * implements the PropertyChangeListener method propertyChange()
-	 *
-	 * The method dispaches the PropertyChangeEvent's from
-	 * QueenProblemSolver and sets or drops a Queen from specified
-	 * position.
-	 *
-	 * @param evt the event causing the property change
+	 * Helping function wich tests if the position is in array
 	 */
-	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals("setQueen")) {
-			if(evt.getNewValue() instanceof int[]) {
-				int[] position = (int[]) evt.getNewValue();
-				int row = position[0];
-				int col = position[1];
-				setQueen(row, col);
-			} else {
-				throw new IllegalArgumentException("Called propertyChange() with wrong type");
-			}
+	private void isInArray(int row, int col) {
+		if(row < 0 || row >= length || col < 0 || col >= length)
+			throw new ArrayIndexOutOfBoundsException(
+					"The requested position, to set the queen is out of range");
+	}
 
-		} else if(evt.getPropertyName().equals("dropQueen")) {
 
-			if(evt.getNewValue() instanceof int[]) {
-				int[] position = (int[]) evt.getNewValue();
-				int row = position[0];
-				int col = position[1];
-				dropQueen(row, col);
-			} else {
-				throw new IllegalArgumentException("Called propertyChange() with wrong type");
-			}
+	/**
+	 * Sets a queen at the specified position
+	 */
+	public boolean setQueen(int row, int col) {
+		if(isLegalPosition(row, col)) {
+			logger.debug("Set queen at ["+row+", "+col+"]");
+			field[row][col] = true;
+			return true;
+		} else {
+			return false;
 		}
 	}
 
 
 	/**
-	 * Sets a queen to specified position
-	 *
-	 * @param row the row in wich the queen is placed
-	 * @param col the column in wich the queen is placed
+	 * Drops a queen from specified position
 	 */
-	private void setQueen(int row, int col){
-		if(row < 0 || row >= length || col < 0 || col >= length)
-			throw new ArrayIndexOutOfBoundsException(
-					"The requested position, to set the queen is out of range");
-		logger.debug("setQueen("+row+", "+col+") accepted");
-		playField[row][col] = true;
+	public boolean dropQueen(int row, int col) {
+
+		isInArray(row, col);
+
+		// if no queen was there
+		if(field[row][col] == false)
+			return false;
+
+		// if the queen was preset
+		if(fieldOrig[row][col] == true)
+			return false;
+
+		logger.debug("Drop queen from ["+row+", "+col+"]");
+		field[row][col] = false;
+		return true;
 	}
 
 
 	/**
-	 * drops a queen from specified position
-	 *
-	 * @param row the row in where the queen is droped
-	 * @param col the column in wich the queen is droped
+	 * tests if in all directions from the position is no queen
 	 */
-	private void dropQueen(int row, int col){
-		if(row < 0 || row >= length || col < 0 || col >= length)
-			throw new ArrayIndexOutOfBoundsException(
-					"The requested position, to set the queen is out of range");
-		logger.debug("dropQueen("+row+", "+col+") accepted");
-		playField[row][col] = false;
+	public boolean isLegalPosition(int row, int col) {
+
+		isInArray(row, col);
+
+		//  |
+		//--Q--
+		//  |
+		for(int i=0; i<length; i++)
+			if((i != row && field[i][col] == true) || (i != col && field[row][i] == true))
+				return false;
+
+		//
+		//  Q
+		//   \
+		for(int i=1; row+i < length && col+i < length; i++)
+			if(field[row+i][col+i] == true)
+				return false;
+
+		//
+		//  Q
+		// /
+		for(int i=1; row+i < length && col-i >= 0; i++)
+			if(field[row+i][col-i] == true)
+				return false;
+
+		// \
+		//  Q
+		//
+		for(int i=1; row-i >= 0 && col-i >= 0; i++)
+			if(field[row-i][col-i] == true)
+				return false;
+
+		//   /
+		//  Q
+		//
+		for(int i=1; row-i >= 0 && col+i < length; i++)
+			if(field[row-i][col+i] == true)
+				return false;
+
+		return true;
 	}
 
-	
+
+	/**
+	 * tests if the play field is correct and no queen beets another
+	 */
+	public boolean isLegalPlayField() {
+		for(int i=0; i<length; i++) {
+			for (int j=0; j<length; j++) {
+				if(field[i][j] == true)
+					if(!isLegalPosition(i, j)) return false;
+			}
+		}
+		return true;
+	}
+
+
 	/**
 	 * Use ONLY to get the field, do not set anything!
 	 * 
 	 * @return the playField
 	 */
 	protected boolean[][] getPlayField() {
-		return playField;
+		return field;
 	}
 
 
@@ -117,5 +164,30 @@ public class PlayField implements PropertyChangeListener {
 	 */
 	protected int getPlayFieldSize() {
 		return this.length;
+	}
+
+
+	/**
+	 * resets the actual field state to the original state
+	 */
+	public void resetField() {
+		for(int i=0; i<length; i++)
+			System.arraycopy(fieldOrig[i], 0, field[i], 0, length);
+	}
+
+
+	void printQueensDebug() {
+		logger.debug("Queen constellation:");
+		for(int i=0; i<length; i++)
+			for(int j=0; j<length; j++)
+				if(field[i][j]) logger.debug("["+i+", "+j+"]");
+	}
+
+
+	void printQueensInfo() {
+		logger.info("Queen constellation:");
+		for(int i=0; i<length; i++)
+			for(int j=0; j<length; j++)
+				if(field[i][j]) logger.info("["+i+", "+j+"]");
 	}
 }
