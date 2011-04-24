@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>queenProblem</groupId>
+  <groupId>lab</groupId>
   <artifactId>01</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>01</name>
