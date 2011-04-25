@@ -77,6 +77,7 @@ public class QueenProblemGui extends JFrame {
 		drawField(new boolean[DEFAULT_SIZE][DEFAULT_SIZE]);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 
@@ -85,13 +86,12 @@ public class QueenProblemGui extends JFrame {
 		JLabel queen = new JLabel("D");
 		queen.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
 		fieldArray[row][col].add(queen, BorderLayout.CENTER);
-		fieldArray[row][col].repaint();
+		fieldArray[row][col].revalidate();
 	}
 
 	public void ereaseQueen(int row, int col){
 		logger.debug("ereaseQueen("+row+", "+col+")");
 		fieldArray[row][col].removeAll();
-		fieldArray[row][col].revalidate();
 		fieldArray[row][col].repaint();
 	}
 
