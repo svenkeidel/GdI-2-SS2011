@@ -3,6 +3,8 @@
  */
 package queenProblem;
 
+import gui.QueenProblemGui;
+import controller.QueenProblemController;
 
 /**
  * provides functionality to interact with QueenProblemSolver
@@ -19,8 +21,11 @@ public class Main {
 	 * @param args unused
 	 */
 	public static void main(String[] args) {
-		//display the window
-		//TODO: Start your GUI
+		boolean [][] field = new boolean[8][8];
+		QueenProblemSolver solver = new QueenProblemSolver(field, 500);
+		QueenProblemController controller = new QueenProblemController();
+		QueenProblemGui gui = new QueenProblemGui(controller);
+		solver.addPropertyChangeListener(controller);
 	}
 
 }

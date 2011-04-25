@@ -36,7 +36,7 @@ public class QueenProblemTest {
 	public static void init() {
 		counter = 0;
 		BasicConfigurator.configure();
-		logger.setLevel(Level.INFO);
+		logger.setLevel(Level.OFF);
 	}
 
 	@Before
