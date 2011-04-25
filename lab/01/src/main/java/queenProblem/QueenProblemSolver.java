@@ -1,5 +1,7 @@
 package queenProblem;
 
+import java.beans.PropertyChangeListener;
+
 import javax.swing.SwingWorker;
 
 import org.apache.log4j.Logger;
@@ -12,11 +14,13 @@ import org.apache.log4j.Logger;
  *
  */
 public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
+	private static final Logger logger =
+		Logger.getLogger(QueenProblemSolver.class);
+
 
 	private PlayField playField;
 	private int delay;
 	private int length;
-	private static Logger logger = Logger.getRootLogger();
 
 	/**
 	 * Initiates the Solver with the playFieldSize and initiates the playField.
@@ -34,6 +38,12 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 	@Override
 	public Boolean doInBackground() throws Exception {
+		logger.info("i'll work in Background");
+
+		PropertyChangeListener[] listeners = getPropertyChangeSupport().getPropertyChangeListeners();
+		for(int i=0; i<listeners.length; i++)
+			logger.debug(listeners[i].toString());
+
 		boolean solved = solve();
 
 		firePropertyChange("solved", null, solved);
@@ -47,28 +57,16 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	 * @return true if the playField could be solved; otherwise false
 	 */
 	public boolean solve() {
-		logger.info("###########################################");
-		logger.info("Try to solve queen problem on a "+length+"x"+length+" field");
-		logger.info("###########################################");
 
 		boolean solved = solveRow(0);
 
-		if(solved) {
-			logger.info("The problem could be solved");
-			playField.printQueensInfo();
-		} else {
-			logger.info("The problem has no solution");
+		if(!solved)
 			playField.resetField();
-		}
 		return solved;
 	}
 
-	private boolean solveRow(int row) {
 
-		logger.debug("----------------------------");
-		logger.debug("solveRow("+row+")");
-		playField.printQueensDebug();
-		logger.debug("----------------------------");
+	private boolean solveRow(int row) {
 
 		// if there are steps possible
 		if(row < length) {
@@ -82,16 +80,14 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 			}
 		}
 
-		logger.debug("No solution found for row "+row+" with this constellation of queens");
 		return false;
 	}
 
+
 	private boolean solveCell(int row, int col) {
 
-		logger.debug("solveCell("+row+", "+col+")");
-
 		// if the step was the solution return true
-		if(playField.setQueen(row, col)) {
+		if(setQueen(row, col)) {
 			if(row == length - 1) return true;
 
 			// else try to solve next row
@@ -118,6 +114,9 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 		if(playField.setQueen(row, col)) {
 			firePropertyChange("setQueen", null, new int[] {row, col});
+
+			try {Thread.sleep(delay);} catch (Exception e){logger.error(e.getMessage());}
+
 			return true;
 		} else {
 			return false;
@@ -135,6 +134,9 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 		if(playField.dropQueen(row, col)) {
 			firePropertyChange("dropQueen", null, new int[] {row, col});
+
+			try {Thread.sleep(delay);} catch (Exception e){logger.error(e.getMessage());}
+
 			return true;
 		} else {
 			return false;

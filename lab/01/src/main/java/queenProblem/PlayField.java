@@ -1,7 +1,5 @@
 package queenProblem;
 
-import org.apache.log4j.Logger;
-
 /**
  * class which represents the playField
  * 
@@ -14,8 +12,6 @@ public class PlayField {
 	private boolean[][] fieldOrig;
 	private boolean[][] field;
 	private int length;
-
-	private static Logger logger = Logger.getRootLogger();
 
 	/**
 	 * constructor
@@ -58,7 +54,6 @@ public class PlayField {
 	 */
 	public boolean setQueen(int row, int col) {
 		if(isLegalPosition(row, col)) {
-			logger.debug("Set queen at ["+row+", "+col+"]");
 			field[row][col] = true;
 			return true;
 		} else {
@@ -82,7 +77,6 @@ public class PlayField {
 		if(fieldOrig[row][col] == true)
 			return false;
 
-		logger.debug("Drop queen from ["+row+", "+col+"]");
 		field[row][col] = false;
 		return true;
 	}
@@ -175,19 +169,4 @@ public class PlayField {
 			System.arraycopy(fieldOrig[i], 0, field[i], 0, length);
 	}
 
-
-	void printQueensDebug() {
-		logger.debug("Queen constellation:");
-		for(int i=0; i<length; i++)
-			for(int j=0; j<length; j++)
-				if(field[i][j]) logger.debug("["+i+", "+j+"]");
-	}
-
-
-	void printQueensInfo() {
-		logger.info("Queen constellation:");
-		for(int i=0; i<length; i++)
-			for(int j=0; j<length; j++)
-				if(field[i][j]) logger.info("["+i+", "+j+"]");
-	}
 }
