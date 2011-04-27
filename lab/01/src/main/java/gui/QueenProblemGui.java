@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import controller.QueenProblemController;
 
 public class QueenProblemGui extends JFrame { 
+
 	public static final int DEFAULT_DELAY = 1000;
 	public static final int DEFAULT_SIZE = 8;
 
@@ -30,9 +31,9 @@ public class QueenProblemGui extends JFrame {
 
 	private Container pane;
 	private JPanel fieldPanel;
-	private JPanel[][] fieldArray;
-	private JFormattedTextField fieldSize;
-	private JFormattedTextField delay;
+	private FieldButton[][] fieldArray;
+	private JFormattedTextField fieldSize, delay;
+	private JButton solve, generate;
 
 	private QueenProblemController controller;
 
@@ -43,18 +44,20 @@ public class QueenProblemGui extends JFrame {
 
 		pane = this.getContentPane();
 		
-		JButton generate = new JButton("Generate");
+		generate = new JButton("Generate");
 		generate.setActionCommand("generate");
 		generate.addActionListener(this.controller);
 
-		JButton solve = new JButton("Solve it!");
+		solve = new JButton("Solve it!");
 		solve.setActionCommand("solve");
 		solve.addActionListener(this.controller);
 
 		NumberFormat integerFormat = NumberFormat.getIntegerInstance();
+
 		fieldSize = new JFormattedTextField(integerFormat);
 		fieldSize.setValue(new Integer(DEFAULT_SIZE));
 		fieldSize.setColumns(2);
+
 		delay = new JFormattedTextField(integerFormat);
 		delay.setValue(new Integer(DEFAULT_DELAY));
 		delay.setColumns(4);
@@ -74,25 +77,39 @@ public class QueenProblemGui extends JFrame {
 		this.fieldPanel = new JPanel();
 		pane.add(fieldPanel, BorderLayout.CENTER);
 
-		drawField(new boolean[DEFAULT_SIZE][DEFAULT_SIZE]);
-		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
+
+		drawField(new boolean[DEFAULT_SIZE][DEFAULT_SIZE]);
+	}
+
+	public void pressedSolving() {
+		solve.setText("Stop!");
+		solve.setActionCommand("stop");
+		generate.setEnabled(false);
+		fieldSize.setEnabled(false);
+		delay.setEnabled(false);
+	}
+
+	public void pressedStop() {
+		solve.setText("Solve it!");
+		solve.setActionCommand("solve");
+		generate.setEnabled(true);
+		fieldSize.setEnabled(true);
+		delay.setEnabled(true);
 	}
 
 	public void drawQueen(int row, int col){
 		logger.debug("drawQueen("+row+", "+col+")");
-		JLabel queen = new JLabel("D");
-		queen.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 50));
-		fieldArray[row][col].add(queen, BorderLayout.CENTER);
+		fieldArray[row][col].setText("D");
 		fieldArray[row][col].revalidate();
 	}
 
 	public void ereaseQueen(int row, int col){
 		logger.debug("ereaseQueen("+row+", "+col+")");
-		fieldArray[row][col].removeAll();
-		fieldArray[row][col].repaint();
+		fieldArray[row][col].setText("");
+		fieldArray[row][col].revalidate();
 	}
 
 	public void clearField() {
@@ -104,24 +121,32 @@ public class QueenProblemGui extends JFrame {
 	}
 
 	public void drawField(boolean[][] field) {
+
 		int length = field.length;
 
 		fieldPanel.setLayout(new GridLayout(length, length));
-		fieldArray = new JPanel[length][length];
+		fieldArray = new FieldButton[length][length];
 
 		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
 
+		FieldButton newButton;
+
+
 		for(int i=0; i<length; i++) {
 			for(int j=0; j<length; j++) {
-				fieldArray[i][j] = new JPanel();
+
+				newButton = new FieldButton(i, j);
+				newButton.setActionCommand("FieldButton");
+				newButton.addActionListener(this.controller);
+				newButton.setBorder(border);
 
 				if((i + j) % 2 == 0)
-					fieldArray[i][j].setBackground(Color.WHITE);
+					newButton.setBackground(Color.WHITE);
 				else
-					fieldArray[i][j].setBackground(Color.GRAY);
+					newButton.setBackground(Color.GRAY);
 
-				fieldArray[i][j].setBorder(border);
-				fieldPanel.add(fieldArray[i][j]);
+				fieldArray[i][j] = newButton;
+				fieldPanel.add(newButton);
 
 				if(field[i][j] == true)
 					drawQueen(i, j);
@@ -130,12 +155,21 @@ public class QueenProblemGui extends JFrame {
 
 		fieldPanel.revalidate();
 		((JPanel) pane).repaint();
+
+		try {Thread.sleep(100);} catch (Exception e) {logger.error(e.getMessage());}
+
+		setFontSize();
 	}
 
-	public void updateField() {
-		clearField();
-		int length = getLength();
-		drawField(new boolean[length][length]);
+	public void updateField(boolean[][] field) {
+		int length = field.length;
+		for(int i=0; i<length; i++) {
+			for(int j=0; j<length; j++) {
+				ereaseQueen(i, j);
+				if(field[i][j])
+					drawQueen(i, j);
+			}
+		}
 	}
 
 	public int getLength() {
@@ -144,5 +178,25 @@ public class QueenProblemGui extends JFrame {
 
 	public int getDelay() {
 		return ((Number) delay.getValue()).intValue();
+	}
+
+	private int getFontSize() {
+		double fieldPanelHeight = fieldPanel.getBounds().getHeight();
+		logger.debug("fieldPanelHeigth: "+fieldPanelHeight);
+		double fieldPanelWidth = fieldPanel.getBounds().getWidth();
+		logger.debug("fieldPanelWidth: "+fieldPanelWidth);
+		return (int) ((fieldPanelHeight + fieldPanelWidth) / 2 / fieldArray.length / 1.5);
+	}
+
+
+	private void setFontSize() {
+		int length = getLength();
+
+		int fontSize = getFontSize();
+		logger.debug("fontSize: "+fontSize);
+
+		for(int i=0; i<length; i++)
+			for(int j=0; j<length; j++)
+				fieldArray[i][j].setFont(new Font(Font.SANS_SERIF, Font.BOLD, fontSize));
 	}
 }

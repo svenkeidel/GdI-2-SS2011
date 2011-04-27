@@ -30,20 +30,14 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	 * @param delay
 	 *            the delay between an solver move (should not be under 100 ms)
 	 */
-	public QueenProblemSolver(boolean[][] playField, int delay) {
-		this.playField = new PlayField(playField);
+	public QueenProblemSolver(boolean[][] field, int delay) {
+		this.playField = new PlayField(field);
 		this.length = getPlayFieldSize();
 		this.delay = delay;
 	}
 
 	@Override
 	public Boolean doInBackground() throws Exception {
-		logger.info("i'll work in Background");
-
-		PropertyChangeListener[] listeners = getPropertyChangeSupport().getPropertyChangeListeners();
-		for(int i=0; i<listeners.length; i++)
-			logger.debug(listeners[i].toString());
-
 		boolean solved = solve();
 
 		firePropertyChange("solved", null, solved);
@@ -57,16 +51,36 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	 * @return true if the playField could be solved; otherwise false
 	 */
 	public boolean solve() {
+		boolean [][] field = getPlayField();
+		logger.info("#########################################");
+		logger.info("solve "+length+"x"+length+" queen problem");
+		logger.info("#########################################");
+		logger.info("queen preset:");
+		for(int i=0; i<length; i++)
+			for(int j=0; j<length; j++)
+				if(field[i][j])
+					logger.info("["+i+","+j+"]");
 
-		boolean solved = solveRow(0);
 
-		if(!solved)
-			playField.resetField();
+		boolean solved = false;
+
+		try {
+			solved = solveRow(0);
+
+			if(!solved)
+				playField.resetField();
+		} catch (InterruptedException e) {
+			logger.info(e.getMessage());
+		}
+
 		return solved;
 	}
 
 
-	private boolean solveRow(int row) {
+	private boolean solveRow(int row) throws InterruptedException {
+
+		if(isCancelled())
+			throw new InterruptedException("Cancelled");
 
 		// if there are steps possible
 		if(row < length) {
@@ -84,7 +98,10 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	}
 
 
-	private boolean solveCell(int row, int col) {
+	private boolean solveCell(int row, int col) throws InterruptedException {
+
+		if(isCancelled())
+			throw new InterruptedException("Cancelled");
 
 		// if the step was the solution return true
 		if(setQueen(row, col)) {
@@ -112,11 +129,12 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	 */
 	public boolean setQueen(int row, int col) {
 
+		boolean wasSet = getPlayField()[row][col];
 		if(playField.setQueen(row, col)) {
-			firePropertyChange("setQueen", null, new int[] {row, col});
-
-			try {Thread.sleep(delay);} catch (Exception e){logger.error(e.getMessage());}
-
+			if(!wasSet) {
+				firePropertyChange("setQueen", null, new int[] {row, col});
+				try {Thread.sleep(delay);} catch (Exception e) {logger.error(e.getMessage());}
+			}
 			return true;
 		} else {
 			return false;
@@ -135,7 +153,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 		if(playField.dropQueen(row, col)) {
 			firePropertyChange("dropQueen", null, new int[] {row, col});
 
-			try {Thread.sleep(delay);} catch (Exception e){logger.error(e.getMessage());}
+			try {Thread.sleep(delay);} catch (Exception e) {logger.error(e.getMessage());}
 
 			return true;
 		} else {
@@ -157,5 +175,12 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	 */
 	public int getPlayFieldSize() {
 		return this.playField.getPlayFieldSize();
+	}
+
+	/**
+	 * if a queen could be placed here
+	 */
+	public boolean isLegalPosition(int row, int col) {
+		return this.playField.isLegalPosition(row, col);
 	}
 }
