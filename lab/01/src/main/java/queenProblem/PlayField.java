@@ -13,6 +13,7 @@ public class PlayField {
 	private boolean[][] field;
 	private int length;
 
+
 	/**
 	 * constructor
 	 * 
@@ -38,6 +39,7 @@ public class PlayField {
 			System.out.println("The Array must be quadratic!");
 		}
 	}
+
 
 	/**
 	 * Helping function wich tests if the position is in array

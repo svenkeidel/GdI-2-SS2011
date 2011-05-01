@@ -37,6 +37,7 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.loggerConfig();
+		// initialize model, view and controller
 		boolean [][] field = new boolean[DEFAULT_SIZE][DEFAULT_SIZE];
 		QueenProblemSolver solver = new QueenProblemSolver(field, DEFAULT_DELAY);
 		QueenProblemController controller = new QueenProblemController(solver);

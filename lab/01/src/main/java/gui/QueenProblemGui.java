@@ -21,22 +21,59 @@ import org.apache.log4j.Logger;
 
 import controller.QueenProblemController;
 
+/**
+ * The gui wich represents the the chessfield, where the queens are
+ * placed.
+ */
 public class QueenProblemGui extends JFrame { 
-
-	public static final int DEFAULT_DELAY = 1000;
-	public static final int DEFAULT_SIZE = 8;
 
 	private static final Logger logger =
 		Logger.getLogger(QueenProblemGui.class);
 
+	/**
+	 * the default delay, if no other was specified
+	 */
+	public static final int DEFAULT_DELAY = 1000;
+
+	/**
+	 * the default field size, if no other was specified
+	 */
+	public static final int DEFAULT_SIZE = 8;
+
+	/**
+	 * the content pane of the frame
+	 */
 	private Container pane;
+
+	/**
+	 * the panel in wich the chess field will be inserted
+	 */
 	private JPanel fieldPanel;
+
+	/**
+	 * an array of field tilings
+	 */
 	private FieldButton[][] fieldArray;
+
+	/**
+	 * text fields to insert new field sizes and delays
+	 */
 	private JFormattedTextField fieldSize, delay;
+
+	/**
+	 * buttons to start solving or recreating the field
+	 */
 	private JButton solve, generate;
 
+	/**
+	 * a reference to the controller
+	 */
 	private QueenProblemController controller;
 
+	/**
+	 * constructor
+	 * @param controller the controller wich handels the button actions
+	 */
 	public QueenProblemGui(QueenProblemController controller) {
 		super("Queen Problem");
 
@@ -44,28 +81,34 @@ public class QueenProblemGui extends JFrame {
 
 		pane = this.getContentPane();
 		
+		// Init button "Generate"
 		generate = new JButton("Generate");
 		generate.setActionCommand("generate");
 		generate.addActionListener(this.controller);
 
+		// Init button "Solve It"
 		solve = new JButton("Solve it!");
 		solve.setActionCommand("solve");
 		solve.addActionListener(this.controller);
 
 		NumberFormat integerFormat = NumberFormat.getIntegerInstance();
 
+		// Init textfield for field size
 		fieldSize = new JFormattedTextField(integerFormat);
 		fieldSize.setValue(new Integer(DEFAULT_SIZE));
 		fieldSize.setColumns(2);
 
+		// Init textfield for delay
 		delay = new JFormattedTextField(integerFormat);
 		delay.setValue(new Integer(DEFAULT_DELAY));
 		delay.setColumns(4);
 
+		// Init the menu bar
 		JPanel menu = new JPanel(new GridLayout(1, 6, 5, 0));
 		Border border = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		menu.setBorder(border);
 
+		// add components of the menu
 		menu.add(new JLabel("Size of Field: ", JLabel.RIGHT));
 		menu.add(fieldSize);
 		menu.add(new JLabel("Delay: ", JLabel.RIGHT));
@@ -74,16 +117,24 @@ public class QueenProblemGui extends JFrame {
 		menu.add(solve);
 		pane.add(menu, BorderLayout.PAGE_START);
 
+		// Init the field
 		this.fieldPanel = new JPanel();
 		pane.add(fieldPanel, BorderLayout.CENTER);
 
+		// display the application
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
 
+		// the filling of the field have to happen after the field is
+		// displayed, to get the size of the chess field.
 		drawField(new boolean[DEFAULT_SIZE][DEFAULT_SIZE]);
 	}
 
+
+	/**
+	 * Triggers gui changes if the "solve"-button was pressed
+	 */
 	public void pressedSolving() {
 		solve.setText("Stop!");
 		solve.setActionCommand("stop");
@@ -92,6 +143,10 @@ public class QueenProblemGui extends JFrame {
 		delay.setEnabled(false);
 	}
 
+	
+	/**
+	 * Triggers gui changes if the "stop"-button was pressed
+	 */
 	public void pressedStop() {
 		solve.setText("Solve it!");
 		solve.setActionCommand("solve");
@@ -100,18 +155,30 @@ public class QueenProblemGui extends JFrame {
 		delay.setEnabled(true);
 	}
 
+
+	/**
+	 * display a queen at the specified position
+	 */
 	public void drawQueen(int row, int col){
 		logger.debug("drawQueen("+row+", "+col+")");
 		fieldArray[row][col].setText("D");
 		fieldArray[row][col].revalidate();
 	}
 
+
+	/**
+	 * erease a queen at the specified position
+	 */
 	public void ereaseQueen(int row, int col){
 		logger.debug("ereaseQueen("+row+", "+col+")");
 		fieldArray[row][col].setText("");
 		fieldArray[row][col].revalidate();
 	}
 
+
+	/**
+	 * destroy the field and free all references to the field buttons
+	 */
 	public void clearField() {
 		fieldPanel.removeAll();	
 		for(int i=0; i<fieldArray.length; i++)
@@ -120,6 +187,12 @@ public class QueenProblemGui extends JFrame {
 		fieldArray = null;
 	}
 
+
+	/**
+	 * draw a chess field and insert it into fieldPanel
+	 *
+	 * @param field to draw a preset of queens
+	 */
 	public void drawField(boolean[][] field) {
 
 		int length = field.length;
@@ -161,6 +234,10 @@ public class QueenProblemGui extends JFrame {
 		setFontSize();
 	}
 
+
+	/**
+	 * update the queens on the field
+	 */
 	public void updateField(boolean[][] field) {
 		int length = field.length;
 		for(int i=0; i<length; i++) {
@@ -172,14 +249,26 @@ public class QueenProblemGui extends JFrame {
 		}
 	}
 
+
+	/**
+	 * get the requested field size
+	 */
 	public int getLength() {
 		return ((Number) fieldSize.getValue()).intValue();
 	}
 
+
+	/**
+	 * get the requested delay
+	 */
 	public int getDelay() {
 		return ((Number) delay.getValue()).intValue();
 	}
 
+
+	/**
+	 * calculate the font size proportional to the size of the field
+	 */
 	private int getFontSize() {
 		double fieldPanelHeight = fieldPanel.getBounds().getHeight();
 		logger.debug("fieldPanelHeigth: "+fieldPanelHeight);
@@ -189,6 +278,9 @@ public class QueenProblemGui extends JFrame {
 	}
 
 
+	/**
+	 * set the font size of all buttons of the field
+	 */
 	private void setFontSize() {
 		int length = getLength();
 

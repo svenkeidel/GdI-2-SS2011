@@ -13,20 +13,44 @@ import gui.QueenProblemGui;
 
 import queenProblem.QueenProblemSolver;
 
+
+/**
+ * The controller of the Queen Problem.
+ *
+ * It controlls ActionEvent's of the buttons of the gui and
+ * PropertyChangeEvent's of the model
+ */
 public class QueenProblemController implements ActionListener, PropertyChangeListener {
+
 	private static final Logger logger =
 		Logger.getLogger(QueenProblemController.class);
 
+	/**
+	 * a reference of the view
+	 */
 	private QueenProblemGui gui;
 
+	/**
+	 * a reference of the model
+	 */
 	private QueenProblemSolver solver;
+
+
+	/**
+	 * constructor
+	 */
 	public QueenProblemController(QueenProblemSolver solver) {
 		this.solver = solver;
 		solver.addPropertyChangeListener(this);
 	}
 
+
+	/**
+	 * decide what to do if a button on the gui was pressed
+	 */
 	public void actionPerformed(ActionEvent evt) {
 
+		// if the "generate"-button was pressed
 		if(evt.getActionCommand().equals("generate")) {
 
 			int length = gui.getLength();
@@ -38,12 +62,14 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 			gui.clearField();
 			gui.drawField(new boolean[length][length]);
 
+		// if the "solve"-button was pressed
 		} else if(evt.getActionCommand().equals("solve")) {
 
 			logger.debug("solve()");
 			gui.pressedSolving();
 			solver.execute();
 
+		// if the "stop"-button was pressed
 		} else if(evt.getActionCommand().equals("stop")) {
 
 			logger.debug("stop()");
@@ -59,6 +85,7 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 			gui.updateField(field);
 			gui.pressedStop();
 
+		// if fieldbutton was pressed
 		} else if(evt.getActionCommand().equals("FieldButton")) {
 
 			FieldButton source = (FieldButton) evt.getSource();
@@ -80,6 +107,10 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 		}
 	}
 	
+
+	/**
+	 * decides what to do if the model has changed
+	 */
 	public void propertyChange(PropertyChangeEvent evt) {
 		if(evt.getPropertyName().equals("setQueen")) {
 			int[] pos = (int[]) evt.getNewValue();
@@ -92,6 +123,10 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 		}
 	}
 
+
+	/**
+	 * sets the view.
+	 */
 	public void setGui(QueenProblemGui gui) {
 		this.gui = gui;
 	}

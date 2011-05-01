@@ -22,6 +22,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	private int delay;
 	private int length;
 
+
 	/**
 	 * Initiates the Solver with the playFieldSize and initiates the playField.
 	 *
@@ -36,6 +37,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 		this.delay = delay;
 	}
 
+
 	@Override
 	public Boolean doInBackground() throws Exception {
 		boolean solved = solve();
@@ -44,6 +46,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 		return solved;
 	}
+
 
 	/**
 	 * starts the solve method from the upper left corner.
@@ -64,6 +67,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 		boolean solved = false;
 
+		// if the game can't be solved, reset the field
 		try {
 			solved = solveRow(0);
 
@@ -77,6 +81,14 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	}
 
 
+	/**
+	 * iterates over one singel row an try to solve it. If it isn' the
+	 * last row try to solve the next row.
+	 *
+	 * @param row the row to solve
+	 *
+	 * @return true, if the row could be solved
+	 */
 	private boolean solveRow(int row) throws InterruptedException {
 
 		if(isCancelled())
@@ -85,6 +97,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 		// if there are steps possible
 		if(row < length) {
 
+			// change iteration direction to left or right
 			if(row % 2 == 0) {
 				for(int col=0; col<length; col++)
 					if(solveCell(row, col)) return true;
@@ -98,6 +111,16 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	}
 
 
+	/**
+	 * try to set a queen, and solve next row. If there was no succsess,
+	 * drop the queen from this position
+	 *
+	 * @param row the row to set the queen
+	 * @param col the column to set the queen
+	 *
+	 * @return true if the queen was at the right position and the field
+	 * could be solved
+	 */
 	private boolean solveCell(int row, int col) throws InterruptedException {
 
 		if(isCancelled())
@@ -176,6 +199,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	public int getPlayFieldSize() {
 		return this.playField.getPlayFieldSize();
 	}
+
 
 	/**
 	 * if a queen could be placed here
