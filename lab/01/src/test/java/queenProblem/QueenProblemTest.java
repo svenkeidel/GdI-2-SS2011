@@ -2,7 +2,12 @@ package queenProblem;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 
 import queenProblem.QueenProblemSolver;
 
@@ -16,19 +21,70 @@ import queenProblem.QueenProblemSolver;
  */
 public class QueenProblemTest {
 
+	private boolean[][] field_5x5;
 	private boolean[][] field_2x2;
 	private boolean[][] field_6x6_withQueen_noSolution;
 	private boolean[][] field_8x8_withQueen;
 	private boolean[][] field_15x15;
 	private QueenProblemSolver solver;
 	private static double counter;
-
+	private static Logger logger = Logger.getRootLogger();
 	/**
 	 * inits the counter
 	 */
 	@BeforeClass
 	public static void init() {
 		counter = 0;
+		BasicConfigurator.configure();
+		logger.setLevel(Level.OFF);
+	}
+
+	@Before
+	public void beforeTest() {
+		this.field_5x5 = new boolean[5][5];
+		field_5x5[2][2] = true;
+	}
+
+	@Test
+	public void setLegalQueenTest() {
+		solver = new QueenProblemSolver(field_5x5, 0);
+		Assert.assertTrue("setQueen return value was wrongly false", solver.setQueen(0, 1));
+		Assert.assertTrue("Legal queen wasn't set.", solver.getPlayField()[0][1]);
+	}
+
+	public void trySetQueen(int row, int col) {
+		Assert.assertFalse("setQueen return value was wrongly true", solver.setQueen(row, col));
+		Assert.assertFalse(
+				"Queen was set at a illegal position ["+row+", "+col+"]", 
+				solver.getPlayField()[row][col]);
+	}
+
+	@Test
+	public void setIllegalQueenTest() {
+		solver = new QueenProblemSolver(field_5x5, 0);
+		field_5x5[2][2] = true;
+
+		trySetQueen(0, 0);
+		trySetQueen(0, 2);
+		trySetQueen(0, 4);
+		trySetQueen(2, 4);
+		trySetQueen(4, 4);
+		trySetQueen(4, 2);
+		trySetQueen(4, 0);
+		trySetQueen(2, 0);
+	}
+
+	@Test
+	public void illegalFieldTest() {
+		boolean[][] illegalfield = new boolean[5][5];
+		illegalfield[1][1] = true;
+		illegalfield[4][4] = true;
+		try {
+			solver = new QueenProblemSolver(illegalfield, 0);
+			Assert.fail("A illegal play field was accepted");
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	/**
