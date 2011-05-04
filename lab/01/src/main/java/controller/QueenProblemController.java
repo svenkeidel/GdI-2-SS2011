@@ -92,7 +92,7 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 				} else {
 					gui.drawQueen(row, col);
 					try { Thread.sleep(1000); } catch (Exception e) {/**Exception*/}
-					gui.ereaseQueen(row, col);
+					gui.eraseQueen(row, col);
 				}
 			}
 		}
@@ -108,7 +108,7 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 			gui.drawQueen(pos[0], pos[1]);
 		} else if(evt.getPropertyName().equals("dropQueen")) {
 			int[] pos = (int[]) evt.getNewValue();
-			gui.ereaseQueen(pos[0], pos[1]);
+			gui.eraseQueen(pos[0], pos[1]);
 		} else if(evt.getPropertyName().equals("solved")) {
 			gui.pressedStop();
 		} else if (evt.getPropertyName().equals("unsolved")) {

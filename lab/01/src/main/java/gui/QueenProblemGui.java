@@ -170,7 +170,7 @@ public class QueenProblemGui extends JFrame {
 	/**
 	 * erase a queen at the specified position
 	 */
-	public void ereaseQueen(int row, int col){
+	public void eraseQueen(int row, int col){
 		fieldArray[row][col].setText("");
 		fieldArray[row][col].revalidate();
 	}
@@ -242,7 +242,7 @@ public class QueenProblemGui extends JFrame {
 		int length = field.length;
 		for(int i=0; i<length; i++) {
 			for(int j=0; j<length; j++) {
-				ereaseQueen(i, j);
+				eraseQueen(i, j);
 				if(field[i][j])
 					drawQueen(i, j);
 			}

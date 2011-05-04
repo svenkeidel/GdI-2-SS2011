@@ -1,13 +1,6 @@
 package queenProblem;
 
 
-/**
- * class which represents the playField
- * 
- * @author Jakob Karolus, Kevin Munk
- * @version 1.0
- * 
- */
 public class PlayField {
 
 	private boolean[][] fieldOrig;

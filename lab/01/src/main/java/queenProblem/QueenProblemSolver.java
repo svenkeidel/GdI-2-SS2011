@@ -3,13 +3,6 @@ package queenProblem;
 import javax.swing.SwingWorker;
 
 
-/**
- * The solver for the QueenProblem.
- *
- * @author Jakob Karolus, Kevin Munk
- * @version 1.0
- *
- */
 public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 
