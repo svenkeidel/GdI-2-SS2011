@@ -6,8 +6,6 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import org.apache.log4j.Logger;
-
 import gui.FieldButton;
 import gui.QueenProblemGui;
 
@@ -17,13 +15,10 @@ import queenProblem.QueenProblemSolver;
 /**
  * The controller of the Queen Problem.
  *
- * It controlls ActionEvent's of the buttons of the gui and
+ * It controls ActionEvent's of the buttons of the gui and
  * PropertyChangeEvent's of the model
  */
 public class QueenProblemController implements ActionListener, PropertyChangeListener {
-
-	private static final Logger logger =
-		Logger.getLogger(QueenProblemController.class);
 
 	/**
 	 * a reference of the view
@@ -55,7 +50,6 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 
 			int length = gui.getLength();
 			int delay = gui.getDelay();
-			logger.debug("generate("+length+", "+delay+")");
 
 			solver = new QueenProblemSolver(new boolean[length][length], delay);
 			solver.addPropertyChangeListener(this);
@@ -65,14 +59,12 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 		// if the "solve"-button was pressed
 		} else if(evt.getActionCommand().equals("solve")) {
 
-			logger.debug("solve()");
 			gui.pressedSolving();
 			solver.execute();
 
 		// if the "stop"-button was pressed
 		} else if(evt.getActionCommand().equals("stop")) {
 
-			logger.debug("stop()");
 			int length = solver.getPlayField().length;
 			boolean [][] field = new boolean[length][length];
 			System.arraycopy(solver.getPlayField(), 0, field, 0, length);
@@ -85,7 +77,7 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 			gui.updateField(field);
 			gui.pressedStop();
 
-		// if fieldbutton was pressed
+		// if field button was pressed
 		} else if(evt.getActionCommand().equals("FieldButton")) {
 
 			FieldButton source = (FieldButton) evt.getSource();
@@ -99,8 +91,7 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 					solver.setQueen(row, col);
 				} else {
 					gui.drawQueen(row, col);
-					logger.debug("sleep");
-					try { Thread.sleep(1000); } catch (Exception e) {logger.error(e.getMessage());}
+					try { Thread.sleep(1000); } catch (Exception e) {/**Exception*/}
 					gui.ereaseQueen(row, col);
 				}
 			}
@@ -119,6 +110,9 @@ public class QueenProblemController implements ActionListener, PropertyChangeLis
 			int[] pos = (int[]) evt.getNewValue();
 			gui.ereaseQueen(pos[0], pos[1]);
 		} else if(evt.getPropertyName().equals("solved")) {
+			gui.pressedStop();
+		} else if (evt.getPropertyName().equals("unsolved")) {
+			gui.showUnsolved();
 			gui.pressedStop();
 		}
 	}

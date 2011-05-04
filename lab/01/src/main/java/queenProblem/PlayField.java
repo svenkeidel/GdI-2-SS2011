@@ -43,7 +43,7 @@ public class PlayField {
 
 
 	/**
-	 * Helping function wich tests if the position is in array
+	 * Additional function which tests if the position is in array
 	 */
 	private void isInArray(int row, int col) {
 		if(row < 0 || row >= length || col < 0 || col >= length)
@@ -53,7 +53,7 @@ public class PlayField {
 
 
 	/**
-	 * Sets a queen at the specified position
+	 * Set a queen at the specified position
 	 */
 	public boolean setQueen(int row, int col) {
 		if(isLegalPosition(row, col)) {
@@ -66,7 +66,7 @@ public class PlayField {
 
 
 	/**
-	 * Drops a queen from specified position
+	 * Remove a queen from specified position
 	 */
 	public boolean dropQueen(int row, int col) {
 
@@ -86,7 +86,7 @@ public class PlayField {
 
 
 	/**
-	 * tests if in all directions from the position is no queen
+	 * test whether the queens movement paths don't cross other ones
 	 */
 	public boolean isLegalPosition(int row, int col) {
 
@@ -132,7 +132,7 @@ public class PlayField {
 
 
 	/**
-	 * tests if the play field is correct and no queen beets another
+	 * tests if the play field is correct and no queen beats another
 	 */
 	public boolean isLegalPlayField() {
 		for(int i=0; i<length; i++) {

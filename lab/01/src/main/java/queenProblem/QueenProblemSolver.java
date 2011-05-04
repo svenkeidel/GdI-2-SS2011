@@ -1,10 +1,7 @@
 package queenProblem;
 
-import java.beans.PropertyChangeListener;
-
 import javax.swing.SwingWorker;
 
-import org.apache.log4j.Logger;
 
 /**
  * The solver for the QueenProblem.
@@ -14,8 +11,6 @@ import org.apache.log4j.Logger;
  *
  */
 public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
-	private static final Logger logger =
-		Logger.getLogger(QueenProblemSolver.class);
 
 
 	private PlayField playField;
@@ -24,7 +19,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 
 	/**
-	 * Initiates the Solver with the playFieldSize and initiates the playField.
+	 * Initiate the solver with the playFieldSize and initiate the playField.
 	 *
 	 * @param playField
 	 *            the playField to work on
@@ -42,29 +37,22 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 	public Boolean doInBackground() throws Exception {
 		boolean solved = solve();
 
-		firePropertyChange("solved", null, solved);
+		if 	(solved){
+				firePropertyChange("solved", null, solved);}
+		else {
+				firePropertyChange("unsolved", null, solved);}
 
 		return solved;
 	}
 
 
 	/**
-	 * starts the solve method from the upper left corner.
+	 * start the solve method from the upper left corner.
 	 *
 	 * @return true if the playField could be solved; otherwise false
 	 */
 	public boolean solve() {
-		boolean [][] field = getPlayField();
-		logger.info("#########################################");
-		logger.info("solve "+length+"x"+length+" queen problem");
-		logger.info("#########################################");
-		logger.info("queen preset:");
-		for(int i=0; i<length; i++)
-			for(int j=0; j<length; j++)
-				if(field[i][j])
-					logger.info("["+i+","+j+"]");
-
-
+	
 		boolean solved = false;
 
 		// if the game can't be solved, reset the field
@@ -73,16 +61,14 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 			if(!solved)
 				playField.resetField();
-		} catch (InterruptedException e) {
-			logger.info(e.getMessage());
-		}
+		} catch (InterruptedException e) {/**Exception*/}
 
 		return solved;
 	}
 
 
 	/**
-	 * iterates over one singel row an try to solve it. If it isn' the
+	 * iterate over one single row and try to solve it. If it's not the
 	 * last row try to solve the next row.
 	 *
 	 * @param row the row to solve
@@ -112,7 +98,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 
 	/**
-	 * try to set a queen, and solve next row. If there was no succsess,
+	 * try to set a queen, and solve next row. If not successful,
 	 * drop the queen from this position
 	 *
 	 * @param row the row to set the queen
@@ -145,10 +131,10 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 
 	/**
-	 * Sets a queen at the specified position
+	 * Set a queen at the specified position
 	 *
-	 * @param row the row in wich the queen is placed
-	 * @param col the column in wich the queen is placed
+	 * @param row the row where the queen shall be
+	 * @param col the column where the queen shall be
 	 */
 	public boolean setQueen(int row, int col) {
 
@@ -156,7 +142,7 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 		if(playField.setQueen(row, col)) {
 			if(!wasSet) {
 				firePropertyChange("setQueen", null, new int[] {row, col});
-				try {Thread.sleep(delay);} catch (Exception e) {logger.error(e.getMessage());}
+				try {Thread.sleep(delay);} catch (Exception e) {/**Exception*/}
 			}
 			return true;
 		} else {
@@ -166,17 +152,17 @@ public class QueenProblemSolver extends SwingWorker<Boolean, int[]> {
 
 
 	/**
-	 * Drops a queen from specified position
+	 * Remove queen from specified position
 	 *
-	 * @param row the row in where the queen is droped
-	 * @param col the column in wich the queen is droped
+	 * @param row the row from which the queen will be removed
+	 * @param col the column from which the queen will be removed
 	 */
 	public boolean dropQueen(int row, int col) {
 
 		if(playField.dropQueen(row, col)) {
 			firePropertyChange("dropQueen", null, new int[] {row, col});
 
-			try {Thread.sleep(delay);} catch (Exception e) {logger.error(e.getMessage());}
+			try {Thread.sleep(delay);} catch (Exception e) {/**Exception*/}
 
 			return true;
 		} else {

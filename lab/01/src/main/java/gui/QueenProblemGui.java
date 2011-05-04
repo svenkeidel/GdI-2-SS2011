@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -13,30 +13,31 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.border.Border;
 
-import org.apache.log4j.Logger;
-
 import controller.QueenProblemController;
 
 /**
- * The gui wich represents the the chessfield, where the queens are
+ * The gui which represents the the chess field, where the queens are
  * placed.
  */
 public class QueenProblemGui extends JFrame { 
 
-	private static final Logger logger =
-		Logger.getLogger(QueenProblemGui.class);
+	/**
+	 * serial version UID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
-	 * the default delay, if no other was specified
+	 * the default delay, if no other was set
 	 */
 	public static final int DEFAULT_DELAY = 1000;
 
 	/**
-	 * the default field size, if no other was specified
+	 * the default field size, if no other was set
 	 */
 	public static final int DEFAULT_SIZE = 8;
 
@@ -46,12 +47,12 @@ public class QueenProblemGui extends JFrame {
 	private Container pane;
 
 	/**
-	 * the panel in wich the chess field will be inserted
+	 * the panel in which the chess field will be inserted
 	 */
 	private JPanel fieldPanel;
 
 	/**
-	 * an array of field tilings
+	 * an array of fields
 	 */
 	private FieldButton[][] fieldArray;
 
@@ -72,7 +73,7 @@ public class QueenProblemGui extends JFrame {
 
 	/**
 	 * constructor
-	 * @param controller the controller wich handels the button actions
+	 * @param controller the controller which coordinates the button actions
 	 */
 	public QueenProblemGui(QueenProblemController controller) {
 		super("Queen Problem");
@@ -123,10 +124,11 @@ public class QueenProblemGui extends JFrame {
 
 		// display the application
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(100, 100, 400, 420);
 		this.setResizable(false);
 		this.setVisible(true);
 
-		// the filling of the field have to happen after the field is
+		// the filling of the field has to happen after the field was
 		// displayed, to get the size of the chess field.
 		drawField(new boolean[DEFAULT_SIZE][DEFAULT_SIZE]);
 	}
@@ -160,17 +162,15 @@ public class QueenProblemGui extends JFrame {
 	 * display a queen at the specified position
 	 */
 	public void drawQueen(int row, int col){
-		logger.debug("drawQueen("+row+", "+col+")");
 		fieldArray[row][col].setText("D");
 		fieldArray[row][col].revalidate();
 	}
 
 
 	/**
-	 * erease a queen at the specified position
+	 * erase a queen at the specified position
 	 */
 	public void ereaseQueen(int row, int col){
-		logger.debug("ereaseQueen("+row+", "+col+")");
 		fieldArray[row][col].setText("");
 		fieldArray[row][col].revalidate();
 	}
@@ -229,7 +229,7 @@ public class QueenProblemGui extends JFrame {
 		fieldPanel.revalidate();
 		((JPanel) pane).repaint();
 
-		try {Thread.sleep(100);} catch (Exception e) {logger.error(e.getMessage());}
+		try {Thread.sleep(100);} catch (Exception e) {/**Exception*/}
 
 		setFontSize();
 	}
@@ -271,9 +271,7 @@ public class QueenProblemGui extends JFrame {
 	 */
 	private int getFontSize() {
 		double fieldPanelHeight = fieldPanel.getBounds().getHeight();
-		logger.debug("fieldPanelHeigth: "+fieldPanelHeight);
 		double fieldPanelWidth = fieldPanel.getBounds().getWidth();
-		logger.debug("fieldPanelWidth: "+fieldPanelWidth);
 		return (int) ((fieldPanelHeight + fieldPanelWidth) / 2 / fieldArray.length / 1.5);
 	}
 
@@ -285,10 +283,13 @@ public class QueenProblemGui extends JFrame {
 		int length = getLength();
 
 		int fontSize = getFontSize();
-		logger.debug("fontSize: "+fontSize);
 
 		for(int i=0; i<length; i++)
 			for(int j=0; j<length; j++)
 				fieldArray[i][j].setFont(new Font(Font.SANS_SERIF, Font.BOLD, fontSize));
+	}
+
+	public void showUnsolved(){
+		JOptionPane.showMessageDialog(fieldPanel, "Sorry, there is no solution! :/");
 	}
 }
