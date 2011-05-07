@@ -11,9 +11,10 @@ package logic.algorithm;
  *
  */
 public enum Algos {
-	
-	//TODO: add further algorithm
-	Dummy("Dummy");
+
+	MOORE("Moore"),
+	DIJKSTRA("Dijkstra"),
+	ASTERN("A*");
 	
 	private String name;
 	

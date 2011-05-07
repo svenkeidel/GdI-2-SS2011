@@ -25,9 +25,26 @@ public class AlgorithmFactory {
 	public static Algorithm getAlgorithm(Algos algo)
 			throws InvalidAlgorithmParameterException {
 
-		// TODO: add further algorithm
+		switch(algo) {
 
-		throw new InvalidAlgorithmParameterException("No such Algorithm");
+			case MOORE:
+				// TODO: return a instance of Moore algorithm
+				throw new InvalidAlgorithmParameterException("No such Algorithm");
+				// break;
+
+			case DIJKSTRA:
+				// TODO: return a instance of Dijkstra algorithm
+				throw new InvalidAlgorithmParameterException("No such Algorithm");
+				// break;
+
+			case ASTERN:
+				// TODO: return a instance of A* algorithm
+				throw new InvalidAlgorithmParameterException("No such Algorithm");
+				// break;
+
+			default:
+				throw new InvalidAlgorithmParameterException("No such Algorithm");
+		}
 
 	}
 }
