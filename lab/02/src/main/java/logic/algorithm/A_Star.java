@@ -2,7 +2,7 @@ package logic.algorithm;
 
 import datamodel.Grid;
 
-public class AStern implements Algorithm {
+public class A_Star implements Algorithm {
 
 	public void init(Grid grid) {
 		// TODO: Implement me!

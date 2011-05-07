@@ -27,19 +27,16 @@ public class AlgorithmFactory {
 
 		switch(algo) {
 
-			case MOORE:
-				// TODO: return a instance of Moore algorithm
-				throw new InvalidAlgorithmParameterException("No such Algorithm");
+			case Moore:
+				return new Moore();
 				// break;
 
-			case DIJKSTRA:
-				// TODO: return a instance of Dijkstra algorithm
-				throw new InvalidAlgorithmParameterException("No such Algorithm");
+			case Dijkstra:
+				return new Dijkstra();
 				// break;
 
-			case ASTERN:
-				// TODO: return a instance of A* algorithm
-				throw new InvalidAlgorithmParameterException("No such Algorithm");
+			case A_Star:
+				return new A_Star();
 				// break;
 
 			default:

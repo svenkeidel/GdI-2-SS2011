@@ -12,9 +12,9 @@ package logic.algorithm;
  */
 public enum Algos {
 
-	MOORE("Moore"),
-	DIJKSTRA("Dijkstra"),
-	ASTERN("A*");
+	Moore("Moore"),
+	Dijkstra("Dijkstra"),
+	A_Star("A*");
 	
 	private String name;
 	
