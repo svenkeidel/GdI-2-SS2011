@@ -17,6 +17,9 @@ public enum GridElementState {
 	 */
 	FREE(4),
 
+	SWAMP(8),
+	MOUNTAIN(10),
+
 	/**
 	 * a GridElement which is part of an obstacle
 	 */
