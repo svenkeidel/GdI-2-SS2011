@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package datamodel;
 
@@ -8,20 +8,20 @@ import java.util.Observable;
 /**
  * one single GridElement<br>
  * provides information over its state
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
-public class GridElement extends Observable {
+public class GridElement extends Observable implements Comparable<GridElement> {
 
 	private GridElementState state;
 	private GridElementAlgoState algoState;
 	private int row;
 	private int column;
 	private int distance;
-	
-	//TODO: OPTIONAL add attributes if necessary 
+
+	//TODO: OPTIONAL add attributes if necessary
 
 	protected static GridElement currentEnd;
 	protected static GridElement currentStart;
@@ -29,7 +29,7 @@ public class GridElement extends Observable {
 	/**
 	 * constructor<br>
 	 * sets state to GridElementState.FREE and the distance to -1
-	 * 
+	 *
 	 * @param row
 	 * @param column
 	 */
@@ -44,7 +44,7 @@ public class GridElement extends Observable {
 	/**
 	 * constructor<br>
 	 * sets the distance to -1
-	 * 
+	 *
 	 * @param state
 	 *            the state to set
 	 * @param row
@@ -107,7 +107,7 @@ public class GridElement extends Observable {
 	 */
 	public void setDistance(int distance) {
 		this.distance = distance;
-		
+
 		this.setAlgoState(GridElementAlgoState.LOOKED_AT);
 	}
 
@@ -116,6 +116,19 @@ public class GridElement extends Observable {
 	 */
 	public int getDistance() {
 		return distance;
+	}
+
+	/**
+	 * get the weight of an element
+	 *
+	 * @return 4,  free
+	 *         8,  swamp
+	 *         10, mountain
+	 */
+	public int getWeight() {
+
+		//TODO: implement
+		throw new UnsupportedOperationException("Implement me!");
 	}
 
 	/**
@@ -145,12 +158,20 @@ public class GridElement extends Observable {
 		this.setDistance(-1);
 		this.setAlgoState(GridElementAlgoState.NONE);
 	}
-	
+
 	/**
 	 * resets the class variables
 	 */
 	public static void resetStartEnd(){
 		GridElement.currentStart = null;
 		GridElement.currentEnd = null;
+	}
+
+	/**
+	 * compares to grid elements and sorts them along its distance
+	 */
+	@Override
+	public int compareTo(GridElement o) {
+		return this.getDistance() - o.getDistance();
 	}
 }

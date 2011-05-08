@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package datamodel;
 
@@ -11,10 +11,10 @@ import java.util.Vector;
 /**
  * Holds the grid data structure<br>
  * notifies observer if necessary
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class Grid extends Observable {
 
@@ -24,7 +24,7 @@ public class Grid extends Observable {
 
 	/**
 	 * Initiates the grid with the specified height and width.
-	 * 
+	 *
 	 * @param rows
 	 *            the height of the grid
 	 * @param columns
@@ -48,7 +48,7 @@ public class Grid extends Observable {
 
 	/**
 	 * Initiates the grid with the given grid.
-	 * 
+	 *
 	 * @param grid
 	 *            the specified grid
 	 * @param observer
@@ -70,7 +70,7 @@ public class Grid extends Observable {
 	 * GridElementState.FREE.<br>
 	 * <br>
 	 * Notifies all observers that grid is ready to use.
-	 * 
+	 *
 	 * @param observer
 	 *            the observer for every element to set
 	 */
@@ -92,7 +92,7 @@ public class Grid extends Observable {
 
 	/**
 	 * Searches the element that has the 'start' state.
-	 * 
+	 *
 	 * @return the element that has the state 'start' or null if none of the
 	 *         elements has this state.
 	 */
@@ -102,7 +102,7 @@ public class Grid extends Observable {
 
 	/**
 	 * Search the element that has the 'end' state.
-	 * 
+	 *
 	 * @return the element that has the state 'end' or null if none of the
 	 *         elements has this state.
 	 */
@@ -112,7 +112,7 @@ public class Grid extends Observable {
 
 	/**
 	 * Returns the element at the specified position.
-	 * 
+	 *
 	 * @param row
 	 *            the row of the element
 	 * @param column
@@ -121,15 +121,26 @@ public class Grid extends Observable {
 	 *         coordinates are out of bounds.
 	 */
 	public GridElement getElementAt(int row, int column) {
-		
+
 		//TODO: implement
 		throw new UnsupportedOperationException("Implement me!");
 	}
 
 	/**
+	 * @return a list of knodes of the grid
+	 */
+	public Vector<GridElement> getKnodes() {
+		Vector<GridElement> knodes = new Vector<GridElement>();
+		for(int i=0; i<columns; i++)
+			for(int j=0; j<rows; j++)
+				knodes.add(grid[i][j]);
+		return knodes;
+	}
+
+	/**
 	 * delivers the neighbors of the given GridElement, depending on the second
 	 * parameter
-	 * 
+	 *
 	 * @param element
 	 *            the given element
 	 * @param diagonal
@@ -139,6 +150,18 @@ public class Grid extends Observable {
 	 */
 	public Neighbors getNeighborsFrom(GridElement element, boolean diagonal) {
 		return new Neighbors(diagonal, element);
+	}
+
+	/**
+	 * delivers the neighbors of the given GridElement, depending on the second
+	 * parameter
+	 *
+	 * @param element
+	 *            the given element
+	 * @return the neighbors of this GridElement
+	 */
+	public Neighbors getNeighborsFrom(GridElement element) {
+		return this.getNeighborsFrom(element, false);
 	}
 
 	/**
@@ -166,10 +189,9 @@ public class Grid extends Observable {
 		}
 	}
 
-
 	/**
-	 * class, which encapsulates the neighbors of a GridElement 
-	 * 
+	 * class, which encapsulates the neighbors of a GridElement
+	 *
 	 * @author Jakob Karolus, Kevin Munk
 	 * @version 1.0
 	 *
@@ -184,7 +206,7 @@ public class Grid extends Observable {
 		private Vector<Integer> wayCosts = new Vector<Integer>();
 
 		/**
-		 * 
+		 *
 		 * @param diagonal
 		 *            if the neighbors should include the diagonal ones
 		 * @param element
@@ -200,12 +222,12 @@ public class Grid extends Observable {
 
 		/**
 		 * Gets the horizontal and vertical neighbors of the element.
-		 * 
+		 *
 		 * @param element
 		 * @return the neighbors and the way costs to the element
 		 */
 		private void getNeighborsOf(GridElement element) {
-			
+
 			//TODO: implement! Use the private attributes!
 			throw new UnsupportedOperationException("Implement me!");
 		}
@@ -213,14 +235,14 @@ public class Grid extends Observable {
 		/**
 		 * Gets all neighbors of the element. Inclusive the diagonal laying
 		 * fields.
-		 * 
+		 *
 		 * @param currentElement
 		 * @return the neighbors(incl. diagonal neighbors) and the way costs to
 		 *         the element. The diagonal elements have 1,5x greater
 		 *         way costs.
 		 */
 		private void getDiagonalNeighborsOf(GridElement element) {
-			
+
 			//TODO: implement! Use the private attributes!
 			throw new UnsupportedOperationException("Implement me!");
 		}
