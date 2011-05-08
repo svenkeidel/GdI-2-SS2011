@@ -5,7 +5,6 @@ import java.util.Comparator;
 
 import datamodel.Grid;
 import datamodel.GridElement;
-import static datamodel.GridElementState.*;
 import static datamodel.GridElementAlgoState.*;
 
 public class Dijkstra implements Algorithm {
@@ -46,12 +45,15 @@ public class Dijkstra implements Algorithm {
 			neighbor.setAlgoState(PATH);
 		}
 
-		reachableKnodes = new TreeSet<GridElement>(
-				new Comparator<GridElement>(){
-					public int compare(GridElement o1, GridElement o2) {
-						return o1.getDistance() - o2.getDistance();
-					}
-				});
+		reachableKnodes = new TreeSet<GridElement>(getComparator());
+	}
+
+	protected Comparator<GridElement> getComparator() {
+		return new Comparator<GridElement>(){
+			public int compare(GridElement o1, GridElement o2) {
+				return o1.getDistance() - o2.getDistance();
+			}
+		};
 	}
 
 	public boolean doNextStep() {

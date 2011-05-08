@@ -1,21 +1,17 @@
 package logic.algorithm;
 
-import datamodel.Grid;
+import java.util.Comparator;
 
-public class A_Star implements Algorithm {
+import datamodel.GridElement;
 
-	public void init(Grid grid) {
-		// TODO: Implement me!
-		throw new UnsupportedOperationException("Implement me!");
-	}
+public class A_Star extends Dijkstra {
 
-	public boolean doNextStep() {
-		// TODO: Implement me!
-		throw new UnsupportedOperationException("Implement me!");
-	}
-
-	public boolean isSolved() {
-		// TODO: Implement me!
-		throw new UnsupportedOperationException("Implement me!");
+	protected Comparator<GridElement> getComparator() {
+		return new Comparator<GridElement> () {
+			public int compare(GridElement o1, GridElement o2) {
+				return (o1.getDistance() + o1.getLinearDistance())
+					 - (o2.getDistance() + o2.getLinearDistance());
+			}
+		};
 	}
 }

@@ -119,6 +119,15 @@ public class GridElement extends Observable {
 	}
 
 	/**
+	 * @return the linear distance (Luftlinie) to the currentEnd
+	 */
+	public int getLinearDistance() {
+
+		//TODO: implement
+		throw new UnsupportedOperationException("Implement me!");
+	}
+
+	/**
 	 * get the weight of an element
 	 *
 	 * @return 4,  free
