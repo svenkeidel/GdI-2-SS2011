@@ -1,14 +1,14 @@
 /**
- * 
+ *
  */
 package datamodel;
 
 /**
  * Encapsulates the update events thrown by the Grid.
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class UpdateEvent {
 
@@ -17,26 +17,26 @@ public class UpdateEvent {
 	 * xPosition and yPosition are the measures of the grid. The state is not relevant.
 	 */
 	public static final String GRID_READY = "GRID_READY";
-	
+
 	/**
 	 * ELEMENT_CHANGED Update Event<br>
 	 * xPosition and yPosition are the coordinates of the element that changed.
 	 * The state shows in what state the element has changed.
 	 */
 	public static final String ELEMENT_CHANGED = "ELEMENT_CHANGED";
-	
+
 	/**
 	 * FOUND_SOLUTION Update Event<br>
 	 * All other parameters are 0/null.
 	 */
 	public static final String FOUND_SOLUTION = "FOUND_SOLUTION";
-	
+
 	/**
 	 * NO_SOLUTION Update Event<br>
 	 * All other parameters are 0/null.
 	 */
 	public static final String NO_SOLUTION = "NO_SOLUTION";
-	
+
 	/**
 	 * FALSE_PRECONDITIONS Update event<br>
 	 * The preconditions to solve the field where not meet.
@@ -53,7 +53,7 @@ public class UpdateEvent {
 	/**
 	 * Default constructor. Occurred Event should be one of the static strings
 	 * in this class.
-	 * 
+	 *
 	 * @param occuredEvent
 	 *            the event that occurred
 	 * @param xPosition

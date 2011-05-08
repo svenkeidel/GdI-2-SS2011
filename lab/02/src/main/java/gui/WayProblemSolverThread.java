@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gui;
 
@@ -10,10 +10,10 @@ import logic.WayProblemSolver;
 /**
  * A class that encapsulates the WayProblemSolver class to let it run in a
  * different thread as the GUI.
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class WayProblemSolverThread extends Thread {
 
@@ -28,7 +28,7 @@ public class WayProblemSolverThread extends Thread {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Thread#run()
 	 */
 	@Override

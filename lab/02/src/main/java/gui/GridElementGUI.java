@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gui;
 
@@ -15,10 +15,10 @@ import datamodel.GridElement;
 /**
  * display one single GridElement on the GrindPanel<br>
  * provides GUI function to update itself
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class GridElementGUI extends JButton {
 
@@ -28,13 +28,13 @@ public class GridElementGUI extends JButton {
 	private GridElement gridElement;
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5438917479894462711L;
 
 	/**
 	 * constructor
-	 * 
+	 *
 	 * @param gridElement
 	 *            the underlying gridElement
 	 */
@@ -104,19 +104,19 @@ public class GridElementGUI extends JButton {
 	/**
 	 * override Size methods
 	 */
-	
+
 	public Dimension getPreferredSize() {
 		return new Dimension(20, 20);
 	}
-	
+
 	public Dimension getMinimumSize(){
 		return new Dimension(20, 20);
 	}
-	
+
 	public Dimension getMaximumSize(){
 		return new Dimension(20, 20);
 	}
-	
+
 
 	/**
 	 * @return the gridElement

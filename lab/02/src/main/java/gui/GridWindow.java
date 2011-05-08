@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package gui;
 
@@ -26,10 +26,10 @@ import logic.algorithm.Algos;
 
 /**
  * provides UI to allow the user to interact with the application
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class GridWindow extends JFrame {
 
@@ -45,7 +45,7 @@ public class GridWindow extends JFrame {
 	private WayProblemSolver solver;
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6995171417287605700L;
 
@@ -122,7 +122,7 @@ public class GridWindow extends JFrame {
 
 	/**
 	 * generate a new Field with a given Solver
-	 * 
+	 *
 	 * @return true, if successfully created; otherwise false
 	 */
 	private boolean generateField() {
@@ -181,10 +181,10 @@ public class GridWindow extends JFrame {
 		this.setLocationRelativeTo(null);
 		return true;
 	}
-	
+
 	/**
 	 * Presets a grid and sets the specified algo and delay.
-	 * 
+	 *
 	 * @param algo
 	 * @param grid
 	 * @param delay
@@ -198,7 +198,7 @@ public class GridWindow extends JFrame {
 					"Please select a valid Algorithm!", "Invalid Algorithm",
 					JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		this.algosList.setSelectedItem(algo);
 		this.pack();
 		this.setLocationRelativeTo(null);
@@ -217,7 +217,7 @@ public class GridWindow extends JFrame {
 
 		// resets the play field
 		this.solver.getGrid().resetGridsAlgoState();
-		
+
 		try {
 			this.solver.setAlgorithm(AlgorithmFactory
 					.getAlgorithm((Algos) this.algosList.getSelectedItem()));
@@ -247,7 +247,7 @@ public class GridWindow extends JFrame {
 	/**
 	 * method, which should be called when solving finished<br>
 	 * enables solve button and generate button
-	 * 
+	 *
 	 * @param flag
 	 *            decides the displaying message (no solution found or solution
 	 *            found)
@@ -262,7 +262,7 @@ public class GridWindow extends JFrame {
 					"No Solution", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
-	
+
 	/**
 	 * resets the algoState of all elements
 	 */
@@ -271,7 +271,7 @@ public class GridWindow extends JFrame {
 		this.gridPanel.changeButtons(true);
 
 	}
-	
+
 	/**
 	 * invoked, if there's no start or end and solve was invoked
 	 */

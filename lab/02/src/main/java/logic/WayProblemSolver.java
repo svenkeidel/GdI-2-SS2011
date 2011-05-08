@@ -12,10 +12,10 @@ import logic.algorithm.Algorithm;
 /**
  * Holds the algorithm and the grid.<br>
  * Provides functionality to solve the grid with the given algorithm.
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public class WayProblemSolver extends Observable {
 
@@ -25,7 +25,7 @@ public class WayProblemSolver extends Observable {
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param algorithm
 	 *            the algorithm to use
 	 * @param observer
@@ -46,10 +46,10 @@ public class WayProblemSolver extends Observable {
 		this.grid = new Grid(height, width, observer);
 		this.delayTime = delayTime;
 	}
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param algorithm
 	 *            the algorithm to use
 	 * @param observer
@@ -71,7 +71,7 @@ public class WayProblemSolver extends Observable {
 
 	/**
 	 * Solves the problem.
-	 * 
+	 *
 	 * @return true if the problem was solved, false otherwise.
 	 */
 	public boolean solve() {
@@ -116,7 +116,7 @@ public class WayProblemSolver extends Observable {
 
 	/**
 	 * Checks if start and end are set.
-	 * 
+	 *
 	 * @return true if the start and end are set, false otherwise
 	 */
 	private boolean checkPreconditions() {
@@ -129,9 +129,9 @@ public class WayProblemSolver extends Observable {
 	 * marks every GridElement on the best path with the GridElementAlgoState.PATH
 	 */
 	public void showBestPath() {
-		
+
 		//TODO: implement
-		
+
 		throw new UnsupportedOperationException("Implement me!");
 	}
 

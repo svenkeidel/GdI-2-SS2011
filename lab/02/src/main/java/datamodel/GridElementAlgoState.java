@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package datamodel;
 
 /**
  * describes the AlgoState of a GridElement
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
  *

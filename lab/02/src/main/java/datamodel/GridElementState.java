@@ -1,14 +1,14 @@
 /**
- * 
+ *
  */
 package datamodel;
 
 /**
  * describes the GridElementState of a GridElement
- * 
+ *
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- * 
+ *
  */
 public enum GridElementState {
 
@@ -36,7 +36,7 @@ public enum GridElementState {
 
 	/**
 	 * constructor
-	 * 
+	 *
 	 * @param wayCost the wayCost of this state
 	 */
 	GridElementState(int wayCost) {
@@ -45,7 +45,7 @@ public enum GridElementState {
 
 	/**
 	 * return the state the user can choose via GUI
-	 * 
+	 *
 	 * @return array which contains the states
 	 */
 	public static GridElementState[] getGUIValues() {
