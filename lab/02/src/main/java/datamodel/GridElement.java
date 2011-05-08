@@ -13,7 +13,7 @@ import java.util.Observable;
  * @version 1.0
  *
  */
-public class GridElement extends Observable implements Comparable<GridElement> {
+public class GridElement extends Observable {
 
 	private GridElementState state;
 	private GridElementAlgoState algoState;
@@ -165,13 +165,5 @@ public class GridElement extends Observable implements Comparable<GridElement> {
 	public static void resetStartEnd(){
 		GridElement.currentStart = null;
 		GridElement.currentEnd = null;
-	}
-
-	/**
-	 * compares to grid elements and sorts them along its distance
-	 */
-	@Override
-	public int compareTo(GridElement o) {
-		return this.getDistance() - o.getDistance();
 	}
 }

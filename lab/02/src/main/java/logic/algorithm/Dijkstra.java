@@ -1,6 +1,7 @@
 package logic.algorithm;
 
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.TreeSet;
+import java.util.Comparator;
 
 import datamodel.Grid;
 import datamodel.GridElement;
@@ -12,7 +13,7 @@ public class Dijkstra implements Algorithm {
 	public final static int INFINITE = Integer.MAX_VALUE;
 
 	private Grid grid;
-	private ConcurrentSkipListSet<GridElement> reachableKnodes;
+	private TreeSet<GridElement> reachableKnodes;
 	private GridElement startKnode, endKnode;
 
 	public void init(Grid grid) {
@@ -44,6 +45,13 @@ public class Dijkstra implements Algorithm {
 			neighbor.setDistance(neighbor.getWeight());
 			neighbor.setAlgoState(PATH);
 		}
+
+		reachableKnodes = new TreeSet<GridElement>(
+				new Comparator<GridElement>(){
+					public int compare(GridElement o1, GridElement o2) {
+						return o1.getDistance() - o2.getDistance();
+					}
+				});
 	}
 
 	public boolean doNextStep() {
