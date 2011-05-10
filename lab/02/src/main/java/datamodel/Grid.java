@@ -121,9 +121,7 @@ public class Grid extends Observable {
 	 *         coordinates are out of bounds.
 	 */
 	public GridElement getElementAt(int row, int column) {
-
-		//TODO: implement
-		throw new UnsupportedOperationException("Implement me!");
+		return grid[row][column];
 	}
 
 	/**
@@ -227,9 +225,29 @@ public class Grid extends Observable {
 		 * @return the neighbors and the way costs to the element
 		 */
 		private void getNeighborsOf(GridElement element) {
-
-			//TODO: implement! Use the private attributes!
-			throw new UnsupportedOperationException("Implement me!");
+			int row = element.getRow();
+			int col = element.getColumn();
+			
+			if (row > 0){
+				// a neighbor-element over element exist
+				neighbors.addElement(getElementAt(row-1,col));
+				wayCosts.addElement(getElementAt(row-1,col).getWeight());
+			}
+			if (col > 0){
+				// a neighbor-element left of element exist
+				neighbors.addElement(getElementAt(row,col-1));
+				wayCosts.addElement(getElementAt(row,col-1).getWeight());
+			}
+			if (row < grid.length-1){
+				// a neighbor-element down of element exist
+				neighbors.addElement(getElementAt(row+1, col));
+				wayCosts.addElement(getElementAt(row+1, col).getWeight());
+			}
+			if (col < grid.length-1){
+				// a neighbor-element right of element exist
+				neighbors.addElement(getElementAt(row, col+1));
+				wayCosts.addElement(getElementAt(row, col+1).getWeight());
+			}
 		}
 
 		/**
