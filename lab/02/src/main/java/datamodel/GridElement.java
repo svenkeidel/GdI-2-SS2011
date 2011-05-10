@@ -15,6 +15,7 @@ import java.util.Observable;
  */
 public class GridElement extends Observable {
 
+	public static final int INFINITE = Integer.MAX_VALUE;
 	private GridElementState state;
 	private GridElementAlgoState algoState;
 	private int row;
