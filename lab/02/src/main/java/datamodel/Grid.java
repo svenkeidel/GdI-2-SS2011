@@ -238,31 +238,31 @@ public class Grid extends Observable {
 			if (row > 0){
 				// a neighbor-element above element exist
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row-1,col));
 					wayCosts.addElement(getElementAt(row-1,col).getWeight());
 				}
 			}
 			if (col > 0){
 				// a neighbor-element left of element exist
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row,col-1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row,col-1));
 					wayCosts.addElement(getElementAt(row,col-1).getWeight());
 				}
 			}
 			if (col < grid.length-1){
 				// a neighbor-element right of element exist
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row,col+1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row, col+1));
 					wayCosts.addElement(getElementAt(row, col+1).getWeight());
 				}
 			}
 			if (row < grid.length-1){
 				// a neighbor-element down of element exist
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row+1,col).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row+1, col));
 					wayCosts.addElement(getElementAt(row+1, col).getWeight());
 				}
@@ -301,8 +301,8 @@ public class Grid extends Observable {
 				//x
 				// E
 				//
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row-1,col-1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row-1, col-1));
 					// 1.5 = 3/2
 					wayCosts.addElement(getElementAt(row-1, col-1).getWeight()*3/2);
@@ -313,7 +313,7 @@ public class Grid extends Observable {
 				//
 				//xE
 				//
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
+				if (getElementAt(row,col-1).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row,col-1));
 					wayCosts.addElement(getElementAt(row,col-1).getWeight());
@@ -324,8 +324,8 @@ public class Grid extends Observable {
 				//
 				// E
 				//x
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row+1,col-1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row+1, col-1));
 					// 1.5 = 3/2
 					wayCosts.addElement(getElementAt(row+1, col-1).getWeight()*3/2);
@@ -336,8 +336,8 @@ public class Grid extends Observable {
 				//
 				// E
 				// x
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row+1,col).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row+1, col));
 					wayCosts.addElement(getElementAt(row+1, col).getWeight());
 				}
@@ -347,8 +347,8 @@ public class Grid extends Observable {
 				//
 				// E
 				//  x
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row+1,col+1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row+1, col+1));
 					// 1.5 = 3/2
 					wayCosts.addElement(getElementAt(row+1, col+1).getWeight()*3/2);
@@ -359,8 +359,8 @@ public class Grid extends Observable {
 				//
 				// Ex
 				//
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row,col+1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row, col+1));
 					wayCosts.addElement(getElementAt(row, col+1).getWeight());
 				}
@@ -370,8 +370,8 @@ public class Grid extends Observable {
 				//  x
 				// E
 				//
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
+				if (getElementAt(row-1,col+1).getState() != GridElementState.BLOCKED){
+					// check if element not blocked
 					neighbors.addElement(getElementAt(row-1, col+1));
 					// 1.5 = 3/2
 					wayCosts.addElement(getElementAt(row-1, col+1).getWeight()*3/2);
