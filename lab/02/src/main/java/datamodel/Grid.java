@@ -8,6 +8,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 /**
  * Holds the grid data structure<br>
  * notifies observer if necessary
@@ -17,6 +19,8 @@ import java.util.Vector;
  *
  */
 public class Grid extends Observable {
+	private static final Logger logger = Logger.getLogger(Grid.class);
+
 
 	private GridElement[][] grid;
 	private int rows;
@@ -227,11 +231,12 @@ public class Grid extends Observable {
 		private void getNeighborsOf(GridElement element) {
 			int row = element.getRow();
 			int col = element.getColumn();
+			logger.debug("getNeighborsof("+row+", "+col+")");
 			neighbors.clear();
 			wayCosts.clear();
 			
 			if (row > 0){
-				// a neighbor-element over element exist
+				// a neighbor-element above element exist
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row-1,col));

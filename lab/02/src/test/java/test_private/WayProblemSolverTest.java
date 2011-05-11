@@ -5,7 +5,12 @@ package test_private;
 
 import java.util.Vector;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import datamodel.Grid;
@@ -27,6 +32,9 @@ import logic.algorithm.Algos;
  *
  */ 
 public class WayProblemSolverTest {
+	private static final Logger logger =
+		Logger.getRootLogger();
+
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
@@ -34,6 +42,11 @@ public class WayProblemSolverTest {
 	private Vector<GridElement> neighbors;
 	private Vector<Integer> wayCosts;
 	private Grid grid;
+
+	public WayProblemSolverTest() {
+		BasicConfigurator.configure();
+		logger.setLevel(Level.DEBUG);
+	}
 
 	@Before
 	public void before() {
@@ -123,24 +136,77 @@ public class WayProblemSolverTest {
 
 		neighbors = grid.getNeighborsFrom(grid.getElementAt(1, 1)).getNeighbors();
 
-		notContains(0, 0);
-		contains(0, 1);
-		notContains(0, 2);
-		contains(1, 0);
-		notContains(1, 1);
-		contains(1, 2);
-		notContains(2, 0);
-		notContains(2, 1);
-		notContains(2, 2);
+		notContains(1, 1, 0, 0);
+		contains(   1, 1, 0, 1);
+		notContains(1, 1, 0, 2);
+		contains(   1, 1, 1, 0);
+		notContains(1, 1, 1, 1);
+		contains(   1, 1, 1, 2);
+		notContains(1, 1, 2, 0);
+		notContains(1, 1, 2, 1);
+		notContains(1, 1, 2, 2);
 	}
 
-	private void notContains(int row, int col) {
-		assertFalse("("+row+","+col+") is wrongly contained in neighbors of field (1, 1)", 
+	@Test
+	public void borderNeighbors() {
+		grid = new Grid(4, 4, null);
+		for(GridElement e : grid.getKnodes())
+			e.setState(FREE);
+		
+		/* 
+		 *  0123
+		 * 0TN**
+		 * 1N***
+		 * 2****
+		 * 3****
+		 */
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 0)).getNeighbors();
+		contains(0, 0, 0, 1);
+		contains(0, 0, 1, 0);
+
+		/*
+		 *  0123
+		 * 0**NT
+		 * 1***N
+		 * 2****
+		 * 3****
+		 */
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 3)).getNeighbors();
+		contains(0, 3, 0, 2);
+		contains(0, 3, 1, 3);
+
+		/*
+		 *  0123
+		 * 0****
+		 * 1****
+		 * 2***N
+		 * 3**NT
+		 */
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(3, 3)).getNeighbors();
+		contains(3, 3, 2, 3);
+		contains(3, 3, 3, 2);
+
+		/*
+		 *  0123
+		 * 0****
+		 * 1****
+		 * 2N***
+		 * 3TN**
+		 */
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(3, 0)).getNeighbors();
+		contains(3, 0, 3, 1);
+		contains(3, 0, 2, 0);
+	}
+
+	private void notContains(int fromRow, int fromCol, int row, int col) {
+		assertFalse("("+row+","+col+") is wrongly contained in neighbors of field"+
+			   " ("+fromRow+", "+fromCol+")", 
 				neighbors.contains(grid.getElementAt(row, col)));
 	}
 
-	private void contains(int row, int col) {
-		assertTrue("("+row+","+col+") is not contained in neighbors of field (1, 1)", 
+	private void contains(int fromRow, int fromCol, int row, int col) {
+		assertTrue("("+row+","+col+") is not contained in neighbors of field "+
+			   " ("+fromRow+", "+fromCol+")", 
 				neighbors.contains(grid.getElementAt(row, col)));
 	}
 

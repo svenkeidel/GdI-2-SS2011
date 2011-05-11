@@ -3,11 +3,15 @@ package logic.algorithm;
 import java.util.TreeSet;
 import java.util.Comparator;
 
+import org.apache.log4j.Logger;
+
 import datamodel.Grid;
 import datamodel.GridElement;
 import static datamodel.GridElementAlgoState.*;
 
 public class Dijkstra implements Algorithm {
+	private static final Logger logger = Logger.getLogger(Dijkstra.class);
+
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
@@ -16,6 +20,7 @@ public class Dijkstra implements Algorithm {
 	private GridElement startKnode, endKnode;
 
 	public void init(Grid grid) {
+		logger.info("Initialize Dijkstra");
 
 		this.grid = grid;
 		startKnode = grid.getStartElement();
@@ -37,6 +42,8 @@ public class Dijkstra implements Algorithm {
 		startKnode.setDistance(0);
 		startKnode.setAlgoState(LOOKED_AT);
 
+		reachableKnodes = new TreeSet<GridElement>(getComparator());
+
 		// for all neighbors
 		for(GridElement neighbor :
 				grid.getNeighborsFrom(startKnode).getNeighbors() ) {
@@ -45,7 +52,6 @@ public class Dijkstra implements Algorithm {
 			neighbor.setAlgoState(PATH);
 		}
 
-		reachableKnodes = new TreeSet<GridElement>(getComparator());
 	}
 
 	protected Comparator<GridElement> getComparator() {
@@ -61,7 +67,7 @@ public class Dijkstra implements Algorithm {
 		if(!reachableKnodes.isEmpty() && endKnode.getAlgoState() != LOOKED_AT) {
 
 			GridElement nearest = reachableKnodes.first();
-			reachableKnodes.remove(0);
+			reachableKnodes.remove(nearest);
 			nearest.setAlgoState(LOOKED_AT);
 
 			for(GridElement neighbor :
