@@ -134,11 +134,22 @@ public class GridElement extends Observable {
 	 * @return 4,  free
 	 *         8,  swamp
 	 *         10, mountain
+	 *         INFINITE, blocked
 	 */
 	public int getWeight() {
-
-		//TODO: implement
-		throw new UnsupportedOperationException("Implement me!");
+		if (state == GridElementState.FREE){
+			return 4;
+		}
+		if (state == GridElementState.SWAMP){
+			return 8;
+		}
+		if (state == GridElementState.MOUNTAIN){
+			return 10;
+		}
+		if (state == GridElementState.BLOCKED){
+			return INFINITE;
+		}
+		return -1;
 	}
 
 	/**
