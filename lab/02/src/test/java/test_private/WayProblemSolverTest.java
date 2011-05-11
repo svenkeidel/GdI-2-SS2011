@@ -235,7 +235,7 @@ public class WayProblemSolverTest {
 		contains(   1, 1, 0, 1);
 		contains(   1, 1, 0, 2);
 		contains(   1, 1, 1, 0);
-		contains(   1, 1, 1, 1);
+		notContains(1, 1, 1, 1);
 		contains(   1, 1, 1, 2);
 		notContains(1, 1, 2, 0);
 		notContains(1, 1, 2, 1);
