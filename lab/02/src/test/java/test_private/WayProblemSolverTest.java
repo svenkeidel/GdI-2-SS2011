@@ -130,7 +130,7 @@ public class WayProblemSolverTest {
 		notContains(1, 1);
 		contains(1, 2);
 		notContains(2, 0);
-		notContains(2, 1);
+		contains(2, 1);
 		notContains(2, 2);
 	}
 
@@ -167,9 +167,9 @@ public class WayProblemSolverTest {
 		grid.getElementAt(1, 0).setState(SWAMP);
 		grid.getElementAt(1, 1).setState(FREE);
 		grid.getElementAt(1, 2).setState(MOUNTAIN);
-		grid.getElementAt(1, 0).setState(BLOCKED);
-		grid.getElementAt(1, 1).setState(BLOCKED);
-		grid.getElementAt(1, 2).setState(BLOCKED);
+		grid.getElementAt(2, 0).setState(BLOCKED);
+		grid.getElementAt(2, 1).setState(BLOCKED);
+		grid.getElementAt(2, 2).setState(BLOCKED);
 
 		wayCosts = grid.getNeighborsFrom(grid.getElementAt(1, 1)).getWayCosts();
 		
@@ -179,5 +179,7 @@ public class WayProblemSolverTest {
 				wayCosts.get(1).intValue(), 8);
 		assertEquals("A mountain field should have waycosts of 10",
 				wayCosts.get(2).intValue(), 10);
+		assertEquals("A mountain field should have waycosts of 10",
+				wayCosts.get(3).intValue(), Integer.MAX_VALUE);
 	}
 }

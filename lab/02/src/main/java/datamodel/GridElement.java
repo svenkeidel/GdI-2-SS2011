@@ -137,16 +137,16 @@ public class GridElement extends Observable {
 	 *         INFINITE, blocked
 	 */
 	public int getWeight() {
-		if (state == GridElementState.FREE){
+		if (getState() == GridElementState.FREE){
 			return 4;
 		}
-		if (state == GridElementState.SWAMP){
+		if (getState() == GridElementState.SWAMP){
 			return 8;
 		}
-		if (state == GridElementState.MOUNTAIN){
+		if (getState() == GridElementState.MOUNTAIN){
 			return 10;
 		}
-		if (state == GridElementState.BLOCKED){
+		if (getState() == GridElementState.BLOCKED){
 			return INFINITE;
 		}
 		return -1;

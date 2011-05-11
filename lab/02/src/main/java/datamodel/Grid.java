@@ -227,6 +227,8 @@ public class Grid extends Observable {
 		private void getNeighborsOf(GridElement element) {
 			int row = element.getRow();
 			int col = element.getColumn();
+			neighbors.clear();
+			wayCosts.clear();
 			
 			if (row > 0){
 				// a neighbor-element over element exist
@@ -238,16 +240,17 @@ public class Grid extends Observable {
 				neighbors.addElement(getElementAt(row,col-1));
 				wayCosts.addElement(getElementAt(row,col-1).getWeight());
 			}
-			if (row < grid.length-1){
-				// a neighbor-element down of element exist
-				neighbors.addElement(getElementAt(row+1, col));
-				wayCosts.addElement(getElementAt(row+1, col).getWeight());
-			}
 			if (col < grid.length-1){
 				// a neighbor-element right of element exist
 				neighbors.addElement(getElementAt(row, col+1));
 				wayCosts.addElement(getElementAt(row, col+1).getWeight());
 			}
+			if (row < grid.length-1){
+				// a neighbor-element down of element exist
+				neighbors.addElement(getElementAt(row+1, col));
+				wayCosts.addElement(getElementAt(row+1, col).getWeight());
+			}
+			
 		}
 
 		/**
@@ -262,41 +265,70 @@ public class Grid extends Observable {
 		private void getDiagonalNeighborsOf(GridElement element) {
 			int row = element.getRow();
 			int col = element.getColumn();
+			neighbors.clear();
+			wayCosts.clear();
 			
 			if (row > 0){
 				// a neighbor-element over element exist
+				
 				neighbors.addElement(getElementAt(row-1,col));
 				wayCosts.addElement(getElementAt(row-1,col).getWeight());
 			}
 			if (row > 0 && col > 0){
 				// a neighbor-element left over element exist
+				//x
+				//	E
+				//
 				neighbors.addElement(getElementAt(row-1, col-1));
 				wayCosts.addElement(getElementAt(row-1, col-1).getWeight());
 			}
 			if (col > 0){
 				// a neighbor-element left of element exist
+				//
+				//x E
+				//
 				neighbors.addElement(getElementAt(row,col-1));
 				wayCosts.addElement(getElementAt(row,col-1).getWeight());
 			}
 			if (row < grid.length-1 && col > 0){
 				// a neighbor-element left down of element exist
+				//
+				//	E
+				//x
 				neighbors.addElement(getElementAt(row+1, col-1));
 				wayCosts.addElement(getElementAt(row+1, col-1).getWeight());
 			}
 			if (row < grid.length-1){
 				// a neighbor-element down of element exist
+				//
+				//	E
+				//	x
 				neighbors.addElement(getElementAt(row+1, col));
 				wayCosts.addElement(getElementAt(row+1, col).getWeight());
 			}
 			if (row < grid.length-1 && col < grid.length){
 				// a neighbor-element right down of element exist
+				//
+				//	E
+				//	 x
 				neighbors.addElement(getElementAt(row+1, col+1));
 				wayCosts.addElement(getElementAt(row+1, col+1).getWeight());
 			}
 			if (col < grid.length-1){
 				// a neighbor-element right of element exist
+				//
+				//	E x
+				//
 				neighbors.addElement(getElementAt(row, col+1));
 				wayCosts.addElement(getElementAt(row, col+1).getWeight());
+			}
+			if (row > 0 && col < grid.length){
+				// a neighbor-element right up of element exist
+				//	  x
+				//	E
+				//
+				neighbors.addElement(getElementAt(row-1, col+1));
+				wayCosts.addElement(getElementAt(row-1, col+1).getWeight());
 			}
 		}
 
