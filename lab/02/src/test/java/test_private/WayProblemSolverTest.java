@@ -130,7 +130,7 @@ public class WayProblemSolverTest {
 		notContains(1, 1);
 		contains(1, 2);
 		notContains(2, 0);
-		contains(2, 1);
+		notContains(2, 1);
 		notContains(2, 2);
 	}
 
@@ -179,7 +179,5 @@ public class WayProblemSolverTest {
 				wayCosts.get(1).intValue(), 8);
 		assertEquals("A mountain field should have waycosts of 10",
 				wayCosts.get(2).intValue(), 10);
-		assertEquals("A mountain field should have waycosts of 10",
-				wayCosts.get(3).intValue(), Integer.MAX_VALUE);
 	}
 }
