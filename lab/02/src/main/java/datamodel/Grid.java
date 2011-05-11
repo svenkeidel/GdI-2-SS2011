@@ -275,7 +275,6 @@ public class Grid extends Observable {
 		 *         way costs.
 		 */
 		private void getDiagonalNeighborsOf(GridElement element) {
-			//TODO:1,5 for diagonal
 			int row = element.getRow();
 			int col = element.getColumn();
 			neighbors.clear();
@@ -300,7 +299,8 @@ public class Grid extends Observable {
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row-1, col-1));
-					wayCosts.addElement(getElementAt(row-1, col-1).getWeight());
+					// 1.5 = 3/2
+					wayCosts.addElement(getElementAt(row-1, col-1).getWeight()*3/2);
 				}
 			}
 			if (col > 0){
@@ -322,7 +322,8 @@ public class Grid extends Observable {
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row+1, col-1));
-					wayCosts.addElement(getElementAt(row+1, col-1).getWeight());
+					// 1.5 = 3/2
+					wayCosts.addElement(getElementAt(row+1, col-1).getWeight()*3/2);
 				}
 			}
 			if (row < grid.length-1){
@@ -344,7 +345,8 @@ public class Grid extends Observable {
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row+1, col+1));
-					wayCosts.addElement(getElementAt(row+1, col+1).getWeight());
+					// 1.5 = 3/2
+					wayCosts.addElement(getElementAt(row+1, col+1).getWeight()*3/2);
 				}
 			}
 			if (col < grid.length-1){
@@ -366,7 +368,8 @@ public class Grid extends Observable {
 				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
 					// check if element blocked
 					neighbors.addElement(getElementAt(row-1, col+1));
-					wayCosts.addElement(getElementAt(row-1, col+1).getWeight());
+					// 1.5 = 3/2
+					wayCosts.addElement(getElementAt(row-1, col+1).getWeight()*3/2);
 				}
 			}
 		}

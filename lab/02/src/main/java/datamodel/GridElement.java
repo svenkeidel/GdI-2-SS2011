@@ -123,7 +123,6 @@ public class GridElement extends Observable {
 	 * @return the linear distance (Luftlinie) to the currentEnd
 	 */
 	public int getLinearDistance() {
-
 		//TODO: implement
 		throw new UnsupportedOperationException("Implement me!");
 	}
