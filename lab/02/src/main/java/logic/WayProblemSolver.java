@@ -7,7 +7,9 @@ import java.util.Observer;
 import org.apache.log4j.Logger;
 
 import datamodel.Grid;
+import datamodel.GridElement;
 import datamodel.UpdateEvent;
+import static datamodel.GridElementAlgoState.*;
 
 import logic.algorithm.Algorithm;
 
@@ -20,8 +22,9 @@ import logic.algorithm.Algorithm;
  *
  */
 public class WayProblemSolver extends Observable {
+	private static final Logger logger =
+		Logger.getLogger(WayProblemSolver.class);
 
-	private static final Logger logger = Logger.getLogger(WayProblemSolver.class);
 	private Algorithm algorithm;
 	private Grid grid;
 	private int delayTime;
@@ -135,9 +138,13 @@ public class WayProblemSolver extends Observable {
 	 */
 	public void showBestPath() {
 
-		//TODO: implement
+		logger.info("best Path");
 
-		throw new UnsupportedOperationException("Implement me!");
+		GridElement v = grid.getEndElement();
+		do {
+			logger.info("("+v.getRow()+","+v.getColumn()+")");
+			v.setAlgoState(PATH);
+		} while((v = v.getPath()) != null);
 	}
 
 	/**

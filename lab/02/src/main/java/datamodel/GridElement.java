@@ -22,8 +22,7 @@ public class GridElement extends Observable {
 	private int column;
 	private int distance;
 	private int lin_distance;
-
-	//TODO: OPTIONAL add attributes if necessary
+	private GridElement path;
 
 	protected static GridElement currentEnd;
 	protected static GridElement currentStart;
@@ -177,6 +176,16 @@ public class GridElement extends Observable {
 		this.notifyObservers(new UpdateEvent(UpdateEvent.ELEMENT_CHANGED,
 				this.row, this.column, null, algoState));
 	}
+
+
+	public void setPath(GridElement path) {
+		this.path = path;
+	}
+
+	public GridElement getPath() {
+		return path;
+	}
+
 
 	/**
 	 * @return the algoState

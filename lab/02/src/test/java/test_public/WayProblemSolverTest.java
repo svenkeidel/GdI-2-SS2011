@@ -5,17 +5,19 @@ package test_public;
 
 import java.security.InvalidAlgorithmParameterException;
 
-import junit.framework.Assert;
-
-import logic.WayProblemSolver;
-import logic.algorithm.AlgorithmFactory;
-import logic.algorithm.Algos;
-
 import org.junit.Test;
 
 import datamodel.Grid;
 import datamodel.GridElementAlgoState;
-import datamodel.GridElementState;
+import static datamodel.GridElementAlgoState.*;
+import static datamodel.GridElementState.*;
+
+import junit.framework.Assert;
+
+import logic.WayProblemSolver;
+
+import logic.algorithm.AlgorithmFactory;
+import logic.algorithm.Algos;
 
 /**
  * public test class
@@ -28,23 +30,39 @@ public class WayProblemSolverTest {
 
 	private WayProblemSolver solver;
 	private static int counter;
+	private Grid grid;
 
+	private void isPath(int row, int col) {
+		Assert.assertEquals("The knode ("+row+", "+col+") is no part of the path", 
+				PATH, grid.getElementAt(row, col).getAlgoState());
+	}
+
+	private void isLookedAt(int row, int col) {
+		GridElementAlgoState state = grid.getElementAt(row, col).getAlgoState();
+		Assert.assertEquals("The knode ("+row+", "+col+") hasn't the state LOOKED_AT: ", 
+				LOOKED_AT, state);
+	}
+
+	private void isNone(int row, int col) {
+		Assert.assertEquals("The knode ("+row+", "+col+") hasn't the state NONE: ", 
+				NONE, grid.getElementAt(row, col).getAlgoState());
+	}
 
 	@Test
 	public void mooreTest() throws InvalidAlgorithmParameterException{
 
 		//get a grid
-		Grid grid = new Grid(7, 8, null);
-		grid.getElementAt(3, 1).setState(GridElementState.START);
-		grid.getElementAt(3, 5).setState(GridElementState.END);
-		grid.getElementAt(2, 3).setState(GridElementState.BLOCKED);
-		grid.getElementAt(3, 3).setState(GridElementState.BLOCKED);
-		grid.getElementAt(4, 3).setState(GridElementState.BLOCKED);
-		grid.getElementAt(1, 4).setState(GridElementState.BLOCKED);
-		grid.getElementAt(1, 5).setState(GridElementState.BLOCKED);
-		grid.getElementAt(5, 4).setState(GridElementState.BLOCKED);
-		grid.getElementAt(5, 5).setState(GridElementState.BLOCKED);
-		grid.getElementAt(5, 6).setState(GridElementState.BLOCKED);
+		grid = new Grid(7, 8, null);
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 5).setState(END);
+		grid.getElementAt(2, 3).setState(BLOCKED);
+		grid.getElementAt(3, 3).setState(BLOCKED);
+		grid.getElementAt(4, 3).setState(BLOCKED);
+		grid.getElementAt(1, 4).setState(BLOCKED);
+		grid.getElementAt(1, 5).setState(BLOCKED);
+		grid.getElementAt(5, 4).setState(BLOCKED);
+		grid.getElementAt(5, 5).setState(BLOCKED);
+		grid.getElementAt(5, 6).setState(BLOCKED);
 
 		//solve
 		this.solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.Moore), null, grid, 0);
@@ -52,16 +70,18 @@ public class WayProblemSolverTest {
 		try{
 		Assert.assertTrue(this.solver.solve());
 
+		grid = this.solver.getGrid();
+
 		//test some fields
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(0, 3).getAlgoState());
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(0, 4).getAlgoState());
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(0, 5).getAlgoState());
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(0, 6).getAlgoState());
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(1, 6).getAlgoState());
-		Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(2, 6).getAlgoState());
+		isPath(0, 3);
+		isPath(0, 4);
+		isPath(0, 5);
+		isPath(0, 6);
+		isPath(1, 6);
+		isPath(2, 6);
 
 		//check distance
-		Assert.assertEquals(48, this.solver.getGrid().getEndElement().getDistance());
+		Assert.assertEquals(48, grid.getEndElement().getDistance());
 
 		//all test successful
 		counter++;
@@ -76,49 +96,64 @@ public class WayProblemSolverTest {
 	@Test
 	public void dijkstraTest() throws InvalidAlgorithmParameterException{
 
+		/*
+		 * Tesmap Layout:
+		 *
+		 *  01234567
+		 * 0        0
+		 * 1        1
+		 * 2 ~~~~~~ 2
+		 * 3 ~^^^^~ 3
+		 * 4 ~^^^^~ 4
+		 * 5 ~^^^^~ 5
+		 * 6 ~^##^~ 6
+		 * 7S~^##^~Z7
+		 *  01234567
+		 */
+
 		//get a grid
-		Grid grid = new Grid(8, 8, null);
-		grid.getElementAt(7, 0).setState(GridElementState.START);
-		grid.getElementAt(7, 7).setState(GridElementState.END);
-		grid.getElementAt(7, 3).setState(GridElementState.BLOCKED);
-		grid.getElementAt(6, 3).setState(GridElementState.BLOCKED);
-		grid.getElementAt(7, 4).setState(GridElementState.BLOCKED);
-		grid.getElementAt(6, 4).setState(GridElementState.BLOCKED);
+		grid = new Grid(8, 8, null);
+		grid.getElementAt(7, 0).setState(START);
+		grid.getElementAt(7, 7).setState(END);
+		grid.getElementAt(7, 3).setState(BLOCKED);
+		grid.getElementAt(6, 3).setState(BLOCKED);
+		grid.getElementAt(7, 4).setState(BLOCKED);
+		grid.getElementAt(6, 4).setState(BLOCKED);
 
 
-		grid.getElementAt(7, 2).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(6, 2).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(5, 2).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(4, 2).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(3, 2).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(3, 3).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(4, 3).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(5, 3).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(3, 4).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(4, 4).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(5, 4).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(3, 5).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(4, 5).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(5, 5).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(6, 5).setState(GridElementState.MOUNTAIN);
-		grid.getElementAt(7, 5).setState(GridElementState.MOUNTAIN);
+		grid.getElementAt(7, 2).setState(MOUNTAIN);
+		grid.getElementAt(6, 2).setState(MOUNTAIN);
+		grid.getElementAt(5, 2).setState(MOUNTAIN);
+		grid.getElementAt(4, 2).setState(MOUNTAIN);
+		grid.getElementAt(3, 2).setState(MOUNTAIN);
+		grid.getElementAt(3, 3).setState(MOUNTAIN);
+		grid.getElementAt(4, 3).setState(MOUNTAIN);
+		grid.getElementAt(5, 3).setState(MOUNTAIN);
+		grid.getElementAt(3, 4).setState(MOUNTAIN);
+		grid.getElementAt(4, 4).setState(MOUNTAIN);
+		grid.getElementAt(5, 4).setState(MOUNTAIN);
+		grid.getElementAt(3, 5).setState(MOUNTAIN);
+		grid.getElementAt(4, 5).setState(MOUNTAIN);
+		grid.getElementAt(5, 5).setState(MOUNTAIN);
+		grid.getElementAt(6, 5).setState(MOUNTAIN);
+		grid.getElementAt(7, 5).setState(MOUNTAIN);
 
-		grid.getElementAt(7, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(6, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(5, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(4, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(3, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 1).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 2).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 3).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 4).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 5).setState(GridElementState.SWAMP);
-		grid.getElementAt(2, 6).setState(GridElementState.SWAMP);
-		grid.getElementAt(3, 6).setState(GridElementState.SWAMP);
-		grid.getElementAt(4, 6).setState(GridElementState.SWAMP);
-		grid.getElementAt(5, 6).setState(GridElementState.SWAMP);
-		grid.getElementAt(6, 6).setState(GridElementState.SWAMP);
-		grid.getElementAt(7, 6).setState(GridElementState.SWAMP);
+		grid.getElementAt(7, 1).setState(SWAMP);
+		grid.getElementAt(6, 1).setState(SWAMP);
+		grid.getElementAt(5, 1).setState(SWAMP);
+		grid.getElementAt(4, 1).setState(SWAMP);
+		grid.getElementAt(3, 1).setState(SWAMP);
+		grid.getElementAt(2, 1).setState(SWAMP);
+		grid.getElementAt(2, 2).setState(SWAMP);
+		grid.getElementAt(2, 3).setState(SWAMP);
+		grid.getElementAt(2, 4).setState(SWAMP);
+		grid.getElementAt(2, 5).setState(SWAMP);
+		grid.getElementAt(2, 6).setState(SWAMP);
+		grid.getElementAt(3, 6).setState(SWAMP);
+		grid.getElementAt(4, 6).setState(SWAMP);
+		grid.getElementAt(5, 6).setState(SWAMP);
+		grid.getElementAt(6, 6).setState(SWAMP);
+		grid.getElementAt(7, 6).setState(SWAMP);
 
 		this.solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.Dijkstra), null, grid, 0);
 
@@ -126,18 +161,20 @@ public class WayProblemSolverTest {
 			//solve
 			Assert.assertTrue(solver.solve());
 
+			grid = this.solver.getGrid();
+
 			//test some fields
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(2, 0).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(1, 1).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(1, 6).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(2, 7).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.LOOKED_AT, this.solver.getGrid().getElementAt(1, 0).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.LOOKED_AT, this.solver.getGrid().getElementAt(2, 1).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.LOOKED_AT, this.solver.getGrid().getElementAt(1, 7).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.LOOKED_AT, this.solver.getGrid().getElementAt(2, 6).getAlgoState());
+			isPath(2, 0);
+			isPath(1, 1);
+			isPath(1, 6);
+			isPath(2, 7);
+			isLookedAt(1, 0);
+			isLookedAt(2, 1);
+			isLookedAt(1, 7);
+			isLookedAt(2, 6);
 
 			//check distance
-			Assert.assertEquals(72, this.solver.getGrid().getEndElement().getDistance());
+			Assert.assertEquals(72, grid.getEndElement().getDistance());
 
 			counter+=2;
 		}
@@ -149,9 +186,9 @@ public class WayProblemSolverTest {
 	@Test
 	public void AStarTest() throws InvalidAlgorithmParameterException{
 		//get a grid
-		Grid grid = new Grid(10,10, null);
-		grid.getElementAt(2,2).setState(GridElementState.START);
-		grid.getElementAt(7,7).setState(GridElementState.END);
+		grid = new Grid(10,10, null);
+		grid.getElementAt(2,2).setState(START);
+		grid.getElementAt(7,7).setState(END);
 
 		this.solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.A_Star), null, grid, 0);
 
@@ -159,27 +196,29 @@ public class WayProblemSolverTest {
 			//solve
 			Assert.assertTrue(this.solver.solve());
 
+			grid = this.solver.getGrid();
+
 			//test some fields
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(3, 3).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(4, 4).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(5, 5).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.PATH, this.solver.getGrid().getElementAt(6, 6).getAlgoState());
+			isPath(3, 3);
+			isPath(4, 4);
+			isPath(5, 5);
+			isPath(6, 6);
 
 
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(0, 2).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(2, 0).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(1, 5).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(5, 1).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(6, 2).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(2, 6).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(6, 8).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(8, 6).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(7, 8).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(8, 7).getAlgoState());
-			Assert.assertEquals(GridElementAlgoState.NONE, this.solver.getGrid().getElementAt(8, 8).getAlgoState());
+			isNone(0, 2);
+			isNone(2, 0);
+			isNone(1, 5);
+			isNone(5, 1);
+			isNone(6, 2);
+			isNone(2, 6);
+			isNone(6, 8);
+			isNone(8, 6);
+			isNone(7, 8);
+			isNone(8, 7);
+			isNone(8, 8);
 
 			//check distance
-			Assert.assertEquals(30, this.solver.getGrid().getEndElement().getDistance());
+			Assert.assertEquals(30, grid.getEndElement().getDistance());
 
 			counter+=2;
 		}
