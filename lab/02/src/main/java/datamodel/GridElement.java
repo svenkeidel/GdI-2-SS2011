@@ -109,7 +109,7 @@ public class GridElement extends Observable {
 	public void setDistance(int distance) {
 		this.distance = distance;
 
-		this.setAlgoState(GridElementAlgoState.LOOKED_AT);
+		//this.setAlgoState(GridElementAlgoState.LOOKED_AT);
 	}
 
 	/**

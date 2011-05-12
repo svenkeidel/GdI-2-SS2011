@@ -1,7 +1,9 @@
 package logic.algorithm;
 
-import java.util.TreeSet;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.TreeSet;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
@@ -12,19 +14,21 @@ import static datamodel.GridElementAlgoState.*;
 public class Dijkstra implements Algorithm {
 	private static final Logger logger = Logger.getLogger(Dijkstra.class);
 
-
 	public final static int INFINITE = Integer.MAX_VALUE;
 
 	private Grid grid;
-	private TreeSet<GridElement> reachableKnodes;
+	private Vector<GridElement> reachableKnodes;
 	private GridElement startKnode, endKnode;
+	private Comparator<GridElement> comparator;
 
 	public void init(Grid grid) {
 		logger.info("Initialize Dijkstra");
 
 		this.grid = grid;
-		startKnode = grid.getStartElement();
-		endKnode   = grid.getEndElement();
+		this.startKnode = grid.getStartElement();
+		this.endKnode   = grid.getEndElement();
+		this.reachableKnodes = new Vector<GridElement>();
+		this.comparator = getComparator();
 
 		if(startKnode == null)
 			throw new IllegalStateException(
@@ -42,14 +46,12 @@ public class Dijkstra implements Algorithm {
 		startKnode.setDistance(0);
 		startKnode.setAlgoState(LOOKED_AT);
 
-		reachableKnodes = new TreeSet<GridElement>(getComparator());
-
 		// for all neighbors
 		for(GridElement neighbor :
 				grid.getNeighborsFrom(startKnode).getNeighbors() ) {
 			reachableKnodes.add(neighbor);
 			neighbor.setDistance(neighbor.getWeight());
-			neighbor.setAlgoState(PATH);
+			//neighbor.setAlgoState(PATH);
 		}
 
 	}
@@ -66,19 +68,26 @@ public class Dijkstra implements Algorithm {
 
 		if(!reachableKnodes.isEmpty() && endKnode.getAlgoState() != LOOKED_AT) {
 
-			GridElement nearest = reachableKnodes.first();
-			reachableKnodes.remove(nearest);
+			Collections.sort(reachableKnodes, comparator);
+			GridElement nearest = reachableKnodes.get(0);
 			nearest.setAlgoState(LOOKED_AT);
+
+			reachableKnodes.remove(nearest);
+			logger.debug("delete Knode ("+nearest.getRow()+", "+nearest.getColumn()+")");
+			for(GridElement e : reachableKnodes)
+				logger.debug("("+e.getRow()+", "+e.getColumn()+").e = "+e.getDistance());
+			logger.debug("");
 
 			for(GridElement neighbor :
 					grid.getNeighborsFrom(nearest).getNeighbors() ) {
 
 				if(neighbor.getAlgoState() != LOOKED_AT) {
-					if(neighbor.getDistance() == INFINITE) {
+					if(neighbor.getDistance() == INFINITE)
 						reachableKnodes.add(neighbor);
-					} else if(nearest.getDistance() + neighbor.getWeight() < neighbor.getDistance()) {
+
+					if(nearest.getDistance() + neighbor.getWeight() < neighbor.getDistance()) {
 						neighbor.setDistance(nearest.getDistance() + neighbor.getWeight());
-						neighbor.setAlgoState(PATH);
+						//neighbor.setAlgoState(PATH);
 					}
 				}
 			}

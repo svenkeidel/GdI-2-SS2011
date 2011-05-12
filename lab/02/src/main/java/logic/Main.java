@@ -1,5 +1,9 @@
 package logic;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.BasicConfigurator;
+
 import gui.GridWindow;
 
 /**
@@ -27,8 +31,11 @@ import gui.GridWindow;
  *
  */
 public class Main {
+	private static Logger logger = Logger.getRootLogger();
 
 	public static void main(String[] args) {
+		BasicConfigurator.configure();
+		logger.setLevel(Level.DEBUG);
 		@SuppressWarnings("unused")
 		GridWindow frame = new GridWindow();
 	}
