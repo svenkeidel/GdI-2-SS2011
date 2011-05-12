@@ -124,8 +124,18 @@ public class GridElement extends Observable {
 	 * @return the linear distance (Luftlinie) to the currentEnd
 	 */
 	public int getLinearDistance() {
-		int rowDiff = currentEnd.getRow() - row;
-		int colDiff = currentEnd.getColumn() - column;
+		int rowDiff = 0;
+		if (currentEnd.getRow() <= row){
+			rowDiff = currentEnd.getRow() - row;
+		} else {
+			rowDiff = row - currentEnd.getRow();
+		}
+		int colDiff = 0;
+		if (currentEnd.getColumn() <= column){
+			colDiff = currentEnd.getColumn() - column;
+		} else {
+			colDiff = column - currentEnd.getColumn();
+		}
 		lin_distance = (int) Math.sqrt((Math.pow(rowDiff, 2) + Math.pow(colDiff, 2)));
 		return lin_distance;
 		//throw new UnsupportedOperationException("Implement me!");

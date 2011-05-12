@@ -22,6 +22,9 @@ public class Grid extends Observable {
 	private static final Logger logger = Logger.getLogger(Grid.class);
 
 
+	private static final Exception InvalidEndorStartException = null;
+
+
 	private GridElement[][] grid;
 	private int rows;
 	private int columns;
@@ -56,10 +59,24 @@ public class Grid extends Observable {
 	 * @param grid
 	 *            the specified grid
 	 * @param observer
+	 * @throws Exception 
 	 */
-	public Grid(Grid grid, Observer observer) {
+	public Grid(Grid grid, Observer observer){
 		this(grid.getRows(), grid.getColumns(), observer);
-		// TODO: More as one start or end elements
+		int counterstart = 0;
+		int counterend = 0;
+		for (int n = 0; n < rows; n++){
+			for (int k = 0; k < columns; k++){
+				if (getElementAt(n, k).getState() == GridElementState.START){
+					counterstart++;
+				} else if (getElementAt(n, k).getState() == GridElementState.END){
+					counterend++;
+				}
+			}
+		}
+		if (counterstart > 1 || counterend > 1){
+			//TODO
+		}
 		// preset the state
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
@@ -191,7 +208,85 @@ public class Grid extends Observable {
 		}
 	}
 
-	//TODO: toString() Methode
+	/**
+	 * The fieldstates in string
+	 * s for start element
+	 * e for end element
+	 * # for blocked element
+	 * _ for free element
+	 * ~ for swamp element
+	 * ^ for mountain element
+	 * 
+	 * @return the Sting 
+	 */
+	public String toStringState(){
+		StringBuffer sb = new StringBuffer();
+		int lengthrow = grid.length;
+		int lengthcol = grid[0].length;
+		
+		for (int i = 0; i < lengthrow; i++){
+			for (int j = 0; j < lengthcol; j++){
+				GridElementState state = grid[i][j].getState();
+				if (state == GridElementState.END){
+					sb.append("e");
+				} else if (state == GridElementState.START){
+					sb.append("s");
+				} else if (state == GridElementState.FREE){
+					sb.append(" ");
+				} else if (state == GridElementState.BLOCKED){
+					sb.append("#");
+				} else if (state == GridElementState.SWAMP){
+					sb.append("~");
+				} else if (state == GridElementState.MOUNTAIN){
+					sb.append("^");
+				}
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * The fieldalgostates in string
+	 * L for looked_at element
+	 * P for path element
+	 * N for none element 
+	 * 
+	 * @return the String
+	 */
+	public String toStringAlgo(){
+		StringBuffer sb = new StringBuffer();
+		int lengthrow = grid.length;
+		int lengthcol = grid[0].length;
+		for (int i = 0; i < lengthrow; i++){
+			for (int j = 0; j < lengthcol; j++){
+				GridElementAlgoState state = grid[i][j].getAlgoState();
+				if (state == GridElementAlgoState.LOOKED_AT){
+					sb.append("'");
+				} else if (state == GridElementAlgoState.NONE){
+					sb.append(" ");
+				} else if (state == GridElementAlgoState.PATH){
+					sb.append("=");
+				}
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+	
+	/**
+	 * toStringState() and toStringAlgoState() in one method
+	 * 
+	 * @return the string
+	 */
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append(toStringState());
+		sb.append("\n");
+		sb.append(toStringAlgo());
+		return sb.toString();
+	}
+	
 	
 	
 	/**
@@ -234,7 +329,6 @@ public class Grid extends Observable {
 		private void getNeighborsOf(GridElement element) {
 			int row = element.getRow();
 			int col = element.getColumn();
-			logger.debug("getNeighborsof("+row+", "+col+") Luftlinie zu E: "+element.getLinearDistance()+"");
 			neighbors.clear();
 			wayCosts.clear();
 			
@@ -254,7 +348,7 @@ public class Grid extends Observable {
 					wayCosts.addElement(getElementAt(row,col-1).getWeight());
 				}
 			}
-			if (col < grid.length-1){
+			if (col < grid[0].length-1){
 				// a neighbor-element right of element exist
 				if (getElementAt(row,col+1).getState() != GridElementState.BLOCKED){
 					// check if element not blocked
@@ -345,7 +439,7 @@ public class Grid extends Observable {
 					wayCosts.addElement(getElementAt(row+1, col).getWeight());
 				}
 			}
-			if (row < grid.length-1 && col < grid.length){
+			if (row < grid.length-1 && col < grid[0].length){
 				// a neighbor-element right down of element exist
 				//
 				// E
@@ -357,7 +451,7 @@ public class Grid extends Observable {
 					wayCosts.addElement(getElementAt(row+1, col+1).getWeight()*3/2);
 				}
 			}
-			if (col < grid.length-1){
+			if (col < grid[0].length-1){
 				// a neighbor-element right of element exist
 				//
 				// Ex
@@ -368,7 +462,7 @@ public class Grid extends Observable {
 					wayCosts.addElement(getElementAt(row, col+1).getWeight());
 				}
 			}
-			if (row > 0 && col < grid.length){
+			if (row > 0 && col < grid[0].length){
 				// a neighbor-element right up of element exist
 				//  x
 				// E

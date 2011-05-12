@@ -68,7 +68,9 @@ public class WayProblemSolver extends Observable {
 
 		if(observer != null)
 			this.addObserver(observer);
+		
 		this.grid = new Grid(grid, observer);
+		
 		this.delayTime = delayTime;
 	}
 
