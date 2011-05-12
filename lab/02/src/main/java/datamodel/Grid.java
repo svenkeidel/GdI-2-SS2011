@@ -59,7 +59,7 @@ public class Grid extends Observable {
 	 */
 	public Grid(Grid grid, Observer observer) {
 		this(grid.getRows(), grid.getColumns(), observer);
-
+		// TODO: More as one start or end elements
 		// preset the state
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
@@ -191,6 +191,9 @@ public class Grid extends Observable {
 		}
 	}
 
+	//TODO: toString() Methode
+	
+	
 	/**
 	 * class, which encapsulates the neighbors of a GridElement
 	 *
