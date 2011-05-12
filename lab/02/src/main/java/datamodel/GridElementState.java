@@ -16,8 +16,15 @@ public enum GridElementState {
 	 * a free GridElement
 	 */
 	FREE(4),
-
+	
+	/**
+	 * a swamp
+	 */
 	SWAMP(8),
+	
+	/**
+	 * a mountain
+	 */
 	MOUNTAIN(10),
 
 	/**
@@ -62,6 +69,10 @@ public enum GridElementState {
 			return "free";
 		case BLOCKED:
 			return "blocked";
+		case SWAMP:
+			return "swamp";
+		case MOUNTAIN:
+			return "mountain";
 		case START:
 			return "Start";
 		case END:

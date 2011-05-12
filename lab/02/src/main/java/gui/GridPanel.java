@@ -12,6 +12,9 @@ import java.util.Observer;
 
 import javax.swing.JPanel;
 
+
+import org.apache.log4j.Logger;
+
 import datamodel.Grid;
 import datamodel.UpdateEvent;
 
@@ -24,6 +27,7 @@ import datamodel.UpdateEvent;
  */
 public class GridPanel extends JPanel implements Observer, ActionListener{
 
+	private static final Logger logger = Logger.getLogger(GridPanel.class);
 	private GridElementGUI[][] grid;
 	private GridWindow parent;
 	/**
@@ -88,10 +92,12 @@ public class GridPanel extends JPanel implements Observer, ActionListener{
 		}
 		else if(e.getOccuredEvent().equalsIgnoreCase(UpdateEvent.FOUND_SOLUTION)){
 			//enable generate and disable solve
+			logger.debug("EVENT:"+e.getOccuredEvent()+"");
 			this.parent.finishedSolving(true);
 		}
 		else if(e.getOccuredEvent().equalsIgnoreCase(UpdateEvent.NO_SOLUTION)){
 			//display message, enable generate and disable solve
+			logger.debug("EVENT:"+e.getOccuredEvent()+"");
 			this.parent.finishedSolving(false);
 		}
 		else if(e.getOccuredEvent().equalsIgnoreCase(UpdateEvent.FALSE_PRECONDITIONS)){

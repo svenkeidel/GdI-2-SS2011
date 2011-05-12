@@ -4,6 +4,8 @@ import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.apache.log4j.Logger;
+
 import datamodel.Grid;
 import datamodel.UpdateEvent;
 
@@ -19,6 +21,7 @@ import logic.algorithm.Algorithm;
  */
 public class WayProblemSolver extends Observable {
 
+	private static final Logger logger = Logger.getLogger(WayProblemSolver.class);
 	private Algorithm algorithm;
 	private Grid grid;
 	private int delayTime;
@@ -98,7 +101,7 @@ public class WayProblemSolver extends Observable {
 		}
 
 		boolean solved = algorithm.isSolved();
-
+	
 		if (solved) {
 			showBestPath();
 			this.setChanged();

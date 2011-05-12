@@ -22,6 +22,8 @@ import datamodel.GridElement;
  */
 public class GridElementGUI extends JButton {
 
+	Color o_green = new Color(85, 107, 47);
+	
 	/**
 	 * the underlying GridElement
 	 */
@@ -59,6 +61,14 @@ public class GridElementGUI extends JButton {
 		switch (this.gridElement.getState()) {
 		case FREE: {
 			this.setBackground(Color.WHITE);
+			break;
+		}
+		case SWAMP: {
+			this.setBackground(o_green);
+			break;
+		}
+		case MOUNTAIN: {
+			this.setBackground(Color.GRAY);
 			break;
 		}
 		case BLOCKED: {
