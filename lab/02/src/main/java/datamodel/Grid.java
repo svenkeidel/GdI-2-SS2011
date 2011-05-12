@@ -234,7 +234,7 @@ public class Grid extends Observable {
 		private void getNeighborsOf(GridElement element) {
 			int row = element.getRow();
 			int col = element.getColumn();
-			logger.debug("getNeighborsof("+row+", "+col+")");
+			logger.debug("getNeighborsof("+row+", "+col+") Luftlinie zu E: "+element.getLinearDistance()+"");
 			neighbors.clear();
 			wayCosts.clear();
 			

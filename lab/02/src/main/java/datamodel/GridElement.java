@@ -4,7 +4,7 @@
 package datamodel;
 
 import java.util.Observable;
-
+import java.lang.Math;
 /**
  * one single GridElement<br>
  * provides information over its state
@@ -21,6 +21,7 @@ public class GridElement extends Observable {
 	private int row;
 	private int column;
 	private int distance;
+	private int lin_distance;
 
 	//TODO: OPTIONAL add attributes if necessary
 
@@ -123,9 +124,13 @@ public class GridElement extends Observable {
 	 * @return the linear distance (Luftlinie) to the currentEnd
 	 */
 	public int getLinearDistance() {
-		//TODO: implement
-		throw new UnsupportedOperationException("Implement me!");
+		int rowDiff = currentEnd.getRow() - row;
+		int colDiff = currentEnd.getColumn() - column;
+		lin_distance = (int) Math.sqrt((Math.pow(rowDiff, 2) + Math.pow(colDiff, 2)));
+		return lin_distance;
+		//throw new UnsupportedOperationException("Implement me!");
 	}
+
 
 	/**
 	 * get the weight of an element

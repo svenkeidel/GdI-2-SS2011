@@ -53,7 +53,6 @@ public class Dijkstra implements Algorithm {
 			neighbor.setDistance(neighbor.getWeight());
 			//neighbor.setAlgoState(PATH);
 		}
-
 	}
 
 	protected Comparator<GridElement> getComparator() {
