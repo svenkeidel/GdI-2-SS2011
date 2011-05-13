@@ -46,8 +46,8 @@ public class Dijkstra implements Algorithm {
 		startKnode.setAlgoState(LOOKED_AT);
 		startKnode.setPath(null);
 
-		Vector<Integer> weights = grid.getNeighborsFrom(startKnode).getWayCosts();
-		Vector<GridElement> neighbors = grid.getNeighborsFrom(startKnode).getNeighbors();
+		Vector<Integer> weights = grid.getNeighborsFrom(startKnode, true).getWayCosts();
+		Vector<GridElement> neighbors = grid.getNeighborsFrom(startKnode, true).getNeighbors();
 		// for all neighbors
 		for(GridElement neighbor : neighbors) {
 			reachableKnodes.offer(neighbor);
@@ -72,8 +72,8 @@ public class Dijkstra implements Algorithm {
 			GridElement nearest = reachableKnodes.poll();
 			nearest.setAlgoState(LOOKED_AT);
 
-			Vector<Integer> weights = grid.getNeighborsFrom(nearest).getWayCosts();
-			Vector<GridElement> neighbors = grid.getNeighborsFrom(nearest).getNeighbors();
+			Vector<Integer> weights = grid.getNeighborsFrom(nearest, true).getWayCosts();
+			Vector<GridElement> neighbors = grid.getNeighborsFrom(nearest, true).getNeighbors();
 			int neighborWeight;
 
 			for(GridElement neighbor : neighbors) {

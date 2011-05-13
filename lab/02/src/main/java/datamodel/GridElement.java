@@ -162,7 +162,11 @@ public class GridElement extends Observable {
 		if (getState() == GridElementState.BLOCKED){
 			return INFINITE;
 		}
-		return -1;
+		if (getState() == GridElementState.END)
+			return 4;
+		if (getState() == GridElementState.START)
+			return 4;
+		throw new IllegalArgumentException("Unknown State");
 	}
 
 	/**
