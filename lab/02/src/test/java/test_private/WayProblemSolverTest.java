@@ -134,13 +134,10 @@ public class WayProblemSolverTest {
 		grid.getElementAt(0,1).setState(BLOCKED);
 		grid.getElementAt(0,2).setState(END);
 
-		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 0),true).getNeighbors();
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 0)).getNeighbors();
 		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
 
-		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 1),true).getNeighbors();
-		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
-
-		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 2),true).getNeighbors();
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 2)).getNeighbors();
 		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
 	}
 
@@ -339,15 +336,15 @@ public class WayProblemSolverTest {
 		assertEquals("A free field should have waycosts of 4",
 				wayCosts.get(0).intValue(), 4);
 		assertEquals("A swamp field should have waycosts of 8",
-				// 8*3/2, because its a diagonal neighbor
-				wayCosts.get(1).intValue(), 8*3/2);
+				wayCosts.get(1).intValue(), 8);
+		assertEquals("A mountain field should have waycosts of 10",
+				wayCosts.get(2).intValue(), 10);
 		assertEquals("A swamp field should have waycosts of 8",
-				wayCosts.get(2).intValue(), 8);
+				// 8*3/2, because its a diagonal neighbor
+				wayCosts.get(3).intValue(), 8*3/2);
 		assertEquals("A free field should have waycosts of 4",
 				// 4*3/2, because its a diagonal neighbor
-				wayCosts.get(3).intValue(), 4*3/2);
-		assertEquals("A mountain field should have waycosts of 10",
-				wayCosts.get(4).intValue(), 10);
+				wayCosts.get(4).intValue(), 4*3/2);
 		assertEquals("A free field should have waycosts of 4",
 				// 4*3/2, because its a diagonal neighbor
 				wayCosts.get(5).intValue(), 4*3/2);

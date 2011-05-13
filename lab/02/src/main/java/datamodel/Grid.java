@@ -142,7 +142,9 @@ public class Grid extends Observable {
 	 *         coordinates are out of bounds.
 	 */
 	public GridElement getElementAt(int row, int column) {
+		if ((row >= 0 && row < grid.length) && (column >= 0 && column < grid[0].length)){
 		return grid[row][column];
+		} else return null;
 	}
 
 	/**
@@ -150,8 +152,8 @@ public class Grid extends Observable {
 	 */
 	public Vector<GridElement> getKnodes() {
 		Vector<GridElement> knodes = new Vector<GridElement>();
-		for(int i=0; i<columns; i++)
-			for(int j=0; j<rows; j++)
+		for(int i=0; i<grid.length; i++)
+			for(int j=0; j<grid[0].length; j++)
 				knodes.add(grid[i][j]);
 		return knodes;
 	}
@@ -331,40 +333,34 @@ public class Grid extends Observable {
 			int col = element.getColumn();
 			neighbors.clear();
 			wayCosts.clear();
+			GridElement neighbor = null;
 			
-			if (row > 0){
+			if ((neighbor = getElementAt(row-1,col)) != null && 
+				neighbor.getState() != GridElementState.BLOCKED){
 				// a neighbor-element above element exist
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row-1,col));
-					wayCosts.addElement(getElementAt(row-1,col).getWeight());
+				neighbors.addElement(neighbor);
+				wayCosts.addElement(neighbor.getWeight());
 				}
-			}
-			if (col > 0){
-				// a neighbor-element left of element exist
-				if (getElementAt(row,col-1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row,col-1));
-					wayCosts.addElement(getElementAt(row,col-1).getWeight());
-				}
-			}
-			if (col < grid[0].length-1){
-				// a neighbor-element right of element exist
-				if (getElementAt(row,col+1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row, col+1));
-					wayCosts.addElement(getElementAt(row, col+1).getWeight());
-				}
-			}
-			if (row < grid.length-1){
-				// a neighbor-element down of element exist
-				if (getElementAt(row+1,col).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row+1, col));
-					wayCosts.addElement(getElementAt(row+1, col).getWeight());
-				}
-			}
 			
+			if ((neighbor = getElementAt(row,col-1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element left element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement(neighbor.getWeight());
+					}
+			
+			if ((neighbor = getElementAt(row,col+1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element right element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement(neighbor.getWeight());
+					}
+			if ((neighbor = getElementAt(row+1,col)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element below element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement(neighbor.getWeight());
+					}			
 		}
 
 		/**
@@ -377,104 +373,52 @@ public class Grid extends Observable {
 		 *         way costs.
 		 */
 		private void getDiagonalNeighborsOf(GridElement element) {
-			//TODO: write it new
 			int row = element.getRow();
 			int col = element.getColumn();
-			neighbors.clear();
-			wayCosts.clear();
+			GridElement neighbor = null;
 			
-			if (row > 0){
-				// a neighbor-element over element exist
-				// x
-				// E
-				//
-				if (getElementAt(row-1,col).getState() != GridElementState.BLOCKED){
-					// check if element blocked
-					neighbors.addElement(getElementAt(row-1,col));
-					wayCosts.addElement(getElementAt(row-1,col).getWeight());
-				}
-			}
-			if (row > 0 && col > 0){
-				// a neighbor-element left over element exist
-				//x
-				// E
-				//
-				if (getElementAt(row-1,col-1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row-1, col-1));
-					// 1.5 = 3/2
-					wayCosts.addElement(getElementAt(row-1, col-1).getWeight()*3/2);
-				}
-			}
-			if (col > 0){
-				// a neighbor-element left of element exist
-				//
-				//xE
-				//
-				if (getElementAt(row,col-1).getState() != GridElementState.BLOCKED){
-					// check if element blocked
-					neighbors.addElement(getElementAt(row,col-1));
-					wayCosts.addElement(getElementAt(row,col-1).getWeight());
-				}
-			}
-			if (row < grid.length-1 && col > 0){
-				// a neighbor-element left down of element exist
-				//
-				// E
-				//x
-				if (getElementAt(row+1,col-1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row+1, col-1));
-					// 1.5 = 3/2
-					wayCosts.addElement(getElementAt(row+1, col-1).getWeight()*3/2);
-				}
-			}
-			if (row < grid.length-1){
-				// a neighbor-element down of element exist
-				//
-				// E
-				// x
-				if (getElementAt(row+1,col).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row+1, col));
-					wayCosts.addElement(getElementAt(row+1, col).getWeight());
-				}
-			}
-			if (row < grid.length-1 && col < grid[0].length){
-				// a neighbor-element right down of element exist
-				//
-				// E
-				//  x
-				if (getElementAt(row+1,col+1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row+1, col+1));
-					// 1.5 = 3/2
-					wayCosts.addElement(getElementAt(row+1, col+1).getWeight()*3/2);
-				}
-			}
-			if (col < grid[0].length-1){
-				// a neighbor-element right of element exist
-				//
-				// Ex
-				//
-				if (getElementAt(row,col+1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row, col+1));
-					wayCosts.addElement(getElementAt(row, col+1).getWeight());
-				}
-			}
-			if (row > 0 && col < grid[0].length){
-				// a neighbor-element right up of element exist
-				//  x
-				// E
-				//
-				if (getElementAt(row-1,col+1).getState() != GridElementState.BLOCKED){
-					// check if element not blocked
-					neighbors.addElement(getElementAt(row-1, col+1));
-					// 1.5 = 3/2
-					wayCosts.addElement(getElementAt(row-1, col+1).getWeight()*3/2);
-				}
-			}
+			getNeighborsOf(element);
+			
+			//x
+			// E
+			//
+			if ((neighbor = getElementAt(row-1,col-1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element left above element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement((int)(neighbor.getWeight()*1.5));
+					}			
+			
+			//
+			// E
+			//  x
+			if ((neighbor = getElementAt(row+1,col-1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element left below element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement((int)(neighbor.getWeight()*1.5));
+					}
+			
+			//
+			// E
+			//  x
+			if ((neighbor = getElementAt(row+1,col+1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element right below element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement((int)(neighbor.getWeight()*1.5));
+					}
+			
+			//  x
+			// E
+			//
+			if ((neighbor = getElementAt(row-1,col+1)) != null && 
+					neighbor.getState() != GridElementState.BLOCKED){
+					// a neighbor-element right above element exist
+					neighbors.addElement(neighbor);
+					wayCosts.addElement((int)(neighbor.getWeight()*1.5));
+					}
+
 		}
 
 		/**
