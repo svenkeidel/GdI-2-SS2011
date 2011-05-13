@@ -21,7 +21,6 @@ public class GridElement extends Observable {
 	private int row;
 	private int column;
 	private int distance;
-	private int lin_distance;
 	private GridElement path;
 
 	protected static GridElement currentEnd;
@@ -122,22 +121,10 @@ public class GridElement extends Observable {
 	/**
 	 * @return the linear distance (Luftlinie) to the currentEnd
 	 */
-	public int getLinearDistance() {
-		int rowDiff = 0;
-		if (currentEnd.getRow() <= row){
-			rowDiff = currentEnd.getRow() - row;
-		} else {
-			rowDiff = row - currentEnd.getRow();
-		}
-		int colDiff = 0;
-		if (currentEnd.getColumn() <= column){
-			colDiff = currentEnd.getColumn() - column;
-		} else {
-			colDiff = column - currentEnd.getColumn();
-		}
-		lin_distance = (int) Math.sqrt((Math.pow(rowDiff, 2) + Math.pow(colDiff, 2)));
-		return lin_distance;
-		//throw new UnsupportedOperationException("Implement me!");
+	public double getLinearDistance() {
+		// it doesn't matter calculating (x-y)^2 or (y-x)^2 because it equals
+		return Math.sqrt(Math.pow(currentEnd.getRow() - row, 2) 
+				+ Math.pow(currentEnd.getColumn() - column, 2));
 	}
 
 

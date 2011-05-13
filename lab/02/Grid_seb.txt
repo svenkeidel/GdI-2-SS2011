@@ -1,5 +1,0 @@
-wayCosts.clean();
-und
-neighbors.clean();
-
-einfügen bei der suche
