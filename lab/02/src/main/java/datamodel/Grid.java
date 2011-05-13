@@ -377,6 +377,7 @@ public class Grid extends Observable {
 		 *         way costs.
 		 */
 		private void getDiagonalNeighborsOf(GridElement element) {
+			//TODO: write it new
 			int row = element.getRow();
 			int col = element.getColumn();
 			neighbors.clear();
