@@ -41,6 +41,7 @@ public class GridWindow extends JFrame {
 	private JComboBox toggleMenu;
 	private JButton solveButton;
 	private JButton cleanButton;
+	
 
 	private WayProblemSolver solver;
 
@@ -59,6 +60,12 @@ public class GridWindow extends JFrame {
 		// buttons, lists
 		this.algosList = new JComboBox(Algos.values());
 		this.algosList.setSelectedIndex(0);
+		this.algosList.addActionListener(new ActionListener(){
+		@Override
+			public void actionPerformed(ActionEvent e) {
+				updateToggleMenu();
+				}
+			});
 
 		this.generateField = new JButton("Generate");
 		this.generateField.addActionListener(new ActionListener() {
@@ -278,5 +285,8 @@ public class GridWindow extends JFrame {
 	protected void falsePreConditions(){
 		JOptionPane.showMessageDialog(this, "You must select at least a start and end element", "Error", JOptionPane.ERROR_MESSAGE);
 	}
+	
+
+	public void updateToggleMenu(){}
 
 }
