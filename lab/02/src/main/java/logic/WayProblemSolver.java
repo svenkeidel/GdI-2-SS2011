@@ -1,5 +1,6 @@
 package logic;
 
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;
@@ -48,7 +49,8 @@ public class WayProblemSolver extends Observable {
 			throw new InvalidParameterException("You must specify an algorithm");
 
 		if(observer != null)
-			this.addObserver(observer);
+		this.addObserver(observer);
+
 		this.grid = new Grid(height, width, observer);
 		this.delayTime = delayTime;
 	}
@@ -61,9 +63,10 @@ public class WayProblemSolver extends Observable {
 	 * @param observer
 	 * @param grid
 	 * @param delayTime
-	 *            the delay time in ms
+	 *            the delay time in ms 
 	 */
-	public WayProblemSolver(Algorithm algorithm, Observer observer, Grid grid, int delayTime) {
+	public WayProblemSolver(Algorithm algorithm, Observer observer, Grid grid, int delayTime)
+		throws InvalidParameterException{
 		if (algorithm != null)
 			this.algorithm = algorithm;
 		else
@@ -71,8 +74,12 @@ public class WayProblemSolver extends Observable {
 
 		if(observer != null)
 			this.addObserver(observer);
-		
-		this.grid = new Grid(grid, observer);
+
+		try {
+			this.grid = new Grid(grid, observer);
+		} catch (InvalidParameterException e) {
+			throw new InvalidParameterException("More as one start or end!");
+		}
 		
 		this.delayTime = delayTime;
 	}

@@ -3,6 +3,8 @@
  */
 package test_private;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidParameterException;
 import java.util.Vector;
 
 import org.apache.log4j.BasicConfigurator;
@@ -75,6 +77,7 @@ public class WayProblemSolverTest {
 		grid = new Grid(5, 5, null);
 		for(GridElement e : grid.getKnodes())
 			e.setState(BLOCKED);
+		grid.getElementAt(1, 0).setState(FREE);
 		grid.getElementAt(1, 1).setState(START);
 		grid.getElementAt(1, 2).setState(START);
 		grid.getElementAt(3, 3).setState(END);

@@ -21,13 +21,10 @@ import org.apache.log4j.Logger;
 public class Grid extends Observable {
 	private static final Logger logger = Logger.getLogger(Grid.class);
 
-
-	private static final Exception InvalidEndorStartException = null;
-
-
 	private GridElement[][] grid;
 	private int rows;
 	private int columns;
+
 
 	/**
 	 * Initiates the grid with the specified height and width.
@@ -61,27 +58,33 @@ public class Grid extends Observable {
 	 * @param observer
 	 * @throws Exception 
 	 */
-	public Grid(Grid grid, Observer observer){
+	public Grid(Grid grid, Observer observer)
+		throws InvalidParameterException{
+		
 		this(grid.getRows(), grid.getColumns(), observer);
 		int counterstart = 0;
 		int counterend = 0;
-		for (int n = 0; n < rows; n++){
-			for (int k = 0; k < columns; k++){
-				if (getElementAt(n, k).getState() == GridElementState.START){
+	
+		for (int n = 0; n < grid.getRows(); n++){
+			for (int k = 0; k < grid.getColumns(); k++){
+				GridElementState state = getElementAt(n, k).getState();
+				if (state == GridElementState.START){
 					counterstart++;
-				} else if (getElementAt(n, k).getState() == GridElementState.END){
+					if (counterstart > 1)
+						throw new InvalidParameterException("More as one start");
+				}
+				if (state == GridElementState.END){
 					counterend++;
+					if (counterend > 1)
+						throw new InvalidParameterException("More as one end!");
 				}
 			}
-		}
-		if (counterstart > 1 || counterend > 1){
-			//TODO
 		}
 		// preset the state
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				this.getElementAt(i, j).setState(
-						grid.getElementAt(i, j).getState());
+					grid.getElementAt(i, j).getState());
 			}
 		}
 	}
