@@ -427,7 +427,7 @@ public class Grid extends Observable {
 			
 			//
 			// E
-			//  x
+			//x
 			if ((neighbor = getElementAt(row+1,col-1)) != null && 
 					neighbor.getState() != GridElementState.BLOCKED){
 					// a neighbor-element left below element exist

@@ -341,12 +341,12 @@ public class WayProblemSolverTest {
 				wayCosts.get(2).intValue(), 10);
 		assertEquals("A swamp field should have waycosts of 8",
 				// 8*3/2, because its a diagonal neighbor
-				wayCosts.get(3).intValue(), 8*3/2);
+				wayCosts.get(3).intValue(), (int)(8*1.5));
 		assertEquals("A free field should have waycosts of 4",
 				// 4*3/2, because its a diagonal neighbor
-				wayCosts.get(4).intValue(), 4*3/2);
+				wayCosts.get(4).intValue(), (int)(4*3/2));
 		assertEquals("A free field should have waycosts of 4",
 				// 4*3/2, because its a diagonal neighbor
-				wayCosts.get(5).intValue(), 4*3/2);
+				wayCosts.get(5).intValue(), (int)(4*3/2));
 	}
 }
