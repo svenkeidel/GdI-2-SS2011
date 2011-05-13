@@ -128,8 +128,25 @@ public class WayProblemSolverTest {
 	}
 
 	@Test
+	public void noNeighbors() {
+		grid = new Grid(1, 3, null);
+		grid.getElementAt(0,0).setState(START);
+		grid.getElementAt(0,1).setState(BLOCKED);
+		grid.getElementAt(0,2).setState(END);
+
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 0),true).getNeighbors();
+		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
+
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 1),true).getNeighbors();
+		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
+
+		neighbors = grid.getNeighborsFrom(grid.getElementAt(0, 2),true).getNeighbors();
+		assertEquals("Dectected neighbors where are none", new Vector<GridElement>(), neighbors);
+	}
+
+	@Test
 	public void neighbors() {
-		grid = new Grid(3, 3, null);
+		grid = new Grid(4, 3, null);
 		/*
 		 * B = blocked
 		 * F = free
@@ -145,6 +162,8 @@ public class WayProblemSolverTest {
 		grid.getElementAt(2, 0).setState(BLOCKED);
 		grid.getElementAt(2, 1).setState(BLOCKED);
 		grid.getElementAt(2, 2).setState(BLOCKED);
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 2).setState(END);
 
 		neighbors = grid.getNeighborsFrom(grid.getElementAt(1, 1)).getNeighbors();
 
@@ -164,6 +183,9 @@ public class WayProblemSolverTest {
 		grid = new Grid(4, 4, null);
 		for(GridElement e : grid.getKnodes())
 			e.setState(FREE);
+
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 2).setState(END);
 		
 		/* 
 		 *  0123
@@ -212,7 +234,7 @@ public class WayProblemSolverTest {
 
 	@Test
 	public void diagonalNeighbors() {
-		grid = new Grid(3, 3, null);
+		grid = new Grid(4, 3, null);
 		/*
 		 * B = blocked
 		 * F = free
@@ -228,6 +250,8 @@ public class WayProblemSolverTest {
 		grid.getElementAt(2, 0).setState(BLOCKED);
 		grid.getElementAt(2, 1).setState(BLOCKED);
 		grid.getElementAt(2, 2).setState(BLOCKED);
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 2).setState(END);
 
 		neighbors = grid.getNeighborsFrom(grid.getElementAt(1, 1),true).getNeighbors();
 
@@ -245,7 +269,7 @@ public class WayProblemSolverTest {
 
 	@Test
 	public void waycosts() {
-		grid = new Grid(3, 3, null);
+		grid = new Grid(4, 3, null);
 		/*
 		 * B = blocked
 		 * F = free
@@ -268,6 +292,9 @@ public class WayProblemSolverTest {
 		grid.getElementAt(2, 0).setState(BLOCKED);
 		grid.getElementAt(2, 1).setState(BLOCKED);
 		grid.getElementAt(2, 2).setState(BLOCKED);
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 2).setState(END);
+
 
 		wayCosts = grid.getNeighborsFrom(grid.getElementAt(1, 1)).getWayCosts();
 		
@@ -281,7 +308,7 @@ public class WayProblemSolverTest {
 	
 	@Test
 	public void diagonalWaycosts() {
-		grid = new Grid(3, 3, null);
+		grid = new Grid(4, 3, null);
 		/*
 		 * B = blocked
 		 * F = free
@@ -304,6 +331,8 @@ public class WayProblemSolverTest {
 		grid.getElementAt(2, 0).setState(BLOCKED);
 		grid.getElementAt(2, 1).setState(BLOCKED);
 		grid.getElementAt(2, 2).setState(FREE);
+		grid.getElementAt(3, 1).setState(START);
+		grid.getElementAt(3, 2).setState(END);
 
 		wayCosts = grid.getNeighborsFrom(grid.getElementAt(1, 1),true).getWayCosts();
 		
