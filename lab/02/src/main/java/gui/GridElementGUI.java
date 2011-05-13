@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.border.Border;
+import javax.swing.BorderFactory;
 
 import datamodel.GridElement;
 
@@ -23,6 +25,11 @@ import datamodel.GridElement;
 public class GridElementGUI extends JButton {
 
 	Color o_green = new Color(85, 107, 47);
+	Color grid_color = new Color(101, 101, 101);
+	Color path_color = new Color(255, 127, 0);
+	
+	Border path_Border = BorderFactory.createLineBorder(path_color, 1);
+	Border usual_Border = BorderFactory.createLineBorder(grid_color, 1);
 	
 	/**
 	 * the underlying GridElement
@@ -44,8 +51,8 @@ public class GridElementGUI extends JButton {
 		super();
 		this.gridElement = gridElement;
 		this.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 8));
-
-		//set the correct border layout
+		
+//		set the correct border layout
 		Insets insets = getMargin();
 		insets.set(0, 0, 0, 0);
 		this.setMargin(insets);
@@ -61,6 +68,7 @@ public class GridElementGUI extends JButton {
 		switch (this.gridElement.getState()) {
 		case FREE: {
 			this.setBackground(Color.WHITE);
+			this.setBorder(usual_Border);
 			break;
 		}
 		case SWAMP: {
@@ -96,6 +104,7 @@ public class GridElementGUI extends JButton {
 		switch (this.gridElement.getAlgoState()) {
 		case NONE: {
 			this.setText("");
+			this.setBorder(usual_Border);
 			this.paint();
 			break;
 		}
@@ -104,7 +113,8 @@ public class GridElementGUI extends JButton {
 			break;
 		}
 		case PATH: {
-			this.setBackground(this.getBackground().darker());
+		//	this.setBackground(this.getBackground().darker());
+			this.setBorder(path_Border);
 			break;
 		}
 		}

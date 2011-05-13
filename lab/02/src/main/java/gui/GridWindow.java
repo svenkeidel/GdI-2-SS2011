@@ -3,6 +3,7 @@
  */
 package gui;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -41,7 +42,6 @@ public class GridWindow extends JFrame {
 	private JComboBox toggleMenu;
 	private JButton solveButton;
 	private JButton cleanButton;
-	
 
 	private WayProblemSolver solver;
 
@@ -124,7 +124,6 @@ public class GridWindow extends JFrame {
 		this.setVisible(true);
 		this.pack();
 		this.setLocationRelativeTo(null);
-
 	}
 
 	/**
@@ -288,5 +287,4 @@ public class GridWindow extends JFrame {
 	
 
 	public void updateToggleMenu(){}
-
 }
