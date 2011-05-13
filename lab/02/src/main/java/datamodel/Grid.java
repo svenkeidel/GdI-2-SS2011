@@ -223,28 +223,46 @@ public class Grid extends Observable {
 	 */
 	public String toStringState(){
 		StringBuffer sb = new StringBuffer();
-		int lengthrow = grid.length;
-		int lengthcol = grid[0].length;
 		
-		for (int i = 0; i < lengthrow; i++){
-			for (int j = 0; j < lengthcol; j++){
+		sb.append("*");
+		for (int j = 0; j < grid[0].length; j++)
+			sb.append("-");
+		sb.append("*\n");
+
+		for (int i = 0; i < grid.length; i++){
+			sb.append("|");
+			for (int j = 0; j < grid[0].length; j++){
 				GridElementState state = grid[i][j].getState();
-				if (state == GridElementState.END){
-					sb.append("e");
-				} else if (state == GridElementState.START){
-					sb.append("s");
-				} else if (state == GridElementState.FREE){
-					sb.append(" ");
-				} else if (state == GridElementState.BLOCKED){
-					sb.append("#");
-				} else if (state == GridElementState.SWAMP){
-					sb.append("~");
-				} else if (state == GridElementState.MOUNTAIN){
-					sb.append("^");
+				switch(state) {
+					case END:
+						sb.append("e");
+						break;
+					case START:
+						sb.append("s");
+						break;
+					case FREE:
+						sb.append(" ");
+						break;
+					case BLOCKED:
+						sb.append("#");
+						break;
+					case SWAMP:
+						sb.append("~");
+						break;
+					case MOUNTAIN:
+						sb.append("^");
+						break;
+					default:
 				}
 			}
-			sb.append("\n");
+			sb.append("|\n");
 		}
+
+		sb.append("*");
+		for (int j = 0; j < grid[0].length; j++)
+			sb.append("-");
+		sb.append("*\n");
+
 		return sb.toString();
 	}
 	
@@ -258,21 +276,37 @@ public class Grid extends Observable {
 	 */
 	public String toStringAlgo(){
 		StringBuffer sb = new StringBuffer();
-		int lengthrow = grid.length;
-		int lengthcol = grid[0].length;
-		for (int i = 0; i < lengthrow; i++){
-			for (int j = 0; j < lengthcol; j++){
+
+		sb.append("*");
+		for (int j = 0; j < grid[0].length; j++)
+			sb.append("-");
+		sb.append("*\n");
+
+		for (int i = 0; i < grid.length; i++){
+			sb.append("|");
+			for (int j = 0; j < grid[0].length; j++){
 				GridElementAlgoState state = grid[i][j].getAlgoState();
-				if (state == GridElementAlgoState.LOOKED_AT){
-					sb.append("'");
-				} else if (state == GridElementAlgoState.NONE){
-					sb.append(" ");
-				} else if (state == GridElementAlgoState.PATH){
-					sb.append("=");
+				switch(state) {
+					case LOOKED_AT:
+						sb.append("'");
+						break;
+					case NONE:
+						sb.append(" ");
+						break;
+					case PATH:
+						sb.append("=");
+						break;
+					default:
 				}
 			}
-			sb.append("\n");
+			sb.append("|\n");
 		}
+
+		sb.append("*");
+		for (int j = 0; j < grid[0].length; j++)
+			sb.append("-");
+		sb.append("*\n");
+
 		return sb.toString();
 	}
 	
@@ -283,8 +317,10 @@ public class Grid extends Observable {
 	 */
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
+		sb.append("Terrain of the field:\n");
 		sb.append(toStringState());
 		sb.append("\n");
+		sb.append("Algorithm state of the field:\n");
 		sb.append(toStringAlgo());
 		return sb.toString();
 	}

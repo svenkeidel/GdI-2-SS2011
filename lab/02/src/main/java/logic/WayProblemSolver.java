@@ -138,13 +138,13 @@ public class WayProblemSolver extends Observable {
 	 */
 	public void showBestPath() {
 
-		logger.info("best Path");
-
 		GridElement v = grid.getEndElement();
 		do {
-			logger.info("("+v.getRow()+","+v.getColumn()+")");
 			v.setAlgoState(PATH);
 		} while((v = v.getPath()) != null);
+
+		logger.info("Solution:");
+		logger.info(grid.toString());
 	}
 
 	/**

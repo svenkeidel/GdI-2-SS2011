@@ -21,7 +21,7 @@ public class Dijkstra implements Algorithm {
 	private Collection<GridElement> neighbors;
 
 	public void init(Grid grid) {
-		logger.info("Initialize Dijkstra");
+		logger.info("Initialize "+this.getClass().toString());
 
 		this.grid = grid;
 		this.startKnode = grid.getStartElement();
