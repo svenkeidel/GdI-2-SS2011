@@ -3,6 +3,7 @@ package logic.algorithm;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 
@@ -45,11 +46,12 @@ public class Dijkstra implements Algorithm {
 		startKnode.setAlgoState(LOOKED_AT);
 		startKnode.setPath(null);
 
+		Vector<Integer> weights = grid.getNeighborsFrom(startKnode).getWayCosts();
+		Vector<GridElement> neighbors = grid.getNeighborsFrom(startKnode).getNeighbors();
 		// for all neighbors
-		for(GridElement neighbor :
-				grid.getNeighborsFrom(startKnode).getNeighbors() ) {
+		for(GridElement neighbor : neighbors) {
 			reachableKnodes.offer(neighbor);
-			neighbor.setDistance(neighbor.getWeight());
+			neighbor.setDistance(weights.get(neighbors.indexOf(neighbor)));
 			neighbor.setPath(startKnode);
 		}
 	}
@@ -70,15 +72,19 @@ public class Dijkstra implements Algorithm {
 			GridElement nearest = reachableKnodes.poll();
 			nearest.setAlgoState(LOOKED_AT);
 
-			for(GridElement neighbor :
-					grid.getNeighborsFrom(nearest, true).getNeighbors()) {
+			Vector<Integer> weights = grid.getNeighborsFrom(nearest).getWayCosts();
+			Vector<GridElement> neighbors = grid.getNeighborsFrom(nearest).getNeighbors();
+			int neighborWeight;
+
+			for(GridElement neighbor : neighbors) {
+				neighborWeight = weights.get(neighbors.indexOf(neighbor));
 
 				if(neighbor.getAlgoState() != LOOKED_AT) {
 					if(neighbor.getDistance() == INFINITE)
 						reachableKnodes.offer(neighbor);
 
-					if(nearest.getDistance() + neighbor.getWeight() < neighbor.getDistance()) {
-						neighbor.setDistance(nearest.getDistance() + neighbor.getWeight());
+					if(nearest.getDistance() + neighborWeight < neighbor.getDistance()) {
+						neighbor.setDistance(nearest.getDistance() + neighborWeight);
 						neighbor.setPath(nearest);
 					}
 				}
