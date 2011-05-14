@@ -79,6 +79,8 @@ public class GridElement extends Observable {
 			this.state = GridElementState.SWAMP;
 		else if (state == GridElementState.MOUNTAIN)
 			this.state = GridElementState.MOUNTAIN;
+		else if (state == GridElementState.HIGHWAY)
+			this.state = GridElementState.HIGHWAY;
 		
 
 
@@ -152,6 +154,9 @@ public class GridElement extends Observable {
 		}
 		if (getState() == GridElementState.MOUNTAIN){
 			return 10;
+		}
+		if (getState() == GridElementState.HIGHWAY){
+			return 0;
 		}
 		if (getState() == GridElementState.BLOCKED){
 			return INFINITE;

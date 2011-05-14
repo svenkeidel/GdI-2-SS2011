@@ -18,6 +18,11 @@ public enum GridElementState {
 	FREE(4),
 	
 	/**
+	 * a highway
+	 */
+	HIGHWAY(0),
+	
+	/**
 	 * a swamp
 	 */
 	SWAMP(8),
@@ -41,6 +46,8 @@ public enum GridElementState {
 	 * the end
 	 */
 	END(4);
+	
+	
 
 	private int wayCost;
 
@@ -66,19 +73,21 @@ public enum GridElementState {
 	public String toString() {
 		switch (this) {
 		case FREE:
-			return "free";
+			return "Free";
 		case BLOCKED:
-			return "blocked";
+			return "Blocked";
+		case HIGHWAY:
+			return "Highway";
 		case SWAMP:
-			return "swamp";
+			return "Swamp";
 		case MOUNTAIN:
-			return "mountain";
+			return "Mountain";
 		case START:
 			return "Start";
 		case END:
 			return "End";
 		default:
-			return "free";
+			return "Free";
 		}
 	}
 

@@ -8,7 +8,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 /**
  * Holds the grid data structure<br>
@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class Grid extends Observable {
-	private static final Logger logger = Logger.getLogger(Grid.class);
+	//private static final Logger logger = Logger.getLogger(Grid.class);
 
 	private GridElement[][] grid;
 	private int rows;
@@ -242,6 +242,9 @@ public class Grid extends Observable {
 						break;
 					case START:
 						sb.append("s");
+						break;
+					case HIGHWAY:
+						sb.append("h");
 						break;
 					case FREE:
 						sb.append(" ");
