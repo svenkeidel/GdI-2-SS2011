@@ -1,6 +1,6 @@
 package logic;
 
-// import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;

@@ -2,12 +2,12 @@ package logic.algorithm;
 
 import java.util.Comparator;
 
-//import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import datamodel.GridElement;
 
 public class A_Star extends Dijkstra {
-	// private static final Logger logger = Logger.getLogger(A_Star.class);
+	private static final Logger logger = Logger.getLogger(A_Star.class);
 
 	public static final int INFINITE = Integer.MAX_VALUE;
 	public static final int MINUS_INFINITE = Integer.MIN_VALUE;
@@ -22,18 +22,14 @@ public class A_Star extends Dijkstra {
 				//logger.debug(new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance())
 					 //- ((double)o2.getDistance() + o2.getLinearDistance()))).intValue());
 				//logger.debug("");
-				
-				
-				//Irrelevant, because there wont be "INFINITE"-Elements in Queue
-				
-				//if(o1.getDistance() == INFINITE && o2.getDistance() == INFINITE)
-					//return new Long(Math.round(o1.getLinearDistance() - o2.getLinearDistance())).intValue();
+				if(o1.getDistance() == INFINITE && o1.getDistance() == INFINITE)
+					return new Long(Math.round(o1.getLinearDistance() - o2.getLinearDistance())).intValue();
 
-				//if(o1.getDistance() == INFINITE)
-					//return INFINITE;
+				if(o1.getDistance() == INFINITE)
+					return INFINITE;
 
-				//if(o2.getDistance() == INFINITE)
-					//return MINUS_INFINITE;
+				if(o2.getDistance() == INFINITE)
+					return MINUS_INFINITE;
 
 				return new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance())
 					 - ((double)o2.getDistance() + o2.getLinearDistance()))).intValue();

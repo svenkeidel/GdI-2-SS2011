@@ -26,7 +26,7 @@ public class GridElementGUI extends JButton {
 
 	Color o_green = new Color(85, 107, 47);
 	Color grid_color = new Color(101, 101, 101);
-	Color path_color = new Color(255, 0 , 0);
+	Color path_color = new Color(255, 127, 0);
 	
 	Border path_Border = BorderFactory.createLineBorder(path_color, 1);
 	Border usual_Border = BorderFactory.createLineBorder(grid_color, 1);
@@ -75,12 +75,8 @@ public class GridElementGUI extends JButton {
 			this.setBackground(o_green);
 			break;
 		}
-		case HIGHWAY: {
-			this.setBackground(new Color(24, 116, 205));
-			break;
-		}
 		case MOUNTAIN: {
-			this.setBackground(new Color(139, 126, 102));
+			this.setBackground(Color.GRAY);
 			break;
 		}
 		case BLOCKED: {
@@ -117,7 +113,7 @@ public class GridElementGUI extends JButton {
 			break;
 		}
 		case PATH: {
-			this.setBackground(this.getBackground().darker());
+		//	this.setBackground(this.getBackground().darker());
 			this.setBorder(path_Border);
 			break;
 		}
