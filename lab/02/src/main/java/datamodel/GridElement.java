@@ -63,23 +63,16 @@ public class GridElement extends Observable {
 	 */
 	public void setState(GridElementState state) {
 
-		//this.state = state;
-
 		if (state == GridElementState.START) {
-			this.state = GridElementState.START;
+			if (currentStart != null)
+				currentStart.setState(GridElementState.FREE);
 			currentStart = this;
 		} else if (state == GridElementState.END) {
-			this.state = GridElementState.END;
+			if (currentEnd != null)
+				currentEnd.setState(GridElementState.FREE);
 			currentEnd = this;
-		} else if (state == GridElementState.FREE)
-			this.state = GridElementState.FREE;
-		else if (state == GridElementState.BLOCKED)
-			this.state = GridElementState.BLOCKED;
-		else if (state == GridElementState.SWAMP)
-			this.state = GridElementState.SWAMP;
-		else if (state == GridElementState.MOUNTAIN)
-			this.state = GridElementState.MOUNTAIN;
-		
+		}
+		this.state = state;
 
 
 		this.setChanged();
