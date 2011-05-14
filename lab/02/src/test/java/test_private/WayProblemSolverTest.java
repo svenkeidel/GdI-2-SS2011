@@ -8,9 +8,9 @@ import java.util.Vector;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import datamodel.Grid;
@@ -33,8 +33,7 @@ import logic.algorithm.Algos;
  */ 
 public class WayProblemSolverTest {
 	private static final Logger logger =
-		Logger.getRootLogger();
-
+		Logger.getLogger(WayProblemSolverTest.class);
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
@@ -78,12 +77,18 @@ public class WayProblemSolverTest {
 		grid.getElementAt(1, 1).setState(START);
 		grid.getElementAt(1, 2).setState(START);
 		grid.getElementAt(3, 3).setState(END);
+
 		try {
 			solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.Moore), null, grid, 0);
-			fail("A invalid playfield with 2 starts was accepted");
 		} catch (Exception e) {
-			// Everything goes right
+			fail(e.getMessage());
 		}
+
+		int starts = 0;
+		for(GridElement e : grid.getKnodes())
+			if(e.getState() == START)
+				starts++;
+		assertEquals("A wrong number of starts accepted", starts, 1);
 	}
 
 	@Test
@@ -94,12 +99,18 @@ public class WayProblemSolverTest {
 		grid.getElementAt(1, 1).setState(START);
 		grid.getElementAt(3, 3).setState(END);
 		grid.getElementAt(3, 4).setState(END);
+
 		try {
 			solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.Moore), null, grid, 0);
-			fail("A invalid playfield with 2 ends was accepted");
 		} catch (Exception e) {
-			// Everything goes right
+			fail(e.getMessage());
 		}
+
+		int ends = 0;
+		for(GridElement e : grid.getKnodes())
+			if(e.getState() == START)
+				ends++;
+		assertEquals("A wrong number of ends accepted", ends, 1);
 	}
 
 	@Test
@@ -107,11 +118,12 @@ public class WayProblemSolverTest {
 		grid = new Grid(5, 5, null);
 		for(GridElement e : grid.getKnodes())
 			e.setState(BLOCKED);
+
 		try {
 			solver = new WayProblemSolver(AlgorithmFactory.getAlgorithm(Algos.Moore), null, grid, 0);
-			fail("A invalid playfield with no start and end was accepted");
+			assertFalse(solver.solve());
 		} catch (Exception e) {
-			// Everything goes right
+			fail(e.getMessage());
 		}
 	}
 

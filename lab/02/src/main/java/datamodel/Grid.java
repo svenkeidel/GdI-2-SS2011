@@ -8,8 +8,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
-
 /**
  * Holds the grid data structure<br>
  * notifies observer if necessary
@@ -19,11 +17,6 @@ import org.apache.log4j.Logger;
  *
  */
 public class Grid extends Observable {
-	private static final Logger logger = Logger.getLogger(Grid.class);
-
-
-	private static final Exception InvalidEndorStartException = null;
-
 
 	private GridElement[][] grid;
 	private int rows;
@@ -39,6 +32,8 @@ public class Grid extends Observable {
 	 * @param observer
 	 */
 	public Grid(int rows, int columns, Observer observer) {
+		GridElement.resetStartEnd();
+
 		if (rows > 0 && columns > 0) {
 			this.rows = rows;
 			this.columns = columns;
@@ -63,20 +58,7 @@ public class Grid extends Observable {
 	 */
 	public Grid(Grid grid, Observer observer){
 		this(grid.getRows(), grid.getColumns(), observer);
-		int counterstart = 0;
-		int counterend = 0;
-		for (int n = 0; n < rows; n++){
-			for (int k = 0; k < columns; k++){
-				if (getElementAt(n, k).getState() == GridElementState.START){
-					counterstart++;
-				} else if (getElementAt(n, k).getState() == GridElementState.END){
-					counterend++;
-				}
-			}
-		}
-		if (counterstart > 1 || counterend > 1){
-			//TODO
-		}
+
 		// preset the state
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
