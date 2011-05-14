@@ -10,8 +10,12 @@ import gui.GridWindow;
  * Questions (see exercise sheet for English version)
  *
  * Frage 1: Warum ist es mögich das Wegproblem mit Moore zu lösen, obwohl das Kantengewicht 4 beträgt?
+ * 
+ * Der Moore-Algorithmus kommt nicht mit unterschiedlichen Kantengewichten zurecht, da er eine einfach Breitensuche darstellt.
+ * Daraus folgt, dass er bei unterschiedlichen Kantengewichten Wege auswählt, die die kleinste Anzahl an "Tiefen" haben, 
+ * auch wenn es potenziell Wege gibt deren kumuliertes Kantengewicht niedriger ist. 
+ * Besitzt also jede Kante in dem Grid das gleiche Gewicht, ist es nicht relevant ob diese 1, 4 oder zB. 250 ist.
  *
- * TODO: answer
  *
  * Frage 2: Welchen Fehler hat ihr Kommilitone gemacht? Warum findet sein A*- Algorithmus keinen optimalen Weg?
  *
