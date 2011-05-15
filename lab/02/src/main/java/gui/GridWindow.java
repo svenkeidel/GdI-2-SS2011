@@ -304,7 +304,12 @@ public class GridWindow extends JFrame {
 	
 	protected void updateTolerance(){
 		A_Star_Tolerance TOL = (A_Star_Tolerance) this.toleranceMenu.getSelectedItem();
+		
+		if (TOL == A_Star_Tolerance.AUTO)
+			Grid.setAutoStatus(true);
+		else
 		A_Star.setTolerance(TOL.getValue());
+			Grid.setAutoStatus(false);
 	}
 	
 	

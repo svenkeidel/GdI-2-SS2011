@@ -9,16 +9,18 @@ package logic.algorithm;
 *
 */
 public enum A_Star_Tolerance {
+	
+	AUTO(007),
 
-	VERYLOW(5.5),
+	VERYLOW(10),
 
-	LOW(4),
+	LOW(8),
 
-	MID(3),
+	MID(4),
 
-	HIGH(2),
+	HIGH(1),
 
-	VERYHIGH(0.75);
+	VERYHIGH(0.50);
 
 
 	private double value;
@@ -44,6 +46,8 @@ public enum A_Star_Tolerance {
 
 	public String toString() {
 		switch (this) {
+		case AUTO:
+			return "dynamic";
 		case VERYLOW:
 			return "very low";
 		case LOW:
@@ -62,15 +66,15 @@ public enum A_Star_Tolerance {
 	public static double getToleranceValue(A_Star_Tolerance tol) {
 		switch (tol) {
 		case VERYLOW:
-			return 5.5;
+			return 10;
 		case LOW:
-			return 4;
+			return 8;
 		case MID:
-			return 3;
+			return 4;
 		case HIGH:
-			return 2;
+			return 1;
 		case VERYHIGH:
-			return 0.75;
+			return 0.5;
 		default:
 			return 3;
 		}

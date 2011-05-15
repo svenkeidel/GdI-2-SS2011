@@ -11,6 +11,7 @@ import datamodel.GridElement;
 import datamodel.UpdateEvent;
 import static datamodel.GridElementAlgoState.*;
 
+import logic.algorithm.A_Star;
 import logic.algorithm.Algorithm;
 
 /**
@@ -90,6 +91,9 @@ public class WayProblemSolver extends Observable {
 			return false;
 		}
 
+		//if (Grid.getAutoStatus()){
+		A_Star.setTolerance(grid.getLowestWeight());
+	//	}
 		// init the algorithm
 		algorithm.init(grid);
 
