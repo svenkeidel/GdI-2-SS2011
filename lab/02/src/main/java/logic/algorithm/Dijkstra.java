@@ -1,6 +1,6 @@
 package logic.algorithm;
 
-import java.util.Collection;
+
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Vector;
@@ -19,7 +19,6 @@ public class Dijkstra implements Algorithm {
 	private Grid grid;
 	private PriorityQueue<GridElement> reachableKnodes;
 	private GridElement startKnode, endKnode;
-	private Collection<GridElement> neighbors;
 
 	public void init(Grid grid) {
 		logger.info("Initialize "+this.getClass().toString());

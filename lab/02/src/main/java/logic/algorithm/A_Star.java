@@ -2,16 +2,16 @@ package logic.algorithm;
 
 import java.util.Comparator;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import datamodel.GridElement;
-import gui.GridWindow;
 
 public class A_Star extends Dijkstra {
-	private static final Logger logger = Logger.getLogger(A_Star.class);
+	// private static final Logger logger = Logger.getLogger(A_Star.class);
 
 	public static final int INFINITE = Integer.MAX_VALUE;
 	public static final int MINUS_INFINITE = Integer.MIN_VALUE;
+	public static double tolerance = A_Star_Tolerance.VERYLOW.getValue();
 
 	protected Comparator<GridElement> getComparator() {
 		return new Comparator<GridElement> () {
@@ -33,9 +33,13 @@ public class A_Star extends Dijkstra {
 					return MINUS_INFINITE;*/
 				
 				//logger.debug("("+GridWindow.get_A_Star_Tol()+")");
-				return new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance()*GridWindow.get_A_Star_Tol())
-					 - ((double)o2.getDistance() + o2.getLinearDistance()*GridWindow.get_A_Star_Tol()))).intValue();
+				return new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance()*tolerance)
+					 - ((double)o2.getDistance() + o2.getLinearDistance()*tolerance))).intValue();
 			}
 		};
+	}
+	
+	public static void setTolerance(double tol){
+		tolerance = tol;
 	}
 }

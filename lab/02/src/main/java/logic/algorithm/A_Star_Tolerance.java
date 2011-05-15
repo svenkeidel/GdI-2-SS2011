@@ -3,10 +3,9 @@ package logic.algorithm;
 
 
 /**
- * The enum for all algorithms.
+ * The enum for Tolerance-Levels.
 *
-* @author Jakob Karolus, Kevin Munk
-* @version 1.0
+* 
 *
 */
 public enum A_Star_Tolerance {
@@ -27,16 +26,16 @@ public enum A_Star_Tolerance {
 	/**
 	 * constructor
 	 *
-	 * @param wayCost the wayCost of this state
+	 * @param value value of tolerance level
 	 */
 	A_Star_Tolerance(double value) {
 		this.value = value;
 	}
 
 	/**
-	 * return the state the user can choose via GUI
+	 * return the levels the user can choose via GUI
 	 *
-	 * @return array which contains the states
+	 * @return array which contains the levels
 	 */
 	public static A_Star_Tolerance[] getGUIValues() {
 		return A_Star_Tolerance.values();
@@ -78,7 +77,7 @@ public enum A_Star_Tolerance {
 	}
 
 	/**
-	 * @return the wayCost
+	 * @return the value
 	 */
 	public double getValue() {
 		return value;
