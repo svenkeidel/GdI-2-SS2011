@@ -91,6 +91,10 @@ public class GridElementGUI extends JButton {
 			this.setBackground(Color.RED);
 			break;
 		}
+		case HIGHWAY: {
+			this.setBackground(new Color(30, 144, 255));
+			break;
+		}
 		default:
 			this.setBackground(Color.WHITE);
 		}

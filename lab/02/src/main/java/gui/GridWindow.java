@@ -14,6 +14,7 @@ import java.security.InvalidAlgorithmParameterException;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,6 +25,7 @@ import datamodel.GridElementState;
 import logic.WayProblemSolver;
 import logic.algorithm.AlgorithmFactory;
 import logic.algorithm.Algos;
+import logic.algorithm.A_Star_Tolerance;
 
 /**
  * provides UI to allow the user to interact with the application
@@ -40,6 +42,7 @@ public class GridWindow extends JFrame {
 	private JButton generateField;
 	private GridPanel gridPanel;
 	private JComboBox toggleMenu;
+	private static JComboBox toleranceMenu;
 	private JButton solveButton;
 	private JButton cleanButton;
 
@@ -67,6 +70,12 @@ public class GridWindow extends JFrame {
 				}
 			});
 
+		GridWindow.toleranceMenu = new JComboBox(A_Star_Tolerance.getGUIValues());
+		GridWindow.toleranceMenu.setSelectedIndex(0);
+	
+		
+	
+		
 		this.generateField = new JButton("Generate");
 		this.generateField.addActionListener(new ActionListener() {
 
@@ -99,12 +108,14 @@ public class GridWindow extends JFrame {
 				clean();
 			}
 		});
+		
 
 		// panels
 		this.northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.northPanel.add(this.algosList);
-		this.northPanel.add(this.generateField);
+		this.northPanel.add(GridWindow.toleranceMenu);
 		this.northPanel.add(this.toggleMenu);
+		this.northPanel.add(this.generateField);
 		this.northPanel.add(this.solveButton);
 		this.northPanel.add(this.cleanButton);
 
@@ -287,4 +298,11 @@ public class GridWindow extends JFrame {
 	
 
 	public void updateToggleMenu(){}
+	
+	public static double get_A_Star_Tol(){
+		return A_Star_Tolerance.getToleranceValue((A_Star_Tolerance) toleranceMenu.getSelectedItem());
+		// set to return 5 to complete the A*-test - working on solution
+		//return 5;
+		}
+	
 }

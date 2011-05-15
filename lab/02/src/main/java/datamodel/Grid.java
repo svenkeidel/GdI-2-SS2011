@@ -219,6 +219,9 @@ public class Grid extends Observable {
 					case END:
 						sb.append("e");
 						break;
+					case HIGHWAY:
+						sb.append("h");
+						break;
 					case START:
 						sb.append("s");
 						break;

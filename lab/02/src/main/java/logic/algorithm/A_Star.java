@@ -5,6 +5,7 @@ import java.util.Comparator;
 import org.apache.log4j.Logger;
 
 import datamodel.GridElement;
+import gui.GridWindow;
 
 public class A_Star extends Dijkstra {
 	private static final Logger logger = Logger.getLogger(A_Star.class);
@@ -22,17 +23,18 @@ public class A_Star extends Dijkstra {
 				//logger.debug(new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance())
 					 //- ((double)o2.getDistance() + o2.getLinearDistance()))).intValue());
 				//logger.debug("");
-				if(o1.getDistance() == INFINITE && o1.getDistance() == INFINITE)
+				/*if(o1.getDistance() == INFINITE && o1.getDistance() == INFINITE)
 					return new Long(Math.round(o1.getLinearDistance() - o2.getLinearDistance())).intValue();
 
 				if(o1.getDistance() == INFINITE)
 					return INFINITE;
 
 				if(o2.getDistance() == INFINITE)
-					return MINUS_INFINITE;
-
-				return new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance())
-					 - ((double)o2.getDistance() + o2.getLinearDistance()))).intValue();
+					return MINUS_INFINITE;*/
+				
+				//logger.debug("("+GridWindow.get_A_Star_Tol()+")");
+				return new Long(Math.round(((double)o1.getDistance() + o1.getLinearDistance()*GridWindow.get_A_Star_Tol())
+					 - ((double)o2.getDistance() + o2.getLinearDistance()*GridWindow.get_A_Star_Tol()))).intValue();
 			}
 		};
 	}

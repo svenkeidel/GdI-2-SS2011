@@ -80,13 +80,17 @@ public class Dijkstra implements Algorithm {
 				neighborWeight = weights.get(neighbors.indexOf(neighbor));
 
 				if(neighbor.getAlgoState() != LOOKED_AT) {
-					if(neighbor.getDistance() == INFINITE)
-						reachableKnodes.offer(neighbor);
-
-					if(nearest.getDistance() + neighborWeight < neighbor.getDistance()) {
+					
+					if(neighbor.getDistance() == INFINITE){
 						neighbor.setDistance(nearest.getDistance() + neighborWeight);
 						neighbor.setPath(nearest);
-					}
+						reachableKnodes.offer(neighbor);
+						}
+					
+					if(nearest.getDistance() + neighborWeight < neighbor.getDistance()) {
+						neighbor.setDistance(nearest.getDistance() + neighborWeight);
+						neighbor.setPath(nearest);}
+					
 				}
 			}
 
