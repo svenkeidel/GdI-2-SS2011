@@ -19,12 +19,16 @@ import gui.GridWindow;
  *
  * Frage 2: Welchen Fehler hat ihr Kommilitone gemacht? Warum findet sein A*- Algorithmus keinen optimalen Weg?
  *
- * TODO: answer
+ * Der Kommiltone hat die Gewichtung der heuristischen Komponente bei der Sortierung seiner Open-List zu hoch gewählt.
  *
  * Frage 3: Wie hat ihr Kommilitone versucht das Problem zu lösen? Was ist dabei mit seinem
  * A*- Algorithmus passiert? Was hätte er besser machen können? Diskutieren Sie mögliche Lösungsansätze!
  *
- * TODO: answer
+ * Er muss die Breitensuche des A*-Algorithmus verbessern indem er die Gewichtung der heuristische Komponente bei der
+ * Sortierung seiner Open-List reduziert. Dadurch werden mehr Felder in Betracht gezogen, da sie in der Open-List aufgrund
+ * ihrer angepassten Priorität näher an andere Elemte ranrücken.
+ * Eine andere Möglichkeit wäre die Heuristik dynamisch an die Beschaffenheit des Feldes (durchschittliche Kantenlänge im Feld, Luftlinien-
+ * abstandsverringerung etc.) anzupassen.
  */
 
 /**
