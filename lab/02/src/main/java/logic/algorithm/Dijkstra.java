@@ -1,28 +1,22 @@
 package logic.algorithm;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Vector;
-
-import org.apache.log4j.Logger;
 
 import datamodel.Grid;
 import datamodel.GridElement;
 import static datamodel.GridElementAlgoState.*;
 
 public class Dijkstra implements Algorithm {
-	private static final Logger logger = Logger.getLogger(Dijkstra.class);
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
 	private Grid grid;
 	private PriorityQueue<GridElement> reachableKnodes;
 	private GridElement startKnode, endKnode;
-	private Collection<GridElement> neighbors;
 
 	public void init(Grid grid) {
-		logger.info("Initialize "+this.getClass().toString());
 
 		this.grid = grid;
 		this.startKnode = grid.getStartElement();

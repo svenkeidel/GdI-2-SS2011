@@ -6,15 +6,10 @@ import java.util.Vector;
 import static datamodel.GridElementState.*;
 import static datamodel.GridElementAlgoState.*;
 
-import org.apache.log4j.Logger;
-
-//import org.apache.log4j.Logger;
-
 import datamodel.Grid;
 import datamodel.GridElement;
 
 public class A_Star extends Dijkstra {
-	private static final Logger logger = Logger.getLogger(A_Star.class);
 
 	private static double tolerance;
 

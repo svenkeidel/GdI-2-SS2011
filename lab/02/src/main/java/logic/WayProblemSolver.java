@@ -4,8 +4,6 @@ import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.apache.log4j.Logger;
-
 import datamodel.Grid;
 import datamodel.GridElement;
 import datamodel.UpdateEvent;
@@ -22,8 +20,6 @@ import logic.algorithm.Algorithm;
  *
  */
 public class WayProblemSolver extends Observable {
-	private static final Logger logger =
-		Logger.getLogger(WayProblemSolver.class);
 
 	private Algorithm algorithm;
 	private Grid grid;
@@ -142,9 +138,6 @@ public class WayProblemSolver extends Observable {
 		do {
 			v.setAlgoState(PATH);
 		} while((v = v.getPath()) != null);
-
-		logger.info("Solution:");
-		logger.info(grid.toString());
 	}
 
 	/**

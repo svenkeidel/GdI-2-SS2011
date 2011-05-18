@@ -5,10 +5,6 @@ package test_private;
 
 import java.util.Vector;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,8 +27,6 @@ import logic.algorithm.Algos;
  *
  */ 
 public class WayProblemSolverTest {
-	private static final Logger logger =
-		Logger.getLogger(WayProblemSolverTest.class);
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
@@ -40,11 +34,6 @@ public class WayProblemSolverTest {
 	private Vector<GridElement> neighbors;
 	private Vector<Integer> wayCosts;
 	private Grid grid;
-
-	public WayProblemSolverTest() {
-		BasicConfigurator.configure();
-		logger.setLevel(Level.DEBUG);
-	}
 
 	@Before
 	public void before() {

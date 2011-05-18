@@ -7,14 +7,11 @@ import java.util.Vector;
 
 import datamodel.Grid;
 import datamodel.GridElement;
-import org.apache.log4j.Logger;
-
 
 public class Moore implements Algorithm {
 
 	private Grid grid;
 	private GridElement startKnode, endKnode;
-	private static final Logger logger = Logger.getLogger(Moore.class);
 	public final static int INFINITE = Integer.MAX_VALUE;
 	
 	private Vector<GridElement> neighbors = new Vector<GridElement>();
@@ -23,8 +20,6 @@ public class Moore implements Algorithm {
 	
 	
 	public void init(Grid grid) {
-		
-		logger.info("Initialize "+this.getClass().toString());
 		this.grid = grid;
 		this.startKnode = grid.getStartElement();
 		this.endKnode   = grid.getEndElement();
