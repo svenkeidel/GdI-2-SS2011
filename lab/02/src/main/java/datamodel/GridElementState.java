@@ -26,6 +26,8 @@ public enum GridElementState {
 	 * a mountain
 	 */
 	MOUNTAIN(10),
+	
+	HIGHWAY(1),
 
 	/**
 	 * a GridElement which is part of an obstacle
@@ -66,19 +68,21 @@ public enum GridElementState {
 	public String toString() {
 		switch (this) {
 		case FREE:
-			return "free";
+			return "Free";
 		case BLOCKED:
-			return "blocked";
+			return "Blocked";
 		case SWAMP:
-			return "swamp";
+			return "Swamp";
 		case MOUNTAIN:
-			return "mountain";
+			return "Mountain";
 		case START:
 			return "Start";
+		case HIGHWAY:
+			return "Highway";
 		case END:
 			return "End";
 		default:
-			return "free";
+			return "Free";
 		}
 	}
 

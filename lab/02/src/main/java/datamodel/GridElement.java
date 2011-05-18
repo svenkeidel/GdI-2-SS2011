@@ -146,6 +146,9 @@ public class GridElement extends Observable {
 		if (getState() == GridElementState.MOUNTAIN){
 			return 10;
 		}
+		if (getState() == GridElementState.HIGHWAY){
+			return 1;
+		}
 		if (getState() == GridElementState.BLOCKED){
 			return INFINITE;
 		}

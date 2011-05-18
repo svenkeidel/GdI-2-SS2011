@@ -3,7 +3,6 @@
  */
 package gui;
 
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,8 +21,10 @@ import datamodel.GridElement;
 import datamodel.GridElementState;
 
 import logic.WayProblemSolver;
+import logic.algorithm.A_Star;
 import logic.algorithm.AlgorithmFactory;
 import logic.algorithm.Algos;
+import logic.algorithm.A_Star_Tolerance;
 
 /**
  * provides UI to allow the user to interact with the application
@@ -40,6 +41,7 @@ public class GridWindow extends JFrame {
 	private JButton generateField;
 	private GridPanel gridPanel;
 	private JComboBox toggleMenu;
+	private JComboBox toleranceMenu;
 	private JButton solveButton;
 	private JButton cleanButton;
 
@@ -59,14 +61,20 @@ public class GridWindow extends JFrame {
 
 		// buttons, lists
 		this.algosList = new JComboBox(Algos.values());
-		this.algosList.setSelectedIndex(0);
-		this.algosList.addActionListener(new ActionListener(){
-		@Override
-			public void actionPerformed(ActionEvent e) {
-				updateToggleMenu();
-				}
-			});
+		this.algosList.setSelectedIndex(1);
 
+		toleranceMenu = new JComboBox(A_Star_Tolerance.getGUIValues());
+		toleranceMenu.setSelectedIndex(0);
+		toleranceMenu.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			updateTolerance();
+			}
+		});
+	
+		
+	
+		
 		this.generateField = new JButton("Generate");
 		this.generateField.addActionListener(new ActionListener() {
 
@@ -99,12 +107,14 @@ public class GridWindow extends JFrame {
 				clean();
 			}
 		});
+		
 
 		// panels
 		this.northPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		this.northPanel.add(this.algosList);
-		this.northPanel.add(this.generateField);
+		this.northPanel.add(this.toleranceMenu);
 		this.northPanel.add(this.toggleMenu);
+		this.northPanel.add(this.generateField);
 		this.northPanel.add(this.solveButton);
 		this.northPanel.add(this.cleanButton);
 
@@ -285,6 +295,18 @@ public class GridWindow extends JFrame {
 		JOptionPane.showMessageDialog(this, "You must select at least a start and end element", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
-
-	public void updateToggleMenu(){}
+	
+	protected void updateTolerance(){
+		A_Star_Tolerance TOL = (A_Star_Tolerance) this.toleranceMenu.getSelectedItem();
+		
+		if (TOL == A_Star_Tolerance.AUTO) {
+			Grid.setAutoStatus(true);
+		} else {
+			A_Star.setTolerance(TOL.getValue());
+			Grid.setAutoStatus(false);
+		}
+	}
+	
+	
+	
 }

@@ -21,6 +21,7 @@ public class Grid extends Observable {
 	private GridElement[][] grid;
 	private int rows;
 	private int columns;
+	private static boolean auto_status = true;
 
 	/**
 	 * Initiates the grid with the specified height and width.
@@ -219,6 +220,9 @@ public class Grid extends Observable {
 					case END:
 						sb.append("e");
 						break;
+					case HIGHWAY:
+						sb.append("h");
+						break;
 					case START:
 						sb.append("s");
 						break;
@@ -307,7 +311,31 @@ public class Grid extends Observable {
 		return sb.toString();
 	}
 	
+	public int getLowestWeight(){
+		int lowest = Integer.MAX_VALUE;
+		
+		for (int i = 0; i < grid.length; i++){
+			for (int j = 0; j < grid[0].length; j++){
+				GridElementState state =  grid[i][j].getState();
+				
+				if (state != GridElementState.START && state != GridElementState.END){
+		
+				if (grid[i][j].getWeight() < lowest){
+					lowest = grid[i][j].getWeight();
+					}
+				}
+			}
+		}
+		return lowest;
+	}
 	
+	public static void setAutoStatus(boolean astatus){
+		auto_status = astatus;
+	}
+	
+	public static boolean getAutoStatus(){
+		return auto_status;
+	}
 	
 	/**
 	 * class, which encapsulates the neighbors of a GridElement
