@@ -1,6 +1,6 @@
 package logic.algorithm;
 
-
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Vector;
@@ -19,6 +19,7 @@ public class Dijkstra implements Algorithm {
 	private Grid grid;
 	private PriorityQueue<GridElement> reachableKnodes;
 	private GridElement startKnode, endKnode;
+	private Collection<GridElement> neighbors;
 
 	public void init(Grid grid) {
 		logger.info("Initialize "+this.getClass().toString());
@@ -79,17 +80,13 @@ public class Dijkstra implements Algorithm {
 				neighborWeight = weights.get(neighbors.indexOf(neighbor));
 
 				if(neighbor.getAlgoState() != LOOKED_AT) {
-					
-					if(neighbor.getDistance() == INFINITE){
-						neighbor.setDistance(nearest.getDistance() + neighborWeight);
-						neighbor.setPath(nearest);
+					if(neighbor.getDistance() == INFINITE)
 						reachableKnodes.offer(neighbor);
-						}
-					
+
 					if(nearest.getDistance() + neighborWeight < neighbor.getDistance()) {
 						neighbor.setDistance(nearest.getDistance() + neighborWeight);
-						neighbor.setPath(nearest);}
-					
+						neighbor.setPath(nearest);
+					}
 				}
 			}
 

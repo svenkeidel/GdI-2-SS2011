@@ -21,7 +21,7 @@ public class Grid extends Observable {
 	private GridElement[][] grid;
 	private int rows;
 	private int columns;
-	private static boolean auto_status;
+	private static boolean auto_status = true;
 
 	/**
 	 * Initiates the grid with the specified height and width.

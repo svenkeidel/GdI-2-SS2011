@@ -62,12 +62,6 @@ public class GridWindow extends JFrame {
 		// buttons, lists
 		this.algosList = new JComboBox(Algos.values());
 		this.algosList.setSelectedIndex(1);
-		this.algosList.addActionListener(new ActionListener(){
-		@Override
-			public void actionPerformed(ActionEvent e) {
-					//TODO:togglemenu filter and refresh
-				}
-			});
 
 		toleranceMenu = new JComboBox(A_Star_Tolerance.getGUIValues());
 		toleranceMenu.setSelectedIndex(0);
@@ -305,11 +299,12 @@ public class GridWindow extends JFrame {
 	protected void updateTolerance(){
 		A_Star_Tolerance TOL = (A_Star_Tolerance) this.toleranceMenu.getSelectedItem();
 		
-		if (TOL == A_Star_Tolerance.AUTO)
+		if (TOL == A_Star_Tolerance.AUTO) {
 			Grid.setAutoStatus(true);
-		else
-		A_Star.setTolerance(TOL.getValue());
+		} else {
+			A_Star.setTolerance(TOL.getValue());
 			Grid.setAutoStatus(false);
+		}
 	}
 	
 	
