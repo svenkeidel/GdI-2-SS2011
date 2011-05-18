@@ -12,9 +12,9 @@ public class Dijkstra implements Algorithm {
 
 	public final static int INFINITE = Integer.MAX_VALUE;
 
-	private Grid grid;
-	private PriorityQueue<GridElement> reachableKnodes;
-	private GridElement startKnode, endKnode;
+	protected Grid grid;
+	protected PriorityQueue<GridElement> reachableKnodes;
+	protected GridElement startKnode, endKnode;
 
 	public void init(Grid grid) {
 
