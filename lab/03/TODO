@@ -1,0 +1,41 @@
+So leute,
+
+Aufgaben für das Praktikum 3
+============================
+* Sequential Tree
+* Linked Tree
+* Rucksack
+* equals methoden
+* createRucksackTree() mit zwei Parametern
+* createRucksackTree() mit drei Parametern
+* findOptimalRucksack()
+* Filterfunktion für createRucksackTree
+
+hier mein Vorschlag zur Aufgabenverteilung
+==========================================
+* 3 Models, das schreit schon danach, dass jeder von uns eins bearbeitet
+* die equals Methoden schreibt dann jeder für sein Model. Schaut mal in
+  java.lang.object.equals() nach was für Anforderungen an eine equals 
+  Methode gestell werden.
+* createRucksackTree() mit zwei Parametern (A3) Tim
+* findOptimalRucksack() (A4) Sven
+* Filterfunktion für createRucksackTree (A5) Seb
+* createRucksackTree() mit drei Parametern (A6), alle (der der noch energie hat)
+
+Zeitmanagement
+==============
+bis Donnerstag
+--------------
+* Sequential Tree
+* Linked Tree
+* Rucksack
+* equals methoden
+
+bis Freitag
+-----------
+* findOptimalRucksack()
+* createRucksackTree() mit zwei Parametern
+
+bis Montag
+----------
+* Filterfunktion für createRucksackTree
