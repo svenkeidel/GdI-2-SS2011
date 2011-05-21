@@ -24,6 +24,11 @@ public class SequentialTreeNode extends TreeNode {
 		super(rucksack);
 	}
 	
-	//TODO: add methods, attributes if necessary
-	
+	public SequentialTreeNode(int weight, int value) {
+		super(weight, value);
+	}
+
+	public SequentialTreeNode(Rucksack rucksack, int weight, int value) {
+		super(rucksack, weight, value);
+	}
 }

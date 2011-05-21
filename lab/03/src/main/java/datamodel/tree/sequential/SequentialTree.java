@@ -5,6 +5,8 @@ package datamodel.tree.sequential;
 
 import java.util.Vector;
 
+import org.apache.log4j.Logger;
+
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
@@ -17,6 +19,27 @@ import datamodel.tree.TreeNode;
  * 
  */
 public class SequentialTree extends Tree {
+	private static final Logger logger =
+		Logger.getLogger(SequentialTree.class);
+
+
+	private Vector<TreeNode> nodes;
+	private int depth;
+	private TreeNode rootNode;
+
+	private TreeNode currentNode;
+	private int currentPosition;
+
+	/**
+	 * Constructor: Creates an empty sequential tree
+	 */
+	public SequentialTree() {
+		this.nodes = new Vector<TreeNode>(1);
+		this.rootNode = null;
+		this.currentNode = null;
+		this.currentPosition = 0;
+		this.depth = 0;
+	}
 
 	/**
 	 * Moves to the left child of the current node
@@ -25,8 +48,13 @@ public class SequentialTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToLeftNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if(hasLeftNode()) {
+			currentPosition = 2 * currentPosition + 1;
+			currentNode = nodes.get(currentPosition);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -36,8 +64,13 @@ public class SequentialTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToRightNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if(hasRightNode()) {
+			currentPosition = 2 * currentPosition + 2;
+			currentNode = nodes.get(currentPosition);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -47,32 +80,78 @@ public class SequentialTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToParentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if(hasParentNode()) {
+			currentPosition = getParentPosition();
+			currentNode = nodes.get(currentPosition);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @return true if a nodes exists at the specified position
+	 */
+	private boolean nodeExists(int position) {
+		if(position >= 0 && position < nodes.size() && nodes.get(position) != null)
+			return true;
+		else
+			return false;
 	}
 
 	/**
 	 * @return true if left child exists; otherwise false
 	 */
 	public boolean hasLeftNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return nodeExists(2 * currentPosition + 1);
 	}
 
 	/**
 	 * @return true if right child exists; otherwise false
 	 */
 	public boolean hasRightNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return nodeExists(2 * currentPosition + 2);
+	}
+
+	/**
+	 * @return the parent position of the current node
+	 */
+	public int getParentPosition() {
+		if(currentPosition == 0)
+			return -1;
+		else
+			return currentPosition % 2 == 0 ? currentPosition / 2 - 1 : currentPosition / 2;
 	}
 
 	/**
 	 * @return true if parent exists; otherwise false
 	 */
 	public boolean hasParentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return nodeExists(getParentPosition());
+	}
+
+	/**
+	 * Sets a node at the specified position, if the node opens a new
+	 * depth of the tree, the vector is expanded to hold the new node.
+	 *
+	 * @return true if successful; otherwise false (no root set)
+	 *
+	 */
+	private boolean setNodeAt(TreeNode node, int newPosition) {
+		if(currentNode != null) {
+			int size    = nodes.size();
+
+			// if the node opens a new depth
+			if(newPosition >= size) {
+				depth++;
+				nodes.setSize(size + new Long((long)Math.pow(2, depth)).intValue());
+			}
+
+			nodes.insertElementAt(node, newPosition);
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -82,8 +161,7 @@ public class SequentialTree extends Tree {
 	 * 
 	 */
 	public boolean setLeftNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return setNodeAt(node, 2 * currentPosition + 1);
 	}
 
 	/**
@@ -93,8 +171,7 @@ public class SequentialTree extends Tree {
 	 * 
 	 */
 	public boolean setRightNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return setNodeAt(node, 2 * currentPosition + 2);
 	}
 
 	/**
@@ -102,16 +179,18 @@ public class SequentialTree extends Tree {
 	 * 
 	 */
 	public void setCurrentNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if(currentPosition == 0) {
+			rootNode = node;
+			currentNode = rootNode;
+		}
+		setNodeAt(node, currentPosition);
 	}
 
 	/**
 	 * @return the current node or null if the tree is empty
 	 */
 	public TreeNode getCurrentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		return currentNode;
 	}
 
 	/**
@@ -120,8 +199,13 @@ public class SequentialTree extends Tree {
 	 * @return true if there's a root; otherwise false
 	 */
 	public boolean moveToRoot() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if(rootNode != null) {
+			currentNode = rootNode;
+			currentPosition = 0;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -129,8 +213,10 @@ public class SequentialTree extends Tree {
 	 * node
 	 */
 	public void clearTree() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		nodes.clear();
+		rootNode = null;
+		currentNode = null;
+		currentPosition = -1;
 	}
 	
 	/**
@@ -139,5 +225,12 @@ public class SequentialTree extends Tree {
 	public boolean equals(Object o) {
 		//TODO: Implement me
 		throw new UnsupportedOperationException("Implement Me");
+	}
+
+	public String toString() {
+		return "Sequential Tree:\n"
+			+ "size: "+nodes.size()+"\n"
+			+ "capacity: "+nodes.capacity()+"\n"
+			+ "elements: "+nodes.toString();
 	}
 }

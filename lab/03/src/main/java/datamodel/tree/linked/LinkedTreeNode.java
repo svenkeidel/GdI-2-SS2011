@@ -23,7 +23,11 @@ public class LinkedTreeNode extends TreeNode {
 		super(rucksack);
 	}
 
-	//TODO: add methods, attributes if necessary
+	public LinkedTreeNode(int weight, int value) {
+		super(weight, value);
+	}
 
-
+	public LinkedTreeNode(Rucksack rucksack, int weight, int value) {
+		super(rucksack, weight, value);
+	}
 }
