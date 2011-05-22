@@ -75,8 +75,12 @@ public abstract class TreeNode {
 
 	@Override
 	public boolean equals(Object o) {
-		// TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		if(o instanceof TreeNode) {
+			TreeNode other = (TreeNode) o;
+			return this.rucksack.equals(other.getRucksack());
+		} else {
+			return false;
+		}
 	}
 	
 }

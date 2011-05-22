@@ -229,6 +229,10 @@ public abstract class AbstractTreeTest {
 		assertTrue(tmp.equals(tree));
 		assertTrue(tmp.equals(tmp));
 		assertTrue(tree.equals(tree));
+
+		tmp.setRightNode(six);
+		assertFalse(tree.equals(tmp));
+		assertFalse(tmp.equals(tree));
 	}
 	
 }
