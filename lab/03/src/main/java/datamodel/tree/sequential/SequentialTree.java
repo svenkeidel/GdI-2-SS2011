@@ -147,6 +147,7 @@ public class SequentialTree extends Tree {
 				nodes.setSize(size + new Long((long)Math.pow(2, depth)).intValue());
 			}
 
+			nodes.remove(newPosition);
 			nodes.insertElementAt(node, newPosition);
 			return true;
 		} else {
