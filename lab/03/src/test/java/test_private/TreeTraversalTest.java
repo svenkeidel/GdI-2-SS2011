@@ -67,6 +67,7 @@ public class TreeTraversalTest {
 	}
 
 	private void checkOrder(int[] order) {
+		assertTrue(iterator.hasNext());
 		for(int i = 0; i < order.length; i++)
 			assertEquals(order[i], iterator.next().getValue());
 		assertFalse(iterator.hasNext());
