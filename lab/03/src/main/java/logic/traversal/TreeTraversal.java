@@ -1,17 +1,12 @@
 package logic.traversal;
 
 import java.util.Iterator;
-import java.util.Stack;
-
-import org.apache.log4j.Logger;
+import java.util.Vector;
 
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
-public abstract class TreeTraversal implements Iterable<TreeNode>, Iterator<TreeNode> {
-	private static final Logger logger =
-		Logger.getLogger(TreeTraversal.class);
-
+public abstract class TreeTraversal implements Iterable<TreeNode> {
 
 
 	/**
@@ -19,7 +14,10 @@ public abstract class TreeTraversal implements Iterable<TreeNode>, Iterator<Tree
 	 */
 	protected Tree tree;
 
-	protected Stack<Visited> visited;
+	/**
+	 *
+	 */
+	protected Vector<TreeNode> traverseVector;
 
 
 	/**
@@ -28,127 +26,57 @@ public abstract class TreeTraversal implements Iterable<TreeNode>, Iterator<Tree
 	 */
 	public TreeTraversal(Tree tree) {
 		this.tree = tree;
-		this.visited = new Stack<Visited>();
-		visited.push(new Visited());
+		this.traverseVector = new Vector<TreeNode>();
 	}
 
 
 	/**
 	 * Visits the left subtree of a node if it exists.
+	 * The currentNode pointer is left were it were.
 	 */
-	protected TreeNode visitLeftSubtree() {
-		if(!visited.peek().isVisitedLeft()) {
-
-			if(tree.hasLeftNode()) {
-				visited.peek().visitLeft();
-				tree.moveToLeftNode();
-				visited.push(new Visited());
-				return visitLeftSubtree();
-			} else {
-				TreeNode result = visitCurrentNode();
-				backtracking();
-				return result;
-			}
-
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Visits just the left node if it exists.
-	 */
-	protected TreeNode visitLeft() {
-		if(!visited.peek().isVisitedLeft() && tree.hasLeftNode()) {
-
-			visited.peek().visitLeft();
+	protected void visitLeftSubtree() {
+		if(tree.hasLeftNode()) {
 			tree.moveToLeftNode();
-			visited.push(new Visited());
-			return visitCurrentNode();
-
-		} else {
-
-			backtracking();
-			return null;
+			traverse();
+			tree.moveToParentNode();
 		}
 	}
+
 
 	/**
 	 * Visits the right subtree of a node if it exists.
+	 * The currentNode pointer is left were it were.
 	 */
-	protected TreeNode visitRightSubtree() {
-		if(!visited.peek().isVisitedRight()) {
-
-			if(tree.hasRightNode()) {
-				visited.peek().visitRight();
-				tree.moveToRightNode();
-				visited.push(new Visited());
-				return visitRightSubtree();
-			} else {
-				TreeNode result = visitCurrentNode();
-				backtracking();
-				return result;
-			}
-
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Visits just the right node if it exists.
-	 */
-	protected TreeNode visitRight() {
-		if(!visited.peek().isVisitedRight() && tree.hasRightNode()) {
-
-			visited.peek().visitRight();
+	protected void visitRightSubtree() {
+		if(tree.hasRightNode()) {
 			tree.moveToRightNode();
-			visited.push(new Visited());
-			return visitCurrentNode();
-
-		} else {
-
-			backtracking();
-			return null;
+			traverse();
+			tree.moveToParentNode();
 		}
 	}
+
 
 	/**
 	 * Visits the current node.
 	 * The currentNode pointer is left were it were.
 	 */
-	protected TreeNode visitCurrentNode() {
-		if(visited.peek().isVisitedCurrent()) {
-			return null;
-		} else {
-			logger.debug("visit node "+tree.getCurrentNode());
-			visited.peek().visitCurrent();
-			return tree.getCurrentNode();
-		}
+	protected void visitCurrentNode() {
+		traverseVector.add(tree.getCurrentNode());
 	}
 
-	protected void backtracking() {
-		if(!visited.isEmpty()) {
-			do {
-				tree.moveToParentNode();
-				visited.pop();
-				logger.debug("backtracking to node "+ tree.getCurrentNode());
-			} while (!visited.isEmpty() && visited.peek().isVisitedAll());
-		}
-	}
 
-	@Override
-	public boolean hasNext() {
-		return visited.size() == 1 && visited.peek().isVisitedAll(); 
-	}
+	/**
+	 * traverses over a tree with a concrete strategy and adds nodes to
+	 * a vector.
+	 */
+	protected abstract void traverse();
 
-	@Override
-	public void remove() {
-		throw new UnsupportedOperationException("Removing is not supported yet");
-	}
 
-	@Override
+	/**
+	 * returns a vector to iterate over.
+	 */
 	public Iterator<TreeNode> iterator() {
-		return this;
+		traverse();
+		return traverseVector.iterator();
 	}
 }

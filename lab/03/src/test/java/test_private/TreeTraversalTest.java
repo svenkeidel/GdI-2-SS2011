@@ -26,13 +26,11 @@ public class TreeTraversalTest {
 	 *       1     2
 	 *      / \   / \
 	 *     3   4 5   6
-	 *        / \
-	 *       7   8
 	 */
 	private static Tree tree;
 	
 	//Tree Elements
-	private static TreeNode root, one, two, three, four, five, six, seven, eight;
+	private static TreeNode root, one, two, three, four, five, six;
 
 	private Iterator<TreeNode> iterator;
 
@@ -49,8 +47,6 @@ public class TreeTraversalTest {
  		four  = new SequentialTreeNode(0, 4);
  		five  = new SequentialTreeNode(0, 5);
  		six   = new SequentialTreeNode(0, 6);
- 		seven = new SequentialTreeNode(0, 7);
- 		eight = new SequentialTreeNode(0, 8);
 
 		tree.setCurrentNode(root);
 		tree.setLeftNode(one);
@@ -58,9 +54,6 @@ public class TreeTraversalTest {
 		tree.moveToLeftNode();
 		tree.setLeftNode(three);
 		tree.setRightNode(four);
-		tree.moveToRightNode();
-		tree.setLeftNode(seven);
-		tree.setRightNode(eight);
 		tree.moveToRoot();
 		tree.moveToRightNode();
 		tree.setLeftNode(five);
@@ -72,7 +65,7 @@ public class TreeTraversalTest {
 	public void init() {
 		tree.moveToRoot();
 	}
-	
+
 	private void checkOrder(int[] order) {
 		for(int i = 0; i < order.length; i++)
 			assertEquals(order[i], iterator.next().getValue());
@@ -82,18 +75,18 @@ public class TreeTraversalTest {
 	@Test 
 	public void preorderTest() {
 		iterator = createPreorderIterator(tree);
-		checkOrder(new int[] {0, 1, 3, 4, 7, 8, 2, 5, 6});
+		checkOrder(new int[] {0, 1, 3, 4, 2, 5, 6});
 	}
 
 	@Test
 	public void inorderTest() {
 		iterator = createInorderIterator(tree);
-		checkOrder(new int[] {3, 1, 7, 4, 8, 0, 5, 2, 6});
+		checkOrder(new int[] {3, 1, 4, 0, 5, 2, 6});
 	}
 
 	@Test
 	public void postorderTest() {
 		iterator = createPostorderIterator(tree);
-		checkOrder(new int[] {3, 7, 8, 4, 1, 5, 6, 2, 0});
+		checkOrder(new int[] {3, 4, 1, 5, 6, 2, 0});
 	}
 }
