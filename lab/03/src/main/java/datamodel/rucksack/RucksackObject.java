@@ -14,6 +14,9 @@ package datamodel.rucksack;
 public class RucksackObject {
 
 	
+	private int value;
+	private int weight;
+
 	/**
 	 * constructor
 	 * 
@@ -21,10 +24,23 @@ public class RucksackObject {
 	 * @param weight the weight of this RucksackObject
 	 */
 	public RucksackObject(int value, int weight){
-		//TODO: implement
+		this.value = value;
+		this.weight = weight;
 	}
 
-	//TODO: add necessary methods for your implementation, f.e. getters
+	/**
+	 * @return the value of the RucksackObject.
+	 */
+	public int getValue(){
+		return this.value;
+	}
+	
+	/**
+	 * @return the weight of the RucksackObject.
+	 */
+	public int getWeight(){
+		return this.weight;
+	}
 
 
 }
