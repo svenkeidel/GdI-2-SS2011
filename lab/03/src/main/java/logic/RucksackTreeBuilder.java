@@ -8,6 +8,7 @@ import java.util.Vector;
 import datamodel.rucksack.Rucksack;
 import datamodel.rucksack.RucksackObject;
 import datamodel.tree.Tree;
+import datamodel.tree.TreeNode;
 import datamodel.tree.linked.LinkedTree;
 import datamodel.tree.sequential.SequentialTree;
 

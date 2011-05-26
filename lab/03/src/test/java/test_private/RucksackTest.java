@@ -67,8 +67,25 @@ public class RucksackTest {
 		rucksack.insert(o6);
 		Assert.assertEquals(131, rucksack.getWeightOfRucksack());
 		Assert.assertEquals(87, rucksack.getValueOfRucksack());
+		rucksack.removeAt(1);
+		Assert.assertEquals(126, rucksack.getWeightOfRucksack());
+		Assert.assertEquals(72, rucksack.getValueOfRucksack());
 		rucksack.removeAll();
-		Assert.assertEquals(0, rucksack.getValueOfRucksack());
 		Assert.assertEquals(0, rucksack.getWeightOfRucksack());
+		Assert.assertEquals(0, rucksack.getValueOfRucksack());
+	}
+	
+	@Test
+	public void equalssTest(){
+		rucksack.insert(o1);
+		Assert.assertTrue(rucksack.equals(rucksack));
+		Rucksack otherRucksack = new Rucksack(200);
+		otherRucksack.insert(o2);
+		Assert.assertFalse(rucksack.equals(otherRucksack));
+		otherRucksack.setCapacity(150);
+		otherRucksack.removeAll();
+		otherRucksack.insert(o1);
+		Assert.assertTrue(rucksack.equals(otherRucksack));
+		Assert.assertTrue(otherRucksack.equals(rucksack));
 	}
 }
