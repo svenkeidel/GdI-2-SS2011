@@ -76,7 +76,7 @@ public class RucksackTest {
 	}
 	
 	@Test
-	public void equalssTest(){
+	public void equalsTest(){
 		rucksack.insert(o1);
 		Assert.assertTrue(rucksack.equals(rucksack));
 		Rucksack otherRucksack = new Rucksack(200);
@@ -85,6 +85,15 @@ public class RucksackTest {
 		otherRucksack.setCapacity(150);
 		otherRucksack.removeAll();
 		otherRucksack.insert(o1);
+		Assert.assertTrue(rucksack.equals(otherRucksack));
+		Assert.assertTrue(otherRucksack.equals(rucksack));
+	}
+	
+	@Test
+	public void cloneTest(){
+		rucksack.insert(o1);
+		rucksack.insert(o2);
+		Rucksack otherRucksack = rucksack.clone();
 		Assert.assertTrue(rucksack.equals(otherRucksack));
 		Assert.assertTrue(otherRucksack.equals(rucksack));
 	}

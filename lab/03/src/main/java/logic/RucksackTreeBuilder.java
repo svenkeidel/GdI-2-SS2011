@@ -65,7 +65,9 @@ public class RucksackTreeBuilder {
 		tree.setCurrentNode(node);
 		if (!objects.isEmpty()){
 			setNodes(depth, objects);
-		} 
+		}
+		tree.moveToRoot();
+		tree.setCurrentNode(null);
 	}
 
 	/**
@@ -77,12 +79,13 @@ public class RucksackTreeBuilder {
 		int size = objects.size();
 
 		if (depth < size){
-			Rucksack rucksack = tree.getCurrentNode().getRucksack();
+			Rucksack rucksack = tree.getCurrentNode().getRucksack().clone();
 			TreeNode node = new TreeNode(rucksack) {};
 			tree.setLeftNode(node);
-			if (rucksack.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack.getCapacity()){
-				rucksack.insert(objects.elementAt(depth));
-				node = new TreeNode(rucksack) {};
+			Rucksack rucksack1 = rucksack.clone();
+			if (rucksack1.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack1.getCapacity()){
+				rucksack1.insert(objects.elementAt(depth));
+				node = new TreeNode(rucksack1) {};
 				tree.setRightNode(node);
 
 				// only if a right son was set

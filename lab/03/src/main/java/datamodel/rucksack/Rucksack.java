@@ -88,7 +88,6 @@ public class Rucksack {
 
 
 	/**
-	 * 
 	 * @param i
 	 * @return object at position i
 	 */
@@ -101,6 +100,19 @@ public class Rucksack {
 	}
 
 
+	public Rucksack clone(){
+		Rucksack r = new Rucksack(this.capacity);
+		for (int i = 0; i < objects.size(); i++){
+			r.insert(objects.elementAt(i));
+		}
+		return r;
+	}
+
+
+	/**
+	 * removes a element at a specific position i
+	 * @param i
+	 */
 	public void removeAt(int i){
 		if (i < objects.size()){
 			objects.remove(i);
