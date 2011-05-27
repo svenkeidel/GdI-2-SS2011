@@ -13,6 +13,8 @@ import datamodel.tree.TreeNode;
 import datamodel.tree.linked.LinkedTree;
 import datamodel.tree.sequential.SequentialTree;
 
+import logic.traversal.TreeTraversalFactory;
+
 /**
  * holds all necessary method to create trees, filter them and find optimal
  * rucksacks
@@ -124,8 +126,13 @@ public class RucksackTreeBuilder {
 	 *         root exists
 	 */
 	public Rucksack findOptimalRucksack() {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		Rucksack optimal = null;
+
+		for(TreeNode t : TreeTraversalFactory.createPreorder(tree))
+			if(optimal == null || t.getRucksack().getValueOfRucksack() > optimal.getValueOfRucksack())
+				optimal = t.getRucksack();
+
+		return optimal;
 	}
 
 	/**
