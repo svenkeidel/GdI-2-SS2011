@@ -3,6 +3,7 @@
  */
 package logic;
 
+import java.security.InvalidParameterException;
 import java.util.Vector;
 
 import datamodel.rucksack.Rucksack;
@@ -51,9 +52,47 @@ public class RucksackTreeBuilder {
 	 */
 	public void createRucksackTree(Vector<RucksackObject> objects, int capacity) {
 		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		int depth = 0;
+		Rucksack rucksack;
+		if (capacity >= 0)
+			rucksack = new Rucksack(capacity);
+		else
+			throw new InvalidParameterException("No legal capacity-value");
+		
+		TreeNode node = new TreeNode(rucksack) {};
+		tree.setCurrentNode(node);
+		if (!objects.isEmpty()){
+			setNodes(depth, objects);
+		} 
 	}
 
+	/**
+	 * rek. method to set all possible bags in nodes.
+	 * @param depth
+	 * @param objects
+	 */
+	public void setNodes(int depth, Vector<RucksackObject> objects){
+		int size = objects.size();
+
+		if (depth < size){
+			Rucksack rucksack = tree.getCurrentNode().getRucksack();
+			TreeNode node = new TreeNode(rucksack) {};
+			tree.setLeftNode(node);
+			if (rucksack.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack.getCapacity()){
+				rucksack.insert(objects.elementAt(depth));
+				node = new TreeNode(rucksack) {};
+				tree.setRightNode(node);
+
+				// only if a right son was set
+				tree.moveToRightNode();
+				setNodes(depth+1, objects);
+				tree.moveToParentNode();
+			}
+			tree.moveToLeftNode();
+			setNodes(depth+1, objects);
+		}
+	}
+	
 	/**
 	 * creates a tree out of the given RucksackObjects using the following
 	 * schematic:<br>

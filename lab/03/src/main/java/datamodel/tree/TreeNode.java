@@ -4,6 +4,7 @@
 package datamodel.tree;
 
 import datamodel.rucksack.Rucksack;
+import datamodel.rucksack.RucksackObject;
 
 /**
  * An abstract class for a tree node. Holds the rucksack
@@ -16,6 +17,7 @@ public abstract class TreeNode {
 	
 	private int weight, value;
 	private Rucksack rucksack;
+	private RucksackObject rucksackobject;
 	
 	/**
 	 * constructor
