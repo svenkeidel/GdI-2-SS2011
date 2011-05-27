@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import datamodel.rucksack.Rucksack;
+import datamodel.rucksack.RucksackObject;
+
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
@@ -40,7 +43,7 @@ public abstract class AbstractTreeTest {
 	 * Creates a concrete treenode with the specifed value
 	 */
 	public abstract TreeNode createTreeNode(int value);
-
+	public abstract TreeNode createTreeNode(Rucksack r);
 
 	private static boolean configured = false;
 
@@ -202,38 +205,40 @@ public abstract class AbstractTreeTest {
 
 	@Test
 	public void equalsTest() {
+		Tree tree = createEmptyTree();
+		Tree otherTree = createEmptyTree();
+		RucksackObject o1, o2, o3;
+		o1 = new RucksackObject(1, 3);
+		o2 = new RucksackObject(2, 6);
+		o3 = new RucksackObject(3, 9);
+		Rucksack r = new Rucksack(60);
+		tree.setCurrentNode(createTreeNode(null));
+		otherTree.setCurrentNode(createTreeNode(null));
+		assertTrue(tree.equals(otherTree));
+		assertTrue(otherTree.equals(tree));
 
-		TreeNode root, one, two, three, four, five, six;
-		Tree tmp = createEmptyTree();
+		r.insert(o1);
+		tree.setLeftNode(createTreeNode((Rucksack) r.clone()));
+		otherTree.setLeftNode(createTreeNode((Rucksack) r.clone()));
+		assertTrue(tree.equals(otherTree));
+		assertTrue(otherTree.equals(tree));
 
-		root  = createTreeNode(0);
-		one   = createTreeNode(1);
- 		two   = createTreeNode(2);
- 		three = createTreeNode(3);
- 		four  = createTreeNode(4);
- 		five  = createTreeNode(5);
- 		six   = createTreeNode(6);
+		r.insert(o2);
+		tree.setRightNode(createTreeNode((Rucksack) r.clone()));
+		otherTree.setRightNode(createTreeNode((Rucksack) r.clone()));
+		assertTrue(tree.equals(otherTree));
+		assertTrue(otherTree.equals(tree));
 
-		tmp.setCurrentNode(root);
-		tmp.setLeftNode(one);
-		tmp.setRightNode(two);
-		tmp.moveToLeftNode();
-		tmp.setLeftNode(three);
-		tmp.setRightNode(four);
-		tmp.moveToRoot();
-		tmp.moveToRightNode();
-		tmp.setLeftNode(five);
-		tmp.setRightNode(six);
+		tree.moveToLeftNode();
+		otherTree.moveToLeftNode();
 
-		assertTrue(tree.equals(tmp));
-		assertTrue(tmp.equals(tree));
-		assertTrue(tmp.equals(tmp));
-		assertTrue(tree.equals(tree));
-
-		tmp.moveToRightNode();
-		tmp.setRightNode(six);
-		assertFalse(tree.equals(tmp));
-		assertFalse(tmp.equals(tree));
+		r.insert(o3);
+		tree.setRightNode(createTreeNode((Rucksack) r.clone()));     // Inserted Right
+		otherTree.setLeftNode(createTreeNode((Rucksack) r.clone())); // Inserted Left
+		tree.moveToParentNode();
+		otherTree.moveToParentNode();
+		assertFalse(tree.equals(otherTree));
+		assertFalse(otherTree.equals(tree));
 	}
 	
 

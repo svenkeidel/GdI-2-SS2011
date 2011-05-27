@@ -130,8 +130,16 @@ public abstract class TreeNode {
 
 	@Override
 	public boolean equals(Object o) {
+
 		if(o instanceof TreeNode) {
 			TreeNode other = (TreeNode) o;
+
+			if(this.rucksack == null && other.getRucksack() == null)
+				return true;
+
+			if(this.rucksack == null || other.getRucksack() == null)
+				return false;
+
 			return this.rucksack.equals(other.getRucksack());
 		} else {
 			return false;

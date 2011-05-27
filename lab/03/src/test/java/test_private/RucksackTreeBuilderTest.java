@@ -8,6 +8,8 @@ import datamodel.rucksack.Rucksack;
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
+import datamodel.tree.sequential.SequentialTree;
+
 import static junit.framework.Assert.*;
 
 import org.junit.Before;

@@ -219,15 +219,10 @@ public class SequentialTree extends Tree {
 		currentNode = null;
 		currentPosition = -1;
 	}
-	
-	/**
-	 * TODO: add Javadoc
-	 */
-	public boolean equals(Object o) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
-	}
 
+	/**
+	 * returns a string representation of the tree.
+	 */
 	public String toString() {
 		return "Sequential Tree:\n"
 			+ "size: "+nodes.size()+"\n"

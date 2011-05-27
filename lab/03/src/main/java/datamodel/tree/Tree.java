@@ -3,6 +3,9 @@
  */
 package datamodel.tree;
 
+import java.util.Iterator;
+
+import logic.traversal.TreeTraversalFactory;
 
 /**
  * The abstract class for a tree.
@@ -92,6 +95,20 @@ public abstract class Tree {
 	 */
 	public abstract void clearTree();
 	
-	//TODO: implement equals
 
+	public boolean equals(Object o) {
+		if(o instanceof Tree) {
+			Tree otherTree = (Tree) o;
+			Iterator<TreeNode> otherIterator = TreeTraversalFactory.createPreorder(otherTree);
+			Iterator<TreeNode> thisIterator = TreeTraversalFactory.createPreorder(this);
+			while(otherIterator.hasNext() && thisIterator.hasNext())
+				if(!thisIterator.next().equals(otherIterator.next()))
+					return false;
+			if(otherIterator.hasNext() && thisIterator.hasNext())
+				return false;
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

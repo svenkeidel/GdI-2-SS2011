@@ -1,5 +1,7 @@
 package test_private;
 
+import datamodel.rucksack.Rucksack;
+
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
@@ -19,5 +21,9 @@ public class SequentialTreeTest extends AbstractTreeTest {
 	 */
 	public TreeNode createTreeNode(int value) {
 		return new SequentialTreeNode(0, value);
+	}
+
+	public TreeNode createTreeNode(Rucksack r) {
+		return new SequentialTreeNode(r);
 	}
 }

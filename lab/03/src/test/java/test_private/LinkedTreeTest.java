@@ -1,5 +1,7 @@
 package test_private;
 
+import datamodel.rucksack.Rucksack;
+
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
@@ -19,5 +21,9 @@ public class LinkedTreeTest extends AbstractTreeTest {
 	 */
 	public TreeNode createTreeNode(int value) {
 		return new LinkedTreeNode(0, value);
+	}
+	
+	public TreeNode createTreeNode(Rucksack r) {
+		return new LinkedTreeNode(r);
 	}
 }
