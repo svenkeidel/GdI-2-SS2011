@@ -16,6 +16,18 @@ import datamodel.tree.TreeNode;
  */
 public class LinkedTree extends Tree {
 
+	private TreeNode root;
+	private TreeNode currentNode;
+
+	/**
+	 * Constructor: Creates an empty sequential tree
+	 */
+	public LinkedTree() {
+		this.root = null;
+		this.currentNode = null;
+	}
+	
+	
 	/**
 	 * Moves to the left child of the current node
 	 * 
@@ -23,8 +35,10 @@ public class LinkedTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToLeftNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(currentNode.getLinkedNode(1) != null){
+					currentNode = currentNode.getLinkedNode(1);
+					return true;}
+		else 	return false;
 	}
 
 	/**
@@ -34,9 +48,12 @@ public class LinkedTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToRightNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(currentNode.getLinkedNode(2) != null){
+					currentNode = currentNode.getLinkedNode(2);
+					return true;}
+		else 	return false;
 	}
+
 
 	/**
 	 * Moves to the parent of the current node
@@ -45,34 +62,44 @@ public class LinkedTree extends Tree {
 	 *         false
 	 */
 	public boolean moveToParentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(currentNode.getLinkedNode(0) != null){
+//					System.err.println("BACK TO PARENT "+currentNode.getLinkedNode(0).getValue()+"");
+					currentNode = currentNode.getLinkedNode(0);
+					return true;}
+		else 	return false;
 	}
 
 	/**
 	 * @return true if left child exists; otherwise false
 	 */
 	public boolean hasLeftNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(currentNode.getLinkedNode(1) == null)
+					return false;
+		else 	return true;
 	}
 
 	/**
 	 * @return true if right child exists; otherwise false
 	 */
 	public boolean hasRightNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(currentNode.getLinkedNode(2) == null)
+					return false;
+		else 	return true;
 	}
 
 	/**
 	 * @return true if parent exists; otherwise false
 	 */
 	public boolean hasParentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
-	}
-
+		if 		(currentNode.getLinkedNode(0) != null){
+					//System.err.println("PARENT TRUE");
+					return true;
+					}
+		else 	{//System.err.println("PARENT FALSE");
+				return false;}
+		}
+	
+	
 	/**
 	 * Sets the left child of the current node
 	 * 
@@ -80,9 +107,14 @@ public class LinkedTree extends Tree {
 	 * 
 	 */
 	public boolean setLeftNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
-	}
+		if		(currentNode != null){
+					currentNode.setLinkedNode(1, node);
+					node.setLinkedNode(0, currentNode);
+//					System.err.println("SETLEFT WITH PARENT "+node.getLinkedNode(0).getValue()+"");
+					return true;}
+		else 	return false;
+		}
+	
 
 	/**
 	 * Sets the right child of the current node
@@ -91,25 +123,35 @@ public class LinkedTree extends Tree {
 	 * 
 	 */
 	public boolean setRightNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
-	}
+		if		(currentNode != null){
+					currentNode.setLinkedNode(2, node);
+					node.setLinkedNode(0, currentNode);
+//					System.err.println("SETRIGHT WITH PARENT "+node.getLinkedNode(0).getValue()+"");
+					return true;}
+		else 	return false;
+}
 
 	/**
 	 * Sets the current node. If the tree is empty, sets the root.
 	 * 
 	 */
 	public void setCurrentNode(TreeNode node) {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
-	}
+		currentNode = node;
+		
+		
+		if (root == null)
+			root = node;
+			
+		}
 
 	/**
 	 * @return the current node or null if the tree is empty
 	 */
 	public TreeNode getCurrentNode() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+			if (root != null)
+			return currentNode;
+			else
+			return null;
 	}
 
 	/**
@@ -118,8 +160,13 @@ public class LinkedTree extends Tree {
 	 * @return true if there's a root; otherwise false
 	 */
 	public boolean moveToRoot() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		if 		(root == null)
+					return false;
+		else{	while(this.hasParentNode() == true){
+//				System.err.println("while loop movetoRoot");
+					this.moveToParentNode();}
+				return true;
+		}
 	}
 
 	/**
@@ -127,8 +174,8 @@ public class LinkedTree extends Tree {
 	 * node
 	 */
 	public void clearTree() {
-		//TODO: Implement me
-		throw new UnsupportedOperationException("Implement Me");
+		root = null;
+		currentNode = null;
 	}
 	
 	/**
@@ -138,4 +185,6 @@ public class LinkedTree extends Tree {
 		//TODO: Implement me
 		throw new UnsupportedOperationException("Implement Me");
 	}
+	
+
 }
