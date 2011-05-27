@@ -230,6 +230,7 @@ public abstract class AbstractTreeTest {
 		assertTrue(tmp.equals(tmp));
 		assertTrue(tree.equals(tree));
 
+		tmp.moveToRightNode();
 		tmp.setRightNode(six);
 		assertFalse(tree.equals(tmp));
 		assertFalse(tmp.equals(tree));

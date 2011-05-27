@@ -128,11 +128,21 @@ public abstract class TreeNode {
 		return "weight: " + weight + "\tvalue: " + value;
 	}
 
-	@Override
+	/*@Override
 	public boolean equals(Object o) {
 		if(o instanceof TreeNode) {
 			TreeNode other = (TreeNode) o;
 			return this.rucksack.equals(other.getRucksack());
+		} else {
+			return false;
+		}
+	}*/
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o instanceof TreeNode) {
+			TreeNode other = (TreeNode) o;
+			return ((this.getValue() == other.getValue()) && (this.getWeight() == other.getWeight()));
 		} else {
 			return false;
 		}
