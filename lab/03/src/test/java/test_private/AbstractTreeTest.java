@@ -207,10 +207,13 @@ public abstract class AbstractTreeTest {
 	public void equalsTest() {
 		Tree tree = createEmptyTree();
 		Tree otherTree = createEmptyTree();
-		RucksackObject o1, o2, o3;
+		RucksackObject o1, o2, o3, o4, o5;
 		o1 = new RucksackObject(1, 3);
 		o2 = new RucksackObject(2, 6);
 		o3 = new RucksackObject(3, 9);
+		o4 = new RucksackObject(4, 12);
+		o5 = new RucksackObject(5, 15);
+		
 		Rucksack r = new Rucksack(60);
 		tree.setCurrentNode(createTreeNode(null));
 		otherTree.setCurrentNode(createTreeNode(null));
@@ -233,6 +236,28 @@ public abstract class AbstractTreeTest {
 		otherTree.moveToLeftNode();
 
 		r.insert(o3);
+		tree.setLeftNode(createTreeNode((Rucksack) r.clone()));
+		otherTree.setLeftNode(createTreeNode((Rucksack) r.clone()));
+		tree.moveToParentNode();
+		otherTree.moveToParentNode();
+		assertTrue(tree.equals(otherTree));
+		assertTrue(otherTree.equals(tree));
+
+		tree.moveToLeftNode();
+		otherTree.moveToLeftNode();
+
+		r.insert(o4);
+		tree.setRightNode(createTreeNode((Rucksack) r.clone()));
+		otherTree.setRightNode(createTreeNode((Rucksack) r.clone()));
+		tree.moveToParentNode();
+		otherTree.moveToParentNode();
+		assertTrue(tree.equals(otherTree));
+		assertTrue(otherTree.equals(tree));
+
+		tree.moveToRightNode();
+		otherTree.moveToRightNode();
+		
+		r.insert(o5);
 		tree.setRightNode(createTreeNode((Rucksack) r.clone()));     // Inserted Right
 		otherTree.setLeftNode(createTreeNode((Rucksack) r.clone())); // Inserted Left
 		tree.moveToParentNode();

@@ -97,15 +97,46 @@ public abstract class Tree {
 	
 
 	public boolean equals(Object o) {
+
 		if(o instanceof Tree) {
 			Tree otherTree = (Tree) o;
-			Iterator<TreeNode> otherIterator = TreeTraversalFactory.createPreorder(otherTree);
-			Iterator<TreeNode> thisIterator = TreeTraversalFactory.createPreorder(this);
-			while(otherIterator.hasNext() && thisIterator.hasNext())
-				if(!thisIterator.next().equals(otherIterator.next()))
-					return false;
-			if(otherIterator.hasNext() && thisIterator.hasNext())
+
+			// test current node
+			if(!this.getCurrentNode().equals(otherTree.getCurrentNode()))
 				return false;
+
+			// test left node
+			if(this.hasLeftNode() && otherTree.hasLeftNode()) {
+
+				this.moveToLeftNode();
+				otherTree.moveToLeftNode();
+
+				if(!equals(otherTree))
+					return false;
+
+				this.moveToParentNode();
+				otherTree.moveToParentNode();
+
+			} else if(this.hasLeftNode() || otherTree.hasLeftNode()){
+				return false;
+			}
+
+			// test right node
+			if(this.hasRightNode() && otherTree.hasRightNode()) {
+
+				this.moveToRightNode();
+				otherTree.moveToRightNode();
+
+				if(!equals(otherTree))
+					return false;
+
+				this.moveToParentNode();
+				otherTree.moveToParentNode();
+
+			} else if(this.hasRightNode() || otherTree.hasRightNode()){
+				return false;
+			}
+
 			return true;
 		} else {
 			return false;
