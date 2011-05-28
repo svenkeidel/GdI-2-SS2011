@@ -137,23 +137,24 @@ public class Rucksack {
 	 * @return true if equal, else false.
 	 */
 	public boolean equals(Rucksack r){
+		boolean bool = true;
 		if (r.getCapacity() != getCapacity()
 			|| r.objects.size() != objects.size()
 			|| r.getValueOfRucksack() != getValueOfRucksack()
 			|| r.getWeightOfRucksack() != getWeightOfRucksack()){
-			return false;
+			bool = false;
 		} 
 		// capacity, size of objectsvector, value and weight is equal
 		// so check if the objects are the same
 		for (int i = 0; i < r.objects.size(); i++){
 			if (!(objects.contains(r.getObject(i)))){
-				return false;
+				bool = false;
 			}
 			if (!(r.objects.contains(getObject(i)))){
-				return false;
+				bool = false;
 			}
 		}
-		return true;
+		return bool;
 	}
 
 

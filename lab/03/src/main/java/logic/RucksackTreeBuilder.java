@@ -95,6 +95,7 @@ public class RucksackTreeBuilder {
 			}
 			tree.moveToLeftNode();
 			setNodes(depth+1, objects);
+			tree.moveToParentNode();
 		}
 	}
 	
@@ -132,8 +133,9 @@ public class RucksackTreeBuilder {
 		Rucksack optimal = null;
 
 		for(TreeNode t : TreeTraversalFactory.createPreorder(tree))
-			if(optimal == null || t.getRucksack().getValueOfRucksack() > optimal.getValueOfRucksack())
-				optimal = t.getRucksack();
+			if(t != null)
+				if(optimal == null || t.getRucksack().getValueOfRucksack() > optimal.getValueOfRucksack())
+					optimal = t.getRucksack();
 
 		return optimal;
 	}

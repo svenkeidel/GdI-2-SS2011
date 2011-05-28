@@ -87,6 +87,14 @@ public class RucksackTest {
 		otherRucksack.insert(o1);
 		Assert.assertTrue(rucksack.equals(otherRucksack));
 		Assert.assertTrue(otherRucksack.equals(rucksack));
+		rucksack.removeAll();
+		otherRucksack.removeAll();
+		rucksack.insert(o1);
+		rucksack.insert(o2);
+		otherRucksack.insert(o2);
+		otherRucksack.insert(o1);
+		Assert.assertTrue(rucksack.equals(otherRucksack));
+		Assert.assertTrue(otherRucksack.equals(rucksack));
 	}
 	
 	@Test
