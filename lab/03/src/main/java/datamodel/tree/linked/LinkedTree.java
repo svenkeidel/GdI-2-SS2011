@@ -178,14 +178,7 @@ public class LinkedTree extends Tree {
 		currentNode = null;
 	}
 	
-	/*public boolean equals(Object o) {
-		//TODO: Implement me
-			throw new UnsupportedOperationException("Implement Me");
-		}
-		*/
-	/**
-	 * TODO: add Javadoc
-	 */
+/*
 	public boolean equals(Object o) {
 		if (o instanceof LinkedTree){
 				TreeNode root2 =  ((LinkedTree) o).root;
@@ -267,5 +260,5 @@ public class LinkedTree extends Tree {
 			
 		
 	}
-
+*/
 }

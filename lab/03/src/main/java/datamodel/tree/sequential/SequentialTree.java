@@ -233,7 +233,7 @@ public class SequentialTree extends Tree {
 	
 	
 	
-	
+	/*
 	public boolean equals(Object o) {
 		if (o instanceof SequentialTree){
 				TreeNode root2 =  ((SequentialTree) o).rootNode;
@@ -343,5 +343,5 @@ public class SequentialTree extends Tree {
 			return		left_obj_equal && right_obj_equal;
 		
 			}
+	*/
 	}
-
