@@ -7,6 +7,12 @@ DONE	* Linked Tree
 DONE	* Rucksack
 * equals methoden
 DONE	* createRucksackTree() mit zwei Parametern
+=======
+DONE    * Sequential Tree
+DONE    * Linked Tree
+DONE    * Rucksack
+DONE    * equals methoden
+* createRucksackTree() mit zwei Parametern
 * createRucksackTree() mit drei Parametern
 DONE	* findOptimalRucksack()
 * Filterfunktion für createRucksackTree
@@ -26,10 +32,10 @@ Zeitmanagement
 ==============
 bis Donnerstag
 --------------
-DONE	* Sequential Tree
-DONE	* Linked Tree
-* Rucksack
-* equals methoden
+DONE    * Sequential Tree
+DONE    * Linked Tree
+DONE    * Rucksack
+DONE    * equals methoden
 
 bis Freitag
 -----------
