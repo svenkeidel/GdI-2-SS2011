@@ -53,9 +53,9 @@ public class RucksackTreeBuilder {
 	 *            the capacity of the rucksack
 	 */
 	public void createRucksackTree(Vector<RucksackObject> objects, int capacity) {
-		//TODO: implement this method
 		int depth = 0;
 		Rucksack rucksack;
+		
 		if (capacity >= 0)
 			rucksack = new Rucksack(capacity);
 		else
@@ -75,7 +75,7 @@ public class RucksackTreeBuilder {
 	 * @param depth
 	 * @param objects
 	 */
-	public void setNodes(int depth, Vector<RucksackObject> objects){
+	public void setNodes(int depth, Vector<RucksackObject> objects){		
 		int size = objects.size();
 
 		if (depth < size){
@@ -87,7 +87,7 @@ public class RucksackTreeBuilder {
 				rucksack1.insert(objects.elementAt(depth));
 				node = new TreeNode(rucksack1) {};
 				tree.setRightNode(node);
-
+				
 				// only if a right son was set
 				tree.moveToRightNode();
 				setNodes(depth+1, objects);
@@ -117,9 +117,29 @@ public class RucksackTreeBuilder {
 	 *             if the neededObjects don't fit into the rucksack
 	 */
 	public void createRucksackTree(Vector<RucksackObject> objects,
-			Vector<RucksackObject> neededObjects, int capacity) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+			Vector<RucksackObject> needed, int capacity) {
+		int depth = 0;
+		Rucksack rucksack;
+		if (capacity >= 0)
+			rucksack = new Rucksack(capacity);
+		else
+			throw new InvalidParameterException("No legal capacity-value");
+		
+		TreeNode node = new TreeNode(rucksack) {};
+		tree.setCurrentNode(node);
+		for (int i = 0; i < needed.size(); i++){
+			if (rucksack.getCapacity() >= rucksack.getWeightOfRucksack() + needed.elementAt(i).getWeight()){
+				rucksack.insert(needed.elementAt(i));
+				node = new TreeNode(rucksack) {};
+				tree.setRightNode(node);
+				tree.moveToRightNode();
+			}
+		}
+		if (!objects.isEmpty()){
+			setNodes(depth, objects);
+		}
+		tree.moveToRoot();
+		tree.setCurrentNode(null);
 	}
 
 	/**
