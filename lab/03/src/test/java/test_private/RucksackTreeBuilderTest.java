@@ -76,8 +76,6 @@ public class RucksackTreeBuilderTest {
 		Rucksack expected = new Rucksack(60);
 
 		tree.moveToRoot();
-		// the root in the tree is not null like in the lab description, it is an empty
-		// rucksack. Take a look at the public tests
 		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
 		
 		tree.moveToLeftNode();

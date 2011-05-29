@@ -62,8 +62,6 @@ public class RucksackTreeBuilder {
 		if (!objects.isEmpty()){
 			setNodes(depth, objects);
 		}
-		tree.moveToRoot();
-		tree.setCurrentNode(null);
 	}
 
 	/**
@@ -117,6 +115,7 @@ public class RucksackTreeBuilder {
 		int depth = 0;
 		Rucksack rucksack = new Rucksack(capacity);
 		
+		tree.moveToRoot();
 		TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 		tree.setCurrentNode(node);
 		for (int i = 0; i < needed.size(); i++){
@@ -130,8 +129,6 @@ public class RucksackTreeBuilder {
 		if (!objects.isEmpty()){
 			setNodes(depth, objects);
 		}
-		tree.moveToRoot();
-		tree.setCurrentNode(null);
 	}
 
 	/**
