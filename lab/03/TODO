@@ -5,7 +5,7 @@ Aufgaben für das Praktikum 3
 DONE	* Sequential Tree
 DONE	* Linked Tree
 DONE	* Rucksack
-* equals methoden
+DONE	* equals methoden
 DONE	* createRucksackTree() mit zwei Parametern
 =======
 DONE    * Sequential Tree
@@ -13,8 +13,8 @@ DONE    * Linked Tree
 DONE    * Rucksack
 DONE    * equals methoden
 DONE	* createRucksackTree() mit zwei Parametern
-* createRucksackTree() mit drei Parametern
-DONE	* findOptimalRucksack()
+DONE	* createRucksackTree() mit drei Parametern
+TESTS	* findOptimalRucksack()
 * Filterfunktion für createRucksackTree
 
 hier mein Vorschlag zur Aufgabenverteilung
@@ -39,8 +39,8 @@ DONE    * equals methoden
 
 bis Freitag
 -----------
-* findOptimalRucksack()
-* createRucksackTree() mit zwei Parametern
+TESTS	* findOptimalRucksack()
+DONE	* createRucksackTree() mit zwei Parametern
 
 bis Montag
 ----------
