@@ -54,12 +54,7 @@ public class RucksackTreeBuilder {
 	 */
 	public void createRucksackTree(Vector<RucksackObject> objects, int capacity) {
 		int depth = 0;
-		Rucksack rucksack;
-		
-		if (capacity >= 0)
-			rucksack = new Rucksack(capacity);
-		else
-			throw new InvalidParameterException("No legal capacity-value");
+		Rucksack rucksack = new Rucksack(capacity);
 		
 		TreeNode node = new TreeNode(rucksack) {};
 		tree.setCurrentNode(node);
@@ -119,11 +114,7 @@ public class RucksackTreeBuilder {
 	public void createRucksackTree(Vector<RucksackObject> objects,
 			Vector<RucksackObject> needed, int capacity) {
 		int depth = 0;
-		Rucksack rucksack;
-		if (capacity >= 0)
-			rucksack = new Rucksack(capacity);
-		else
-			throw new InvalidParameterException("No legal capacity-value");
+		Rucksack rucksack = new Rucksack(capacity);
 		
 		TreeNode node = new TreeNode(rucksack) {};
 		tree.setCurrentNode(node);

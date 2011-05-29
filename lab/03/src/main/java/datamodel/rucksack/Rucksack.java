@@ -118,7 +118,7 @@ public class Rucksack {
 		if (i < objects.size()){
 			objects.remove(i);
 		} else {
-			throw new InvalidParameterException("No RucksackObjact at this index");
+			throw new InvalidParameterException("No RucksackObject at this index");
 		}
 	}
 
