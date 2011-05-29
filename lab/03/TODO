@@ -12,7 +12,7 @@ DONE    * Sequential Tree
 DONE    * Linked Tree
 DONE    * Rucksack
 DONE    * equals methoden
-* createRucksackTree() mit zwei Parametern
+DONE	* createRucksackTree() mit zwei Parametern
 * createRucksackTree() mit drei Parametern
 DONE	* findOptimalRucksack()
 * Filterfunktion für createRucksackTree
