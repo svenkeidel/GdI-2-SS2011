@@ -26,7 +26,7 @@ import logic.RucksackTreeBuilder;
  * @version 1.0
  * 
  */
-public class RucksackTreeBuilderTestPublic {
+public class RucksackTreeBuilderTest {
 
 	private RucksackTreeBuilder builderLink = new RucksackTreeBuilder(false);
 	private RucksackTreeBuilder builderSeq = new RucksackTreeBuilder(true);
