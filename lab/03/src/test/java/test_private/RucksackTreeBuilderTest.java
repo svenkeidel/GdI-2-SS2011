@@ -1,25 +1,17 @@
 package test_private;
 
-import java.util.Iterator;
+import static junit.framework.Assert.assertTrue;
+
 import java.util.Vector;
 
-import datamodel.rucksack.Rucksack;
-
-import datamodel.tree.Tree;
-import datamodel.tree.TreeNode;
-
-import datamodel.tree.sequential.SequentialTree;
-
-import static junit.framework.Assert.*;
+import logic.RucksackTreeBuilder;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import datamodel.rucksack.Rucksack;
 import datamodel.rucksack.RucksackObject;
-
-import logic.RucksackTreeBuilder;
-
-import logic.traversal.TreeTraversalFactory;
+import datamodel.tree.Tree;
 
 public class RucksackTreeBuilderTest {
 
@@ -83,8 +75,10 @@ public class RucksackTreeBuilderTest {
 		tree = treeBuilder.getTree();
 		Rucksack expected = new Rucksack(60);
 
-		
 		tree.moveToRoot();
+		// the root in the tree is not null like in the lab description, it is an empty
+		// rucksack. Take a look at the public tests
+		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
 		
 		tree.moveToLeftNode();
 		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));

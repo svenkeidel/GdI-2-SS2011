@@ -107,7 +107,7 @@ public abstract class TreeTraversal extends Thread implements Iterable<TreeNode>
 
 	@Override
 	public synchronized boolean hasNext() {
-		while(started == false) {
+		while(started == false && request == false) {
 			try {
 				wait();
 			} catch(InterruptedException e) {

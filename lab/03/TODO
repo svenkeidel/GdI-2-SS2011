@@ -6,15 +6,15 @@ DONE	* Sequential Tree
 DONE	* Linked Tree
 DONE	* Rucksack
 DONE	* equals methoden
-DONE	* createRucksackTree() mit zwei Parametern
+        * createRucksackTree() mit zwei Parametern
 =======
 DONE    * Sequential Tree
 DONE    * Linked Tree
 DONE    * Rucksack
 DONE    * equals methoden
-DONE	* createRucksackTree() mit zwei Parametern
-DONE	* createRucksackTree() mit drei Parametern
-TESTS	* findOptimalRucksack()
+        * createRucksackTree() mit zwei Parametern
+        * createRucksackTree() mit drei Parametern
+        * findOptimalRucksack()
 * Filterfunktion für createRucksackTree
 
 hier mein Vorschlag zur Aufgabenverteilung
@@ -40,7 +40,7 @@ DONE    * equals methoden
 bis Freitag
 -----------
 TESTS	* findOptimalRucksack()
-DONE	* createRucksackTree() mit zwei Parametern
+        * createRucksackTree() mit zwei Parametern
 
 bis Montag
 ----------

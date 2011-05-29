@@ -10,6 +10,7 @@ import datamodel.rucksack.Rucksack;
 import datamodel.rucksack.RucksackObject;
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
+import datamodel.tree.TreeNodeFactory;
 import datamodel.tree.linked.LinkedTree;
 import datamodel.tree.sequential.SequentialTree;
 
@@ -56,7 +57,7 @@ public class RucksackTreeBuilder {
 		int depth = 0;
 		Rucksack rucksack = new Rucksack(capacity);
 		
-		TreeNode node = new TreeNode(rucksack) {};
+		TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 		tree.setCurrentNode(node);
 		if (!objects.isEmpty()){
 			setNodes(depth, objects);
@@ -75,12 +76,12 @@ public class RucksackTreeBuilder {
 
 		if (depth < size){
 			Rucksack rucksack = tree.getCurrentNode().getRucksack().clone();
-			TreeNode node = new TreeNode(rucksack) {};
+			TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 			tree.setLeftNode(node);
 			Rucksack rucksack1 = rucksack.clone();
 			if (rucksack1.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack1.getCapacity()){
 				rucksack1.insert(objects.elementAt(depth));
-				node = new TreeNode(rucksack1) {};
+				node = TreeNodeFactory.getNodeForTree(tree, rucksack1);
 				tree.setRightNode(node);
 				
 				// only if a right son was set
@@ -116,12 +117,12 @@ public class RucksackTreeBuilder {
 		int depth = 0;
 		Rucksack rucksack = new Rucksack(capacity);
 		
-		TreeNode node = new TreeNode(rucksack) {};
+		TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 		tree.setCurrentNode(node);
 		for (int i = 0; i < needed.size(); i++){
 			if (rucksack.getCapacity() >= rucksack.getWeightOfRucksack() + needed.elementAt(i).getWeight()){
 				rucksack.insert(needed.elementAt(i));
-				node = new TreeNode(rucksack) {};
+				node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 				tree.setRightNode(node);
 				tree.moveToRightNode();
 			}
@@ -143,6 +144,7 @@ public class RucksackTreeBuilder {
 	public Rucksack findOptimalRucksack() {
 		Rucksack optimal = null;
 
+		tree.moveToRoot();
 		for(TreeNode t : TreeTraversalFactory.createPreorder(tree))
 			if(t != null)
 				if(optimal == null || t.getRucksack().getValueOfRucksack() > optimal.getValueOfRucksack())
