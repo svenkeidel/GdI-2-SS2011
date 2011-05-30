@@ -167,7 +167,8 @@ public class RucksackTreeBuilder {
 						filtered.add(empty);
 						return filtered;}
 		
-		else		{this.iterateTree(tree, constraints);
+		else		{tree.moveToRoot();
+					this.iterateTree(tree, constraints);
 					return filtered;}
 		}
 
@@ -181,13 +182,13 @@ public class RucksackTreeBuilder {
 				{filtered.add(tree.getCurrentNode().getRucksack());
 				System.err.println("Element added! Filtered size: "+filtered.size()+"");
 				}
-			else{
+			
 			// test left node
 			if(tree.hasLeftNode()) {
 
 				tree.moveToLeftNode();
 				this.iterateTree(tree, cons);
-
+				
 				tree.moveToParentNode();
 			}
 			
@@ -199,8 +200,9 @@ public class RucksackTreeBuilder {
 
 				tree.moveToParentNode();
 			}
-			}
-		}
+		
+	}
+		
 
 	/**
 	 * @return the current tree of this builder
