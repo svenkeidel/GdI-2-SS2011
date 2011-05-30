@@ -17,11 +17,22 @@ public class Constraints {
 	private int minObjects;
 	private int maxObjects;
 	
-	//TODO: implement constructor and getters
 
 	public Constraints(int minValue, int maxValue, int minObjects,
 			int maxObjects) {
-		//TODO: implement and add appropriate comment
+		this.minValue = minValue;
+		this.maxValue = maxValue;
+		this.minObjects = minObjects;
+		this.maxObjects = maxObjects;
 	}
-
+	
+	public int getAttribute(int index){
+		
+		switch (index){
+		case 0:		return this.minValue;
+		case 1:		return this.maxValue;
+		case 2:		return this.minObjects;
+		default:	return this.maxObjects;}
+		
+	}
 }

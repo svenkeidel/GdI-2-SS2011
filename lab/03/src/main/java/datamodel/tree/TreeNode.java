@@ -3,6 +3,7 @@
  */
 package datamodel.tree;
 
+import logic.Constraints;
 import datamodel.rucksack.Rucksack;
 
 
@@ -145,6 +146,19 @@ public abstract class TreeNode {
 			return false;
 		}
 	}
+	
+	public boolean consCheck(Constraints cons){
+		
+		if 			(this.rucksack.getValueOfRucksack() >= cons.getAttribute(0) && 
+					 this.rucksack.getValueOfRucksack() <= cons.getAttribute(1) &&
+					 this.rucksack.getAmountOfObjects() >= cons.getAttribute(2) &&
+					 this.rucksack.getAmountOfObjects() <= cons.getAttribute(3))
+							return true;
+		
+		else		 return false;
+			
+		}
+	
 	
 	
 }

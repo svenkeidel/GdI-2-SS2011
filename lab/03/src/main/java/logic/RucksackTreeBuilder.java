@@ -27,7 +27,7 @@ import logic.traversal.TreeTraversalFactory;
 public class RucksackTreeBuilder {
 
 	private Tree tree;
-
+	private Vector<Rucksack> filtered = new Vector<Rucksack>();
 	/**
 	 * constructor
 	 * 
@@ -160,9 +160,47 @@ public class RucksackTreeBuilder {
 	 * @return a list containing the filtered rucksacks
 	 */
 	public Vector<Rucksack> filter(Constraints constraints) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
-	}
+		filtered.clear();
+		Rucksack empty = new Rucksack(0);
+		
+		if 			(tree == null){
+						filtered.add(empty);
+						return filtered;}
+		
+		else		{this.iterateTree(tree, constraints);
+					return filtered;}
+		}
+
+	
+	public void iterateTree(Tree tree, Constraints cons){
+		
+			// test current node
+			System.err.println
+			("Checking Rucksack: V("+tree.getCurrentNode().getRucksack().getValueOfRucksack()+") A("+tree.getCurrentNode().getRucksack().getAmountOfObjects()+") >> "+tree.getCurrentNode().consCheck(cons)+"");
+			if(tree.getCurrentNode().consCheck(cons) && (!filtered.contains(tree.getCurrentNode().getRucksack())))
+				{filtered.add(tree.getCurrentNode().getRucksack());
+				System.err.println("Element added! Filtered size: "+filtered.size()+"");
+				}
+			else{
+			// test left node
+			if(tree.hasLeftNode()) {
+
+				tree.moveToLeftNode();
+				this.iterateTree(tree, cons);
+
+				tree.moveToParentNode();
+			}
+			
+			// test right node
+			if(tree.hasRightNode()) {
+
+				tree.moveToRightNode();
+				this.iterateTree(tree, cons);
+
+				tree.moveToParentNode();
+			}
+			}
+		}
 
 	/**
 	 * @return the current tree of this builder

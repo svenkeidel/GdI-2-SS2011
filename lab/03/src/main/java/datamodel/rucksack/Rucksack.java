@@ -182,5 +182,9 @@ public class Rucksack {
 		}
 		return false;
 	}
+	
+	public int getAmountOfObjects(){
+		return objects.size();
+	}
 
 }
