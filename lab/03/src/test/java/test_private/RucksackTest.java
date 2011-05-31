@@ -107,6 +107,7 @@ public class RucksackTest {
 		Assert.assertTrue(otherRucksack.equals(rucksack));
 	}
 	
+	@SuppressWarnings("null")
 	@Test
 	public void extremTest() {
 		
