@@ -138,6 +138,9 @@ public class Rucksack {
 	 */
 	@Override
 	public boolean equals(Object o){
+		if (this == null || o == null){
+			throw new InvalidParameterException("One or booth bags are null");
+		}
 		if(o instanceof Rucksack) {
 			Rucksack r = (Rucksack) o;
 			if (r.getCapacity() != getCapacity()
@@ -171,15 +174,17 @@ public class Rucksack {
 	 * @return true if the object fits into the rucksack; otherwise false
 	 */
 	public boolean insert(RucksackObject o) {
-		if (objects.isEmpty() && o.getWeight() <= capacity){
-			objects.add(o);
-			return true;
-		} else {
-			if (o.getWeight() + getWeightOfRucksack() <= capacity){
+		if (this != null && o != null){
+			if (objects.isEmpty() && o.getWeight() <= capacity){
 				objects.add(o);
 				return true;
+			} else {
+				if (o.getWeight() + getWeightOfRucksack() <= capacity){
+					objects.add(o);
+					return true;
+				}
 			}
-		}
+		} 
 		return false;
 	}
 	

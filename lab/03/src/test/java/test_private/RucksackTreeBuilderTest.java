@@ -4,6 +4,8 @@ import static junit.framework.Assert.assertTrue;
 
 import java.util.Vector;
 
+import junit.framework.Assert;
+
 import logic.RucksackTreeBuilder;
 
 import org.junit.Before;
@@ -247,5 +249,21 @@ public class RucksackTreeBuilderTest {
 		
 		tree.moveToLeftNode();
 		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+	}
+	
+	@Test
+	public void extremTest(){
+		// clear objects for empty vector, so no objects should be insert in the bag.
+		objects.clear();
+		treeBuilder.createRucksackTree(objects, 60);
+		tree = treeBuilder.getTree();
+		// empty Rucksack
+		Rucksack expected = new Rucksack(60);
+		
+		tree.moveToRoot();
+		Assert.assertEquals(expected, tree.getCurrentNode().getRucksack());
+		// only the root node have been set, so the root doesn't have sons.
+		Assert.assertFalse(tree.hasLeftNode());
+		Assert.assertFalse(tree.hasRightNode());
 	}
 }

@@ -113,13 +113,18 @@ public class RucksackTest {
 		//both null with 1 capacity
 		Rucksack emptyRucksack = new Rucksack(1);
 		Rucksack otherEmptyRucksack = new Rucksack(1);
+		
+		//null-Rucksack
+		Rucksack nullRucksack = null;
+		Rucksack otherNullRucksack = null;
+		
 		emptyRucksack.removeAll();
 		otherEmptyRucksack.removeAll();
 		Assert.assertTrue(emptyRucksack.equals(otherEmptyRucksack));
 		
 		//one null other with one null element
 		emptyRucksack.insert(o0);
-		Assert.assertFalse(emptyRucksack.equals(otherEmptyRucksack));
+		Assert.assertTrue(emptyRucksack.equals(otherEmptyRucksack));
 		
 		//both with null element
 		otherEmptyRucksack.insert(o0);
@@ -127,6 +132,13 @@ public class RucksackTest {
 		
 		//one null, other normal
 		Assert.assertFalse(emptyRucksack.equals(rucksack));
+		
+		try{
+			Assert.assertTrue(nullRucksack.equals(otherNullRucksack));
+			Assert.fail("Null-Rucksack was accepted");
+		} catch (Exception e) {
+			// everything goes right
+		}
 		
 	
 	}
