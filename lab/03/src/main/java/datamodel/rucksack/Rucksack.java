@@ -137,8 +137,10 @@ public class Rucksack {
 	 * @param r2
 	 * @return true if equal, else false.
 	 */
-	public boolean equals(Rucksack r){
-		if (r != null){
+	@Override
+	public boolean equals(Object o){
+		if(o instanceof Rucksack) {
+			Rucksack r = (Rucksack) o;
 			if (r.getCapacity() != getCapacity()
 					|| r.objects.size() != objects.size()
 					|| r.getValueOfRucksack() != getValueOfRucksack()
@@ -155,10 +157,10 @@ public class Rucksack {
 					return false;
 				}
 			}
+			return true;
 		} else {
-			throw new InvalidParameterException("The rucksack is null");
+			return false;
 		}
-		return true;
 	}
 
 

@@ -215,8 +215,8 @@ public abstract class AbstractTreeTest {
 		o5 = new RucksackObject(5, 15);
 		
 		Rucksack r = new Rucksack(60);
-		tree.setCurrentNode(createTreeNode(null));
-		otherTree.setCurrentNode(createTreeNode(null));
+		tree.setCurrentNode(createTreeNode(r));
+		otherTree.setCurrentNode(createTreeNode(r));
 		assertTrue(tree.equals(otherTree));
 		assertTrue(otherTree.equals(tree));
 
