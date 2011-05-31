@@ -28,6 +28,8 @@ public abstract class TreeNode {
 	 */
 	public TreeNode(Rucksack rucksack){
 		this.rucksack = rucksack;
+		this.weight = rucksack.getWeightOfRucksack();
+		this.value = rucksack.getValueOfRucksack();
 	}
 
 	/**

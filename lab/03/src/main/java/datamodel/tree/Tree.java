@@ -95,51 +95,55 @@ public abstract class Tree {
 	 */
 	public abstract void clearTree();
 	
-
 	public boolean equals(Object o) {
-
 		if(o instanceof Tree) {
 			Tree otherTree = (Tree) o;
 
-			// test current node
-			if(!this.getCurrentNode().equals(otherTree.getCurrentNode()))
-				return false;
-
-			// test left node
-			if(this.hasLeftNode() && otherTree.hasLeftNode()) {
-
-				this.moveToLeftNode();
-				otherTree.moveToLeftNode();
-
-				if(!equals(otherTree))
-					return false;
-
-				this.moveToParentNode();
-				otherTree.moveToParentNode();
-
-			} else if(this.hasLeftNode() || otherTree.hasLeftNode()){
-				return false;
-			}
-
-			// test right node
-			if(this.hasRightNode() && otherTree.hasRightNode()) {
-
-				this.moveToRightNode();
-				otherTree.moveToRightNode();
-
-				if(!equals(otherTree))
-					return false;
-
-				this.moveToParentNode();
-				otherTree.moveToParentNode();
-
-			} else if(this.hasRightNode() || otherTree.hasRightNode()){
-				return false;
-			}
-
-			return true;
+			moveToRoot();
+			otherTree.moveToRoot();
+			return req_equals(otherTree);
 		} else {
 			return false;
 		}
+	}
+
+	public boolean req_equals(Tree otherTree) {
+		// test current node
+		if(!this.getCurrentNode().equals(otherTree.getCurrentNode()))
+			return false;
+
+		// test left node
+		if(this.hasLeftNode() && otherTree.hasLeftNode()) {
+
+			this.moveToLeftNode();
+			otherTree.moveToLeftNode();
+
+			if(!req_equals(otherTree))
+				return false;
+
+			this.moveToParentNode();
+			otherTree.moveToParentNode();
+
+		} else if(this.hasLeftNode() || otherTree.hasLeftNode()){
+			return false;
+		}
+
+		// test right node
+		if(this.hasRightNode() && otherTree.hasRightNode()) {
+
+			this.moveToRightNode();
+			otherTree.moveToRightNode();
+
+			if(!req_equals(otherTree))
+				return false;
+
+			this.moveToParentNode();
+			otherTree.moveToParentNode();
+
+		} else if(this.hasRightNode() || otherTree.hasRightNode()){
+			return false;
+		}
+
+		return true;
 	}
 }
