@@ -6,10 +6,10 @@ Aufgaben f&uuml;r das Praktikum 3
 * [DONE]   Linked Tree
 * [DONE]   Rucksack
 * [DONE]   equals methoden
-*          createRucksackTree() mit zwei Parametern
-*          createRucksackTree() mit drei Parametern
-*          findOptimalRucksack()
-*          Filterfunktion f&uuml;r createRucksackTree
+* [DONE]   createRucksackTree() mit zwei Parametern
+* [DONE]   createRucksackTree() mit drei Parametern
+* [DONE]   findOptimalRucksack()
+* [DONE]   Filterfunktion f&uuml;r createRucksackTree
 
 hier mein Vorschlag zur Aufgabenverteilung
 ==========================================
@@ -33,9 +33,9 @@ bis Donnerstag
 
 bis Freitag
 -----------
-* [TESTS] findOptimalRucksack()
-*         createRucksackTree() mit zwei Parametern
+* [DONE]   findOptimalRucksack()
+* [DONE]   createRucksackTree() mit zwei Parametern
 
 bis Montag
 ----------
-*        Filterfunktion f&uuml;r createRucksackTree
+* [DONE]   Filterfunktion f&uuml;r createRucksackTree
