@@ -6,8 +6,10 @@ import java.util.Vector;
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
+/**
+ * An abstract iterator wich don't defines the concret taversal.
+ */
 public abstract class TreeTraversal implements Iterable<TreeNode> {
-
 
 	/**
 	 * the tree to iterate over.

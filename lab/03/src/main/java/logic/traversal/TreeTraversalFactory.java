@@ -5,6 +5,9 @@ import java.util.Iterator;
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
+/**
+ * produces iterators which iterates over the given tree.
+ */
 public class TreeTraversalFactory {
 
 	/**

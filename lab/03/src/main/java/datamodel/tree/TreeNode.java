@@ -131,6 +131,10 @@ public abstract class TreeNode {
 		return "weight: " + weight + "\tvalue: " + value;
 	}
 
+
+	/**
+	 * two tree nodes are equal, if they have the same rucksack.
+	 */
 	@Override
 	public boolean equals(Object o) {
 
@@ -149,6 +153,9 @@ public abstract class TreeNode {
 		}
 	}
 	
+	/**
+	 * checks if a node comply whith the constraints
+	 */
 	public boolean consCheck(Constraints cons){
 		
 		if 			(this.rucksack.getValueOfRucksack() >= cons.getAttribute(0) && 
@@ -160,7 +167,4 @@ public abstract class TreeNode {
 		else		 return false;
 			
 		}
-	
-	
-	
 }

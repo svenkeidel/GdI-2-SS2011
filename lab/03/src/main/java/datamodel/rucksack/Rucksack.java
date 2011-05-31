@@ -35,9 +35,6 @@ public class Rucksack {
 		}
 	}
 
-	// TODO: implement necessary methods and attributes, f.e. getters, toString-method, equals...
-
-
 	/**
 	 * @return the capacity of the Rucksack.
 	 */
@@ -101,6 +98,10 @@ public class Rucksack {
 	}
 
 
+	/**
+	 * Clones a Rucksack and inserts the elements of the old rucksack.
+	 */
+	@Override
 	public Rucksack clone(){
 		Rucksack r = new Rucksack(this.capacity);
 		for (int i = 0; i < objects.size(); i++){
@@ -132,10 +133,8 @@ public class Rucksack {
 
 
 	/**
-	 * check if r and this rucksack are equal bags.
-	 * @param r
-	 * @param r2
-	 * @return true if equal, else false.
+	 * Two rucksacks are equal, if the have equal elements at the same
+	 * positions.
 	 */
 	@Override
 	public boolean equals(Object o){
@@ -165,7 +164,7 @@ public class Rucksack {
 
 
 	/**
-	 * tries to add this RucksackObject to the rucksack
+	 * tries to add this RucksackObject to the rucksack.
 	 * 
 	 * @param o
 	 *            the RucksackObject to insert
@@ -184,6 +183,9 @@ public class Rucksack {
 		return false;
 	}
 	
+	/**
+	 * get the number of objects in the rucksack.
+	 */
 	public int getAmountOfObjects(){
 		return objects.size();
 	}

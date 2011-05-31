@@ -91,19 +91,29 @@ public abstract class Tree {
 	 */
 	public abstract void clearTree();
 	
+	/**
+	 * a tree equals, if it has the equal nodes at the same positions.
+	 *
+	 * the method moves the current position in tree to the root node.
+	 */
+	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Tree) {
 			Tree otherTree = (Tree) o;
 
 			moveToRoot();
 			otherTree.moveToRoot();
-			return req_equals(otherTree);
+			return rec_equals(otherTree);
 		} else {
 			return false;
 		}
 	}
 
-	public boolean req_equals(Tree otherTree) {
+	/**
+	 * walks recursive through the tree and checks if the nodes are
+	 * equal.
+	 */
+	private boolean rec_equals(Tree otherTree) {
 		// test current node
 		if(!this.getCurrentNode().equals(otherTree.getCurrentNode()))
 			return false;
@@ -114,7 +124,7 @@ public abstract class Tree {
 			this.moveToLeftNode();
 			otherTree.moveToLeftNode();
 
-			if(!req_equals(otherTree))
+			if(!rec_equals(otherTree))
 				return false;
 
 			this.moveToParentNode();
@@ -130,7 +140,7 @@ public abstract class Tree {
 			this.moveToRightNode();
 			otherTree.moveToRightNode();
 
-			if(!req_equals(otherTree))
+			if(!rec_equals(otherTree))
 				return false;
 
 			this.moveToParentNode();

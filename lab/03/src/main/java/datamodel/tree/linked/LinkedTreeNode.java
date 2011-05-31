@@ -26,10 +26,23 @@ public class LinkedTreeNode extends TreeNode {
 		super(rucksack);
 	}
 
+	/**
+	 * constructor
+	 * 
+	 * @param weight the weight of the rucksack
+	 * @param value the value of the rucksack
+	 */
 	public LinkedTreeNode(int weight, int value) {
 		super(weight, value);
 	}
 
+	/**
+	 * constructor
+	 * 
+	 * @param rucksack the rucksack to set
+	 * @param weight the weight of the rucksack
+	 * @param value the value of the rucksack
+	 */
 	public LinkedTreeNode(Rucksack rucksack, int weight, int value) {
 		super(rucksack, weight, value);
 	}

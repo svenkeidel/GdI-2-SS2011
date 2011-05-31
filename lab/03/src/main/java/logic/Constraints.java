@@ -18,6 +18,9 @@ public class Constraints {
 	private int maxObjects;
 	
 
+	/**
+	 * constructor
+	 */
 	public Constraints(int minValue, int maxValue, int minObjects,
 			int maxObjects) {
 		this.minValue = minValue;
@@ -26,6 +29,15 @@ public class Constraints {
 		this.maxObjects = maxObjects;
 	}
 	
+	/**
+	 * get for constraints.
+	 *
+	 * @return 
+	 * Index 0   =   minValue
+	 * Index 1   =   maxValue
+	 * Index 2   =   minObjects
+	 * Index 3   =   maxObjects
+	 */
 	public int getAttribute(int index){
 		
 		switch (index){

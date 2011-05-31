@@ -68,14 +68,17 @@ public class RucksackTreeBuilder {
 	 * @param depth
 	 * @param objects
 	 */
-	public void setNodes(int depth, Vector<RucksackObject> objects){		
+	private void setNodes(int depth, Vector<RucksackObject> objects){		
 		int size = objects.size();
 
 		if (depth < size){
+
+			// each rucksack is clone get different rucksacks in the tree
 			Rucksack rucksack = tree.getCurrentNode().getRucksack().clone();
 			TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 			tree.setLeftNode(node);
 			Rucksack rucksack1 = rucksack.clone();
+
 			if (rucksack1.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack1.getCapacity()){
 				rucksack1.insert(objects.elementAt(depth));
 				node = TreeNodeFactory.getNodeForTree(tree, rucksack1);
@@ -86,6 +89,8 @@ public class RucksackTreeBuilder {
 				setNodes(depth+1, objects);
 				tree.moveToParentNode();
 			}
+
+			// move to left node
 			tree.moveToLeftNode();
 			setNodes(depth+1, objects);
 			tree.moveToParentNode();
@@ -111,23 +116,26 @@ public class RucksackTreeBuilder {
 	 */
 	public void createRucksackTree(Vector<RucksackObject> objects,
 			Vector<RucksackObject> needed, int capacity) {
-		int depth = 0;
 		Rucksack rucksack = new Rucksack(capacity);
 		
 		tree.moveToRoot();
 		TreeNode node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 		tree.setCurrentNode(node);
+
+		// Packs the needed objects in the rucksack, create a new node
 		for (int i = 0; i < needed.size(); i++){
 			if (rucksack.getCapacity() >= rucksack.getWeightOfRucksack() + needed.elementAt(i).getWeight()){
 				rucksack.insert(needed.elementAt(i));
 				node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 				tree.setRightNode(node);
 				tree.moveToRightNode();
+			} else {
+				throw new IllegalArgumentException("Needed objects don't fit into the rucksack");
 			}
 		}
-		if (!objects.isEmpty()){
-			setNodes(depth, objects);
-		}
+
+		// and then start the normal procedure
+		setNodes(0, objects);
 	}
 
 	/**
@@ -160,18 +168,18 @@ public class RucksackTreeBuilder {
 	 */
 	public Vector<Rucksack> filter(Constraints constraints) {
 		filtered.clear();
-		Rucksack empty = new Rucksack(0);
 		
-		if 			(tree == null){
-						filtered.add(empty);
-						return filtered;}
-		
-		else{		for(TreeNode t : TreeTraversalFactory.createPreorder(tree)){
-							if(t.consCheck(constraints) && (!filtered.contains(t.getRucksack())))
-								filtered.add(t.getRucksack());}
+		if (tree == null){
+			return filtered;
+		} else {
 
-				return filtered;}
+			for(TreeNode t : TreeTraversalFactory.createPreorder(tree))
+				if(t.consCheck(constraints) && (!filtered.contains(t.getRucksack())))
+					filtered.add(t.getRucksack());
+
+			return filtered;
 		}
+	}
 		
 
 	/**
