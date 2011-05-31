@@ -1,5 +1,5 @@
 /**
- * trolololollolololol 
+ *
  */
 package datamodel.rucksack;
 

@@ -2,6 +2,7 @@ package test_private;
 
 
 
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -12,6 +13,7 @@ import datamodel.rucksack.RucksackObject;
 
 public class RucksackTest {
 
+	private RucksackObject o0;
 	private RucksackObject o1 = new RucksackObject(10, 15);
 	private RucksackObject o2 = new RucksackObject(15, 5);
 	private RucksackObject o3 = new RucksackObject(23, 45);
@@ -103,5 +105,29 @@ public class RucksackTest {
 		Rucksack otherRucksack = rucksack.clone();
 		Assert.assertTrue(rucksack.equals(otherRucksack));
 		Assert.assertTrue(otherRucksack.equals(rucksack));
+	}
+	
+	@Test
+	public void extremTest() {
+		
+		//both null with 1 capacity
+		Rucksack emptyRucksack = new Rucksack(1);
+		Rucksack otherEmptyRucksack = new Rucksack(1);
+		emptyRucksack.removeAll();
+		otherEmptyRucksack.removeAll();
+		Assert.assertTrue(emptyRucksack.equals(otherEmptyRucksack));
+		
+		//one null other with one null element
+		emptyRucksack.insert(o0);
+		Assert.assertFalse(emptyRucksack.equals(otherEmptyRucksack));
+		
+		//both with null element
+		otherEmptyRucksack.insert(o0);
+		Assert.assertTrue(emptyRucksack.equals(otherEmptyRucksack));
+		
+		//one null, other normal
+		Assert.assertFalse(emptyRucksack.equals(rucksack));
+		
+	
 	}
 }

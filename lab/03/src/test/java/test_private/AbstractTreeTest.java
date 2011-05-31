@@ -256,6 +256,25 @@ public abstract class AbstractTreeTest {
 		otherTree.moveToParentNode();
 		assertFalse(tree.equals(otherTree));
 		assertFalse(otherTree.equals(tree));
+		
+	}
+		@Test
+		public void extremTest() {
+			
+		//both null
+		Tree emptyTree = createEmptyTree();
+		Tree otherTree = createEmptyTree();
+		assertTrue(emptyTree.equals(otherTree));
+		
+		//checking again after clearing-method
+		emptyTree.clearTree();
+		otherTree.clearTree();
+		assertTrue(emptyTree.equals(otherTree));
+		
+		//one null other normal
+		assertFalse(emptyTree.equals(tree));
+		
+		
 	}
 	
 

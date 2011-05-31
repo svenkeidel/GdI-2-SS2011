@@ -98,6 +98,13 @@ public abstract class Tree {
 	 */
 	@Override
 	public boolean equals(Object o) {
+		
+		if (this == null ^ o == null)
+			return false;
+		else if (this == null && o == null)
+			return true;
+		else{
+		
 		if(o instanceof Tree) {
 			Tree otherTree = (Tree) o;
 
@@ -106,6 +113,7 @@ public abstract class Tree {
 			return rec_equals(otherTree);
 		} else {
 			return false;
+			}
 		}
 	}
 
@@ -114,6 +122,11 @@ public abstract class Tree {
 	 * equal.
 	 */
 	private boolean rec_equals(Tree otherTree) {
+		if (this.getCurrentNode() == null ^ otherTree.getCurrentNode() == null)
+			return false;
+		else if (this.getCurrentNode() == null && otherTree.getCurrentNode() == null)
+			return true;
+		else{
 		// test current node
 		if(!this.getCurrentNode().equals(otherTree.getCurrentNode()))
 			return false;
@@ -151,5 +164,6 @@ public abstract class Tree {
 		}
 
 		return true;
+		}
 	}
 }
