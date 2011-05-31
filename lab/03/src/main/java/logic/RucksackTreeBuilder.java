@@ -3,7 +3,6 @@
  */
 package logic;
 
-import java.security.InvalidParameterException;
 import java.util.Vector;
 
 import datamodel.rucksack.Rucksack;

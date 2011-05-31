@@ -33,8 +33,5 @@ public class LinkedTreeNode extends TreeNode {
 	public LinkedTreeNode(Rucksack rucksack, int weight, int value) {
 		super(rucksack, weight, value);
 	}
-
-	public LinkedTreeNode(Rucksack rucksack, int weight, int value, TreeNode parent, TreeNode leftChild, TreeNode rightChild){
-	super(rucksack, weight, value, parent, leftChild, rightChild);
-	}
+		
 }

@@ -63,7 +63,6 @@ public class LinkedTree extends Tree {
 	 */
 	public boolean moveToParentNode() {
 		if 		(currentNode.getLinkedNode(0) != null){
-//					System.err.println("BACK TO PARENT "+currentNode.getLinkedNode(0).getValue()+"");
 					currentNode = currentNode.getLinkedNode(0);
 					return true;}
 		else 	return false;
@@ -92,12 +91,10 @@ public class LinkedTree extends Tree {
 	 */
 	public boolean hasParentNode() {
 		if 		(currentNode.getLinkedNode(0) != null){
-					//System.err.println("PARENT TRUE");
 					return true;
 					}
-		else 	{//System.err.println("PARENT FALSE");
-				return false;}
-		}
+		else	return false;
+	}
 	
 	
 	/**
@@ -110,7 +107,6 @@ public class LinkedTree extends Tree {
 		if		(currentNode != null){
 					currentNode.setLinkedNode(1, node);
 					node.setLinkedNode(0, currentNode);
-//					System.err.println("SETLEFT WITH PARENT "+node.getLinkedNode(0).getValue()+"");
 					return true;}
 		else 	return false;
 		}
@@ -126,7 +122,6 @@ public class LinkedTree extends Tree {
 		if		(currentNode != null){
 					currentNode.setLinkedNode(2, node);
 					node.setLinkedNode(0, currentNode);
-//					System.err.println("SETRIGHT WITH PARENT "+node.getLinkedNode(0).getValue()+"");
 					return true;}
 		else 	return false;
 }
@@ -163,7 +158,6 @@ public class LinkedTree extends Tree {
 		if 		(root == null)
 					return false;
 		else{	while(this.hasParentNode() == true){
-//				System.err.println("while loop movetoRoot");
 					this.moveToParentNode();}
 				return true;
 		}
@@ -176,89 +170,5 @@ public class LinkedTree extends Tree {
 	public void clearTree() {
 		root = null;
 		currentNode = null;
-	}
-	
-/*
-	public boolean equals(Object o) {
-		if (o instanceof LinkedTree){
-				TreeNode root2 =  ((LinkedTree) o).root;
-				
-				if (root.equals(root2)){
-					
-					{
-						return checkSubnodes(root, root2);
-					}
-					
-				}
-				else return false;
-		}
-		else return false;
-//		//TODO: Implement me
-//		throw new UnsupportedOperationException("Implement Me");
-	}
-	public boolean checkSubnodes(TreeNode node, TreeNode node2){
-		boolean left_null_check = true;
-		boolean right_null_check = true;
-		
-		boolean left_object_pair = false;
-		boolean right_object_pair = false;
-		
-		boolean left_obj_equal = true;
-		boolean right_obj_equal = true;
-		
-		
-			// checking both nodes for NULL (both NULL, both not NULL, one NULL ?)
-			// and setting the boolean indicators as result:
-			// both nodes NULL 		-> xxx_null_check = true
-			// both nodes not NUll 	-> xxx_object_pair = true
-			// one node NULL		-> xxx_null_check = false;
-		
-			if		 	(node.getLinkedNode(1) == null && node2.getLinkedNode(1) == null)
-								left_null_check = true;
-		
-			else if 	(node.getLinkedNode(1) != null && node2.getLinkedNode(1) != null)
-								left_object_pair = true;
-			
-			else		left_null_check = false;
-			
-			
-			if		 	(node.getLinkedNode(2) == null && node2.getLinkedNode(2) == null)
-								right_null_check = true;
-
-			else if 	(node.getLinkedNode(2) != null && node2.getLinkedNode(2) != null)
-								right_object_pair = true;
-
-			else		right_null_check = false;
-			
-			
-		
-			//consequences of the NULL check above
-			if 			(left_object_pair){
-								TreeNode node_left = node.getLinkedNode(1);
-								TreeNode node2_left = node2.getLinkedNode(1);
-								left_obj_equal = (node_left.equals(node2_left)) && checkSubnodes(node_left, node2_left);}
-			
-			else if		(left_null_check == false){
-								return false;}
-			
-			
-			
-			if 			(right_object_pair){
-								TreeNode node_right = node.getLinkedNode(2);
-								TreeNode node2_right = node2.getLinkedNode(2);
-								right_obj_equal = (node_right.equals(node2_right)) && checkSubnodes(node_right, node2_right);}
-
-			else if		(right_null_check == false){
-								return false;}
-			
-			
-			
-		
-			return		left_obj_equal && right_obj_equal;
-		
-					
-			
-		
-	}
-*/
+	}	
 }

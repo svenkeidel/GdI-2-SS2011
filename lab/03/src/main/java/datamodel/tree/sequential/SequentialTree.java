@@ -5,8 +5,6 @@ package datamodel.tree.sequential;
 
 import java.util.Vector;
 
-import org.apache.log4j.Logger;
-
 import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
@@ -19,10 +17,8 @@ import datamodel.tree.TreeNode;
  * 
  */
 public class SequentialTree extends Tree {
-	private static final Logger logger =
-		Logger.getLogger(SequentialTree.class);
-
-	private SequentialTree other;
+	
+	
 	private Vector<TreeNode> nodes;
 	private int depth;
 	private TreeNode rootNode;
@@ -230,118 +226,4 @@ public class SequentialTree extends Tree {
 			+ "capacity: "+nodes.capacity()+"\n"
 			+ "elements: "+nodes.toString();
 	}
-	
-	
-	
-	/*
-	public boolean equals(Object o) {
-		if (o instanceof SequentialTree){
-				TreeNode root2 =  ((SequentialTree) o).rootNode;
-				this.other = ((SequentialTree) o);
-				if (rootNode.equals(root2)){
-					
-					{
-						return checkSubnodes(0, 0);
-					}
-					
-				}
-				else return false;
-		}
-		else return false;
-//		//TODO: Implement me
-//		throw new UnsupportedOperationException("Implement Me");
-	}
-	
-	public boolean checkSubnodes(int node1_position, int node2_position){
-		boolean left_null_check = true;
-		boolean right_null_check = true;
-		
-		boolean left_object_pair = false;
-		boolean right_object_pair = false;
-		
-		boolean left_obj_equal = true;
-		boolean right_obj_equal = true;
-		
-		boolean left_in_array_range = false;
-		boolean right_in_array_range = false;
-		
-		int node1_left_position = 2 * node1_position + 1;
-		int node2_left_position = 2 * node2_position + 1;
-		int node1_right_position = 2 * node1_position + 2;
-		int node2_right_position = 2 * node2_position + 2;
-		
-		
-			// checking both new node position for ArrayOutofBoundsException
-			// if one of them true -> false
-			// if both true -> set indicator variable "xxx_in_array_range" and proceed checking null pointer like this:
-			//
-			// checking both nodes for NULL (both NULL, both not NULL, one NULL ?)
-			// and setting the boolean indicators as result:
-			// both nodes NULL 		-> xxx_null_check = true
-			// both nodes not NUll 	-> xxx_object_pair = true
-			// one node NULL		-> xxx_null_check = false;
-			// 
-			// if both nodes ArrayOutofBoundsException -> no setting of "xxx_in_array_range" that means false
-			// and therefore there wont be a next recursive call for this node position
-		
-		
-			if (node1_left_position >= this.nodes.size() ^ node2_left_position >= other.nodes.size())
-				return false;
-			
-			
-			if (node1_right_position >= this.nodes.size() ^ node2_right_position >= other.nodes.size())
-				return false;
-			
-			
-			if (node1_left_position < this.nodes.size() && node2_left_position < other.nodes.size()){
-				left_in_array_range = true;
-				
-			if		 	(this.nodes.get(node1_left_position) == null && other.nodes.get(node2_left_position) == null)
-								left_null_check = true;
-
-			else if 	(this.nodes.get(node1_left_position) != null && other.nodes.get(node2_left_position) != null)
-								left_object_pair = true;
-
-			else		left_null_check = false;}
-			
-			
-			
-			if (node1_right_position < this.nodes.size() && node2_right_position < other.nodes.size()){
-				right_in_array_range = true;
-				
-			if		 	(this.nodes.get(node1_right_position) == null && other.nodes.get(node2_right_position)  == null)
-								right_null_check = true;
-
-			else if 	(this.nodes.get(node1_right_position) != null && other.nodes.get(node2_right_position) != null)
-								right_object_pair = true;
-
-			else		right_null_check = false;}
-					
-			
-			//consequences of the NULL check above
-			if 			(left_object_pair && left_in_array_range){
-								TreeNode node_left = this.nodes.get(node1_left_position);
-								TreeNode node2_left = other.nodes.get(node2_left_position);
-								left_obj_equal = (node_left.equals(node2_left)) && checkSubnodes(node1_left_position, node2_left_position);}
-			
-			else if		(left_null_check == false){
-								return false;}
-			
-			
-			
-			if 			(right_object_pair && right_in_array_range){
-								TreeNode node_right = this.nodes.get(node1_right_position);
-								TreeNode node2_right = other.nodes.get(node2_right_position);
-								right_obj_equal = (node_right.equals(node2_right)) && checkSubnodes(node1_right_position, node2_right_position);}
-
-			else if		(right_null_check == false){
-								return false;}
-			
-			
-			
-		
-			return		left_obj_equal && right_obj_equal;
-		
-			}
-	*/
-	}
+}

@@ -1,9 +1,5 @@
 package test_private;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,8 +12,6 @@ import datamodel.tree.Tree;
 import datamodel.tree.TreeNode;
 
 public abstract class AbstractTreeTest {
-	private static final Logger logger = Logger.getRootLogger();
-
 
 	/**
 	 * the tree should have the following layout.
@@ -50,8 +44,6 @@ public abstract class AbstractTreeTest {
 	@BeforeClass
 	public static void Constructor() {
 		if(!configured) {
-			BasicConfigurator.configure();
-			logger.setLevel(Level.DEBUG);
 			configured = true;
 		}
 	}

@@ -3,10 +3,6 @@
  */
 package datamodel.tree;
 
-import java.util.Iterator;
-
-import logic.traversal.TreeTraversalFactory;
-
 /**
  * The abstract class for a tree.
  * 
