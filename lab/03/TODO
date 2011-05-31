@@ -1,47 +1,41 @@
 So leute,
 
-Aufgaben für das Praktikum 3
+Aufgaben f&uuml;r das Praktikum 3
 ============================
-DONE	* Sequential Tree
-DONE	* Linked Tree
-DONE	* Rucksack
-DONE	* equals methoden
-        * createRucksackTree() mit zwei Parametern
-=======
-DONE    * Sequential Tree
-DONE    * Linked Tree
-DONE    * Rucksack
-DONE    * equals methoden
-        * createRucksackTree() mit zwei Parametern
-        * createRucksackTree() mit drei Parametern
-        * findOptimalRucksack()
-* Filterfunktion für createRucksackTree
+* [DONE]   Sequential Tree
+* [DONE]   Linked Tree
+* [DONE]   Rucksack
+* [DONE]   equals methoden
+*          createRucksackTree() mit zwei Parametern
+*          createRucksackTree() mit drei Parametern
+*          findOptimalRucksack()
+*          Filterfunktion f&uuml;r createRucksackTree
 
 hier mein Vorschlag zur Aufgabenverteilung
 ==========================================
-* 3 Models, das schreit schon danach, dass jeder von uns eins bearbeitet
-* die equals Methoden schreibt dann jeder für sein Model. Schaut mal in
-  java.lang.object.equals() nach was für Anforderungen an eine equals 
-  Methode gestell werden.
-* createRucksackTree() mit zwei Parametern (A3) Tim
-* findOptimalRucksack() (A4) Sven
-* Filterfunktion für createRucksackTree (A5) Seb
-* createRucksackTree() mit drei Parametern (A6), alle (der der noch energie hat)
+*          3 Models, das schreit schon danach, dass jeder von uns eins bearbeitet
+*          die equals Methoden schreibt dann jeder f&uuml;r sein Model. Schaut mal in
+           java.lang.object.equals() nach was f&uuml;r Anforderungen an eine equals 
+           Methode gestell werden.
+*          createRucksackTree() mit zwei Parametern (A3) Tim
+*          findOptimalRucksack() (A4) Sven
+*          Filterfunktion f&uuml;r createRucksackTree (A5) Seb
+*          createRucksackTree() mit drei Parametern (A6), alle (der der noch energie hat)
 
 Zeitmanagement
 ==============
 bis Donnerstag
 --------------
-DONE    * Sequential Tree
-DONE    * Linked Tree
-DONE    * Rucksack
-DONE    * equals methoden
+* [DONE]   Sequential Tree
+* [DONE]   Linked Tree
+* [DONE]   Rucksack
+* [DONE]   equals methoden
 
 bis Freitag
 -----------
-TESTS	* findOptimalRucksack()
-        * createRucksackTree() mit zwei Parametern
+* [TESTS] findOptimalRucksack()
+*         createRucksackTree() mit zwei Parametern
 
 bis Montag
 ----------
-* Filterfunktion für createRucksackTree
+*        Filterfunktion f&uuml;r createRucksackTree
