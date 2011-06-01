@@ -155,9 +155,10 @@ public abstract class TreeNode {
 	
 	/**
 	 * checks if a node comply whith the constraints
+	 * returns false, when rucksack was null-object
 	 */
 	public boolean consCheck(Constraints cons){
-		
+		if (this.rucksack != null){
 		if 			(this.rucksack.getValueOfRucksack() >= cons.getAttribute(0) && 
 					 this.rucksack.getValueOfRucksack() <= cons.getAttribute(1) &&
 					 this.rucksack.getAmountOfObjects() >= cons.getAttribute(2) &&
@@ -167,4 +168,6 @@ public abstract class TreeNode {
 		else		 return false;
 			
 		}
+		else return false;
+	}
 }
