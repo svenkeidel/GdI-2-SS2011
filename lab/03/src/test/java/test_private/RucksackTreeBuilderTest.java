@@ -1,6 +1,7 @@
 package test_private;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Vector;
 
@@ -78,34 +79,34 @@ public class RucksackTreeBuilderTest {
 		Rucksack expected = new Rucksack(60);
 
 		tree.moveToRoot();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToRightNode();
 		expected.insert(o20);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack())); 
+		assertEquals(expected, tree.getCurrentNode().getRucksack()); 
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
 		tree.moveToRightNode();
 		expected.removeAll();
 		expected.insert(o45);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
@@ -113,11 +114,11 @@ public class RucksackTreeBuilderTest {
 		tree.moveToRightNode();
 		expected.removeAll();
 		expected.insert(o5);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToRightNode();
 		expected.insert(o45);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
@@ -125,26 +126,26 @@ public class RucksackTreeBuilderTest {
 		tree.moveToRightNode();
 		expected.removeAll();
 		expected.insert(o15);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToRightNode();
 		expected.insert(o5);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		expected.removeAll();
 		expected.insert(o15);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
 		tree.moveToLeftNode();
 		expected.removeAll();
 		expected.insert(o15);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToRightNode();
 		expected.insert(o20);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
@@ -152,7 +153,7 @@ public class RucksackTreeBuilderTest {
 		expected.removeAll();
 		expected.insert(o15);
 		expected.insert(o45);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
@@ -163,7 +164,7 @@ public class RucksackTreeBuilderTest {
 		expected.insert(o15);
 		expected.insert(o5);
 		expected.insert(o20);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 	}
 
 	/**
@@ -216,39 +217,39 @@ public class RucksackTreeBuilderTest {
 		
 		tree.moveToRightNode();
 		expected.insert(o20);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
 		tree.moveToRightNode();
 		expected.insert(o5);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToParentNode();
 		tree.moveToParentNode();
 		tree.moveToRightNode();
 		expected.removeAt(1);
 		expected.insert(o15);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToRightNode();
 		expected.insert(o5);
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 		
 		tree.moveToLeftNode();
-		assertTrue(expected.equals(tree.getCurrentNode().getRucksack()));
+		assertEquals(expected, tree.getCurrentNode().getRucksack());
 	}
 	
 	@Test

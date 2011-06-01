@@ -3,6 +3,8 @@ package test_private;
 
 
 
+import java.util.Vector;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -44,9 +46,9 @@ public class RucksackTest {
 		// full
 		Assert.assertFalse(rucksack.insert(o1));
 		
-		Assert.assertEquals(150, rucksack.getWeightOfRucksack());
+		Assert.assertEquals(150, rucksack.getWeight());
 		rucksack.removeAll();
-		Assert.assertEquals(0, rucksack.getWeightOfRucksack());
+		Assert.assertEquals(0, rucksack.getWeight());
 	}
 	
 	@Test
@@ -56,25 +58,30 @@ public class RucksackTest {
 		Assert.assertTrue(rucksack.insert(o4));
 		Assert.assertEquals(o4, rucksack.getObject(0));
 		Assert.assertEquals(200, rucksack.getCapacity());
+		Assert.assertEquals(1, rucksack.getSize());
+		// vector for test getElements()
+		Vector<RucksackObject> objects = new Vector<RucksackObject>();
+		objects.add(o4);
+		Assert.assertEquals(objects, rucksack.getElements());
 	}
 	
 	@Test
 	public void rucksackTest(){
-		Assert.assertEquals(0, rucksack.getWeightOfRucksack());
+		Assert.assertEquals(0, rucksack.getWeight());
 		rucksack.insert(o1);
 		rucksack.insert(o2);
 		rucksack.insert(o3);
 		rucksack.insert(o4);
 		rucksack.insert(o5);
 		rucksack.insert(o6);
-		Assert.assertEquals(131, rucksack.getWeightOfRucksack());
-		Assert.assertEquals(87, rucksack.getValueOfRucksack());
+		Assert.assertEquals(131, rucksack.getWeight());
+		Assert.assertEquals(87, rucksack.getValue());
 		rucksack.removeAt(1);
-		Assert.assertEquals(126, rucksack.getWeightOfRucksack());
-		Assert.assertEquals(72, rucksack.getValueOfRucksack());
+		Assert.assertEquals(126, rucksack.getWeight());
+		Assert.assertEquals(72, rucksack.getValue());
 		rucksack.removeAll();
-		Assert.assertEquals(0, rucksack.getWeightOfRucksack());
-		Assert.assertEquals(0, rucksack.getValueOfRucksack());
+		Assert.assertEquals(0, rucksack.getWeight());
+		Assert.assertEquals(0, rucksack.getValue());
 	}
 	
 	@Test
@@ -117,7 +124,6 @@ public class RucksackTest {
 		
 		//null-Rucksack
 		Rucksack nullRucksack = null;
-		Rucksack otherNullRucksack = null;
 		
 		emptyRucksack.removeAll();
 		otherEmptyRucksack.removeAll();
@@ -135,7 +141,7 @@ public class RucksackTest {
 		Assert.assertFalse(emptyRucksack.equals(rucksack));
 		
 		try{
-			Assert.assertTrue(nullRucksack.equals(otherNullRucksack));
+			Assert.assertTrue(emptyRucksack.equals(nullRucksack));
 			Assert.fail("Null-Rucksack was accepted");
 		} catch (Exception e) {
 			// everything goes right

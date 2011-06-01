@@ -28,8 +28,8 @@ public abstract class TreeNode {
 	 */
 	public TreeNode(Rucksack rucksack){
 		this.rucksack = rucksack;
-		this.weight = rucksack.getWeightOfRucksack();
-		this.value = rucksack.getValueOfRucksack();
+		this.weight = rucksack.getWeight();
+		this.value = rucksack.getValue();
 	}
 
 	/**
@@ -159,8 +159,8 @@ public abstract class TreeNode {
 	 */
 	public boolean consCheck(Constraints cons){
 		if (this.rucksack != null){
-		if 			(this.rucksack.getValueOfRucksack() >= cons.getAttribute(0) && 
-					 this.rucksack.getValueOfRucksack() <= cons.getAttribute(1) &&
+		if 			(this.rucksack.getValue() >= cons.getAttribute(0) && 
+					 this.rucksack.getValue() <= cons.getAttribute(1) &&
 					 this.rucksack.getAmountOfObjects() >= cons.getAttribute(2) &&
 					 this.rucksack.getAmountOfObjects() <= cons.getAttribute(3))
 							return true;

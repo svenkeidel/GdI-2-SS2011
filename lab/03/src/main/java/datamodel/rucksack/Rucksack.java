@@ -49,7 +49,7 @@ public class Rucksack {
 	 * 		the new capacity.
 	 */
 	public void setCapacity(int capacity){
-		if (capacity >= 0 && capacity >= getWeightOfRucksack()){
+		if (capacity >= 0 && capacity >= getWeight()){
 			this.capacity = capacity;
 		} else {
 			throw new InvalidParameterException("No legal capacity");
@@ -57,10 +57,17 @@ public class Rucksack {
 	}
 
 
+	/**
+	 * @return the number of elements in the Rucksack.
+	 */
+	public int getSize(){
+		return objects.size();
+	}
+	
 	/** 
 	 * @return the complete weight of the Rucksack.
 	 */
-	public int getWeightOfRucksack(){
+	public int getWeight(){
 		int weight = 0;
 		
 		for (int i = 0; i < objects.size(); i++){
@@ -74,7 +81,7 @@ public class Rucksack {
 	/**
 	 * @return the complete value of all RucksackObjects.
 	 */
-	public int getValueOfRucksack(){
+	public int getValue(){
 		int value = 0;
 		
 		for (int i = 0; i < objects.size(); i++){
@@ -85,6 +92,11 @@ public class Rucksack {
 	}
 
 
+	public Vector<RucksackObject> getElements(){
+		return objects;
+	}
+	
+	
 	/**
 	 * @param i
 	 * @return object at position i
@@ -145,8 +157,8 @@ public class Rucksack {
 			Rucksack r = (Rucksack) o;
 			if (r.getCapacity() != getCapacity()
 					|| r.objects.size() != objects.size()
-					|| r.getValueOfRucksack() != getValueOfRucksack()
-					|| r.getWeightOfRucksack() != getWeightOfRucksack()){
+					|| r.getValue() != getValue()
+					|| r.getWeight() != getWeight()){
 				return false;
 			} 
 			// capacity, size of objectsvector, value and weight is equal
@@ -179,7 +191,7 @@ public class Rucksack {
 				objects.add(o);
 				return true;
 			} else {
-				if (o.getWeight() + getWeightOfRucksack() <= capacity){
+				if (o.getWeight() + getWeight() <= capacity){
 					objects.add(o);
 					return true;
 				}

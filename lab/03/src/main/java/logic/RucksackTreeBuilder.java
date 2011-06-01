@@ -79,7 +79,7 @@ public class RucksackTreeBuilder {
 			tree.setLeftNode(node);
 			Rucksack rucksack1 = rucksack.clone();
 
-			if (rucksack1.getWeightOfRucksack() + objects.elementAt(depth).getWeight() <= rucksack1.getCapacity()){
+			if (rucksack1.getWeight() + objects.elementAt(depth).getWeight() <= rucksack1.getCapacity()){
 				rucksack1.insert(objects.elementAt(depth));
 				node = TreeNodeFactory.getNodeForTree(tree, rucksack1);
 				tree.setRightNode(node);
@@ -124,7 +124,7 @@ public class RucksackTreeBuilder {
 
 		// Packs the needed objects in the rucksack, create a new node
 		for (int i = 0; i < needed.size(); i++){
-			if (rucksack.getCapacity() >= rucksack.getWeightOfRucksack() + needed.elementAt(i).getWeight()){
+			if (rucksack.getCapacity() >= rucksack.getWeight() + needed.elementAt(i).getWeight()){
 				rucksack.insert(needed.elementAt(i));
 				node = TreeNodeFactory.getNodeForTree(tree, rucksack);
 				tree.setRightNode(node);
@@ -151,7 +151,7 @@ public class RucksackTreeBuilder {
 		tree.moveToRoot();
 		for(TreeNode t : TreeTraversalFactory.createPreorder(tree))
 			if(t != null)
-				if(optimal == null || t.getRucksack().getValueOfRucksack() > optimal.getValueOfRucksack())
+				if(optimal == null || t.getRucksack().getValue() > optimal.getValue())
 					optimal = t.getRucksack();
 
 		return optimal;
