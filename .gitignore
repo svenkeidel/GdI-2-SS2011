@@ -13,3 +13,6 @@ target/
 
 # ignore vi swap files
 *.swp
+
+# ignore generateable html files
+*.html
