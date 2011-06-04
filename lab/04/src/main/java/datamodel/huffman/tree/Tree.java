@@ -3,6 +3,9 @@
  */
 package datamodel.huffman.tree;
 
+import java.util.AbstractCollection;
+import java.util.Iterator;
+
 /**
  * A implementation of your Huffman tree.<br>
  * 
@@ -10,8 +13,11 @@ package datamodel.huffman.tree;
  * @version 1.0
  * 
  */
-public class Tree {
+public class Tree extends AbstractCollection<TreeNode> {
 
-	//TODO: add attributes and methods for your implementation
+	@Override
+	public Iterator<TreeNode> iterator() {
+		throw new UnsupportedOperationException("Implement Me!");
+	}
 
 }
