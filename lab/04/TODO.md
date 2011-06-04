@@ -47,3 +47,34 @@ Aufgabenzuteilung
 </table>
 
 Das Suchen in Huffman- und Trie- B&auml;umen bleibt bis auf weiteres offen.
+
+
+--------------------------------------------------------------------------------------
+
+
+Zeitmanagement
+--------------
+
+Das sind ist ein ganzer Haufen an Arbeit. Wir m&uuml;ssen ganz
+sch&ouml;n Gas geben um das hinzubekommen, daher der straffe Zeitplan.
+
+Huffman(H), Trie(T), Suchen(S)
+
+* bis Mittwoch,   KW22
+	* H1
+	* T1
+
+* bis Freitag,    KW22
+	* H2
+	* T2, T3, T4
+
+* bis Montag,     KW23
+	* H4
+	* T5
+
+* bis Mittwoch,   KW23
+	* H3, H5
+	* T6, T7
+
+* bis Donnerstag, KW23
+	* S1
