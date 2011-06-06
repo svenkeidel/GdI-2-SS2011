@@ -3,6 +3,8 @@
  */
 package logic.huffman;
 
+import datamodel.huffman.tree.TreeNode;
+
 import io.ImageReader;
 
 import java.awt.image.BufferedImage;
@@ -44,10 +46,34 @@ public class HuffmanCode {
 	 * The right subtrees will be coded with 1s and the left subtree will be coded with 0s.
 	 */
 	private void buildHuffmanCode() {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		buildCodeForSubtree(new StringBuffer());
 	}
 
+	/**
+	 * Retrieves the Huffman code from the internal Huffman subtree.
+	 */
+	private void buildCodeForSubtree(StringBuffer codeSequence) {
+
+		TreeNode currentNode = huffmanTree.getCurrentNode();
+		RGB currentColor = currentNode.getRGB();
+
+		if(currentNode.isLeaf())
+			huffmanCode.put(currentColor, codeSequence.toString());
+
+		if(huffmanTree.hasLeftNode()) {
+			huffmanTree.moveToLeftNode();
+			buildCodeForSubtree(codeSequence.append(0));
+			codeSequence.deleteCharAt(codeSequence.length()-1);
+			huffmanTree.moveToParentNode();
+		}
+
+		if(huffmanTree.hasRightNode()) {
+			huffmanTree.moveToRightNode();
+			buildCodeForSubtree(codeSequence.append(1));
+			codeSequence.deleteCharAt(codeSequence.length()-1);
+			huffmanTree.moveToParentNode();
+		}
+	}
 	
 	/**
 	 * Encrypt the image data from the ImageReader with the internal Huffman
@@ -104,8 +130,7 @@ public class HuffmanCode {
 	 * @return true if tree contains color; otherwise false
 	 */
 	public boolean containsColor(RGB color) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		return huffmanCode.containsKey(color);
 	}
 
 	/**

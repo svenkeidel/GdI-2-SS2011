@@ -32,7 +32,7 @@ public class HuffmanTree {
 	/**
 	 * Comparator to compare two Map.Entrys
 	 */
-	private static class ColorComparator implements Comparator<Map.Entry<RGB,Integer>> {
+	public static class ColorComparator implements Comparator<Map.Entry<RGB,Integer>> {
 
 		/**
 		 * Compare the amount of a color with another
