@@ -11,6 +11,8 @@ import datamodel.huffman.tree.TreeNode;
 
 /**
  * produces linked trees and treenodes
+ * @apiviz.uses datamodel.huffman.tree.linked.LinkedTree
+ * @apiviz.uses datamodel.huffman.tree.linked.LinkedTreeNode
  */
 public class LinkedTreeFactory extends AbstractTreeFactory {
 
