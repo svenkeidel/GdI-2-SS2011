@@ -22,11 +22,11 @@ public class HuffmanTreeTest {
 	private static enum Color {
 		A(1, 1),
 		B(2, 2),
-		C(3, 3),
-		D(4, 4),
-		E(5, 5),
-		F(6, 6),
-		G(7, 7);
+		C(3, 4),
+		D(4, 6),
+		E(5, 8),
+		F(6, 9),
+		G(7, 10);
 		
 		private int rgb, amount;
 
@@ -77,39 +77,35 @@ public class HuffmanTreeTest {
 	/**
 	 * Tree Layout.
 	 * Color:  A B C D E F G
-	 * Amount: 1 2 3 4 5 6 7
+	 * Amount: 1 2 4 6 8 9 10
 	 *
-	 *               28 
-	 *         ---------------
-	 *        15             13       
-	 *      ------         -------    
-	 *     8      7       7       6   
-	 *   ------   G     -----     F   
-	 *  5      3       4     3        
-	 *  E    -----     D     C        
-	 *      2     1                       
-	 *      B     A                       
+	 *                   40
+	 *              ------------
+	 *             23          17
+	 *         ---------      ----
+	 *        13       10    9    8
+	 *      ------      G    F    E
+	 *     7      6
+	 *   -----    D
+	 *  4     3     
+	 *  C    ---       
+	 *      2   1       
+	 *      B   A
 	 */
 	@Test
 	public void buildHuffmanTreeTest() {
 		tree.moveToRoot();
+		isNoLeaf();
 
 		tree.moveToRightNode();
 		isNoLeaf();
 
 		tree.moveToRightNode();
+		isLeaf(Color.E);
+
+		tree.moveToParentNode();
+		tree.moveToLeftNode();
 		isLeaf(Color.F);
-
-		tree.moveToParentNode();
-		tree.moveToLeftNode();
-		isNoLeaf();
-
-		tree.moveToRightNode();
-		isLeaf(Color.C);
-
-		tree.moveToParentNode();
-		tree.moveToLeftNode();
-		isLeaf(Color.D);
 
 		tree.moveToRoot();
 		tree.moveToLeftNode();
@@ -122,8 +118,15 @@ public class HuffmanTreeTest {
 		tree.moveToLeftNode();
 		isNoLeaf();
 
+		tree.moveToRightNode();
+		isLeaf(Color.D);
+
+		tree.moveToParentNode();
 		tree.moveToLeftNode();
-		isLeaf(Color.E);
+		isNoLeaf();
+
+		tree.moveToLeftNode();
+		isLeaf(Color.C);
 
 		tree.moveToParentNode();
 		tree.moveToRightNode();
@@ -140,28 +143,31 @@ public class HuffmanTreeTest {
 	/**
 	 * Tree Layout.
 	 * Color:  A B C D E F G
-	 * Amount: 1 2 3 4 5 6 7
+	 * Amount: 1 2 4 6 8 9 10
 	 *
-	 *         ---------------
-	 *        0               1
-	 *      ------         -------    
-	 *     0      1       0       1   
-	 *   ------   G     -----     F   
-	 *  0      1       0     1        
-	 *  E    -----     D     C        
-	 *      0     1                       
-	 *      B     A                       
+	 * Huffman Code Tree:
+	 *              ------------
+	 *             0            1
+	 *         ---------      ----
+	 *        0         1    0    1
+	 *      ------      G    F    E
+	 *     0      1
+	 *   -----    D
+	 *  0     1     
+	 *  C    ---       
+	 *      0   1       
+	 *      B   A
 	 */
 	@Test
 	public void huffmanCodeTest() {
 		HuffmanCode huffmanCode = new HuffmanCode(tree);
 		HashMap<RGB, String> code = huffmanCode.getHuffmanCode();
-		assertEquals("0011", code.get(Color.A));
-		assertEquals("0010", code.get(Color.B));
-		assertEquals("101",  code.get(Color.C));
-		assertEquals("100",  code.get(Color.D));
-		assertEquals("000",  code.get(Color.E));
-		assertEquals("11",   code.get(Color.F));
-		assertEquals("01",   code.get(Color.G));
+		assertEquals("00011", code.get(Color.A));
+		assertEquals("00010", code.get(Color.B));
+		assertEquals("0000",  code.get(Color.C));
+		assertEquals("001",   code.get(Color.D));
+		assertEquals("11",    code.get(Color.E));
+		assertEquals("10",    code.get(Color.F));
+		assertEquals("01",    code.get(Color.G));
 	}
 }
