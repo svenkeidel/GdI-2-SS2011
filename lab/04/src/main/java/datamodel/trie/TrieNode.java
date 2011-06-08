@@ -13,8 +13,8 @@ package datamodel.trie;
  */
 public class TrieNode {
 	
-	private TrieNode[] nodeSlots = new TrieNode[15];
-	private Integer[] leafSlots = new Integer[15];
+	private TrieNode[] nodeSlots = new TrieNode[16];
+	private Integer[] leafSlots = new Integer[16];
 	private boolean isLeaf;
 	private int depth;
 	
@@ -77,7 +77,7 @@ public class TrieNode {
 	 * @return node or exception
 	 */
 	public TrieNode getNodeAtSlot(int index){
-		if		(hasLeafAtSlot(index)){
+		if		(hasNodeAtSlot(index)){
 					return nodeSlots[index];
 					}
 		
@@ -156,5 +156,6 @@ public class TrieNode {
 		return this.depth;
 	}
 	
+
 	
 }

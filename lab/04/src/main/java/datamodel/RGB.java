@@ -17,6 +17,10 @@ public class RGB {
 	private int blue;
 	private int brightness;
 	
+	
+	//	IMPORTANT NOTE: THIS CONSTRUCTOR HAS NOT THE SAME STRUCTUR LIKE 
+	// 	THE ENCODING EXAMPLE ON THE SHEET (MISTAKE)?
+	// 	(sebastian)
 	/**
 	 * constructor
 	 * 
@@ -94,10 +98,17 @@ public class RGB {
 		//SM = Shifted and Masked
 		int SM_Brightness = ((getBrightness() >> (7 - depth)) & and_mask) << 3;
 		int SM_Red = ((getRed() >> (7 - depth)) & and_mask) << 2;
-		int SM_Blue = ((getBlue() >> (7 - depth)) & and_mask) << 1;
-		int SM_Green = (getGreen() >> (7 - depth)) & and_mask;
+		int SM_Green = ((getGreen() >> (7 - depth)) & and_mask) << 1;
+		int SM_Blue = (getBlue() >> (7 - depth)) & and_mask;
+		
+		System.err.println("SM_BRIGHT: "+SM_Brightness+"");
+		System.err.println("SM_Red: "+SM_Red+"");
+		System.err.println("SM_Green: "+SM_Green+"");
+		System.err.println("SM_Blue: "+SM_Blue+"");
+		
 		
 		key = (SM_Brightness | SM_Red | SM_Blue | SM_Green);
+		System.err.println("key: "+key+"");
 		
 		return key;
 		}
