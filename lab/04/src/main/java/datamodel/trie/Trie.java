@@ -3,6 +3,8 @@
  */
 package datamodel.trie;
 
+import datamodel.RGB;
+
 /**
  * the whole trie<br>
  * provides communication functionality 
@@ -15,6 +17,7 @@ public class Trie {
 	
 	private TrieNode root;
 	private TrieNode currentNode;
+	private int depth;
 	
 	
 	/**
@@ -23,6 +26,7 @@ public class Trie {
 	public Trie(){
 		root = new TrieNode(false, 0);
 		currentNode = root;
+		depth = 0;
 	}
 	
 	
@@ -64,6 +68,7 @@ public class Trie {
 		
 		int childDepth = currentNode.getDepth() + 1;
 		TrieNode childNode = new TrieNode(isLeaf, childDepth);
+		depth++;
 		
 		return currentNode.setNodeAtSlot(index, childNode);
 	}
@@ -83,11 +88,50 @@ public class Trie {
 	
 	
 	/**
+	 * calculates the missing depth of a color in Trie
+	 * @param color color to check
+	 * @return missing depth, 0 if color completely in Trie
+	 */
+	public int getMissingDepth(RGB color){
+		moveToRoot();
+		int missing = depth+1;
+		
+		for	(int i = 0; i < depth; i++){
+				int present_key = color.getTrieKeyForDepth(i);
+				
+				if		(currentNode.hasNodeAtSlot(present_key)){
+								missing--;
+								this.moveToChild(present_key);}
+				else	return missing;
+				}
+		return 0;
+	}
+	
+	
+	/**
 	 * get current node
 	 * @return current node
 	 */
 	public TrieNode getCurrentNode(){
 		return currentNode;
+	}
+	
+	
+	/**
+	 * set the depth of this Trie manually
+	 * @param depth depth
+	 */
+	public void setDepth(int depth){
+		this.depth = depth;
+	}
+	
+	
+	/**
+	 * returns Trie's depth
+	 * @return depth
+	 */
+	public int getDepth(){
+		return depth;
 	}
 	
 	
@@ -98,4 +142,8 @@ public class Trie {
 	public TrieNode getRoot(){
 		return root;
 	}
+	
+	
+	
+	
 }

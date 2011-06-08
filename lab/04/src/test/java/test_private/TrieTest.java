@@ -133,7 +133,7 @@ public class TrieTest {
 	}
 	
 	@Test public void buildTrie() throws FileNotFoundException, IOException{
-		try{
+	
 		ImageReader reader = new ImageReader("test2.png");
 		triecode.buildTrie(reader);
 		assertTrue(triecode.containsColor(black));
@@ -143,10 +143,17 @@ public class TrieTest {
 		assertFalse(triecode.containsColor(a));
 		assertFalse(triecode.containsColor(c));
 		
-		
-		}catch(AssertionError e){
 			
-		}
+	}
+	
+	@Test public void encryptImage() throws FileNotFoundException, IOException{
+		
+	
+			ImageReader reader = new ImageReader("test2.png");
+			triecode.buildTrie(reader);
+			String x = triecode.encryptImage(reader);
+			assertTrue(x.length() > 32);
+			
 		
 	}
 

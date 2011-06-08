@@ -50,8 +50,27 @@ public class TrieCode {
 	 * @return the encrypted picture as a binary string
 	 */
 	public String encryptImage(ImageReader reader) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		
+		StringBuffer x = new StringBuffer();
+		
+		if(reader.iterator().hasNext()){
+			
+			RGB temp_col = new RGB(reader.iterator().next().getRGBValue());
+			int missing = trieCodeTree.getMissingDepth(temp_col);
+			int keys = trieCodeTree.getDepth() + 1 - missing;
+			
+			for	(int j = 0;j < keys; j++){
+				int key = temp_col.getTrieKeyForDepth(j);
+				x.append(Integer.toBinaryString(key));	
+			}
+			
+			for	(int j = 0;j < missing; j++){
+				x.append("1000");	
+			}
+		}
+		System.err.println(""+x.toString()+"");
+		return x.toString();
+		
 	}
 
 	
