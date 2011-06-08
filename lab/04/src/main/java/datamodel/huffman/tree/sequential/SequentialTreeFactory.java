@@ -35,4 +35,8 @@ public class SequentialTreeFactory extends AbstractTreeFactory {
 	public TreeNode produceTreeNode(RGB rgb) {
 		return new SequentialTreeNode(tree, rgb);
 	}
+
+	public TreeNode produceTreeNode(int Value) {
+		return new SequentialTreeNode(tree, Value);
+	}
 }

@@ -21,6 +21,11 @@ public class SequentialTreeNode extends TreeNode {
 		this.tree = tree;
 	}
 
+	public SequentialTreeNode(SequentialTree tree, int Value) {
+		super(Value);
+		this.tree = tree;
+	}
+	
 	/**
 	 * constructor. It sets no color
 	 */

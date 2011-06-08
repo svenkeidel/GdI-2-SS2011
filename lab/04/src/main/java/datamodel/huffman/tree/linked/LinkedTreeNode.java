@@ -20,6 +20,10 @@ public class LinkedTreeNode extends TreeNode {
 		super(rgb);
 	}
 
+	public LinkedTreeNode(int Value) {
+		super(Value);
+	}
+	
 	public LinkedTreeNode() {
 		super(null);
 	}

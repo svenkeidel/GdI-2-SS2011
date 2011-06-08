@@ -31,4 +31,8 @@ public class LinkedTreeFactory extends AbstractTreeFactory {
 	public TreeNode produceTreeNode(RGB rgb) {
 		return new LinkedTreeNode(rgb);
 	}
+
+	public TreeNode produceTreeNode(int Value) {
+		return new LinkedTreeNode(Value);
+	}
 }

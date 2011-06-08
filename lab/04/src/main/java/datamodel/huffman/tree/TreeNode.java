@@ -8,10 +8,16 @@ import datamodel.RGB;
 public abstract class TreeNode {
 
 	private RGB rgb;
+	private int value;
 
 	public TreeNode(RGB rgb) {
 		super();
 		this.rgb = rgb;
+	}
+	
+	public TreeNode(int value) {
+		super();
+		this.value = value;
 	}
 
 	/**
@@ -30,6 +36,14 @@ public abstract class TreeNode {
 		this.rgb = rgb;
 	}
 
+	public int getValue(){
+		return this.value;
+	}
+	
+	public void setValue(int value){
+		this.value = value;
+	}
+	
 	/**
 	 * the node is a leaf if the rgb variable is not null, else it's
 	 * inside the huffman tree.

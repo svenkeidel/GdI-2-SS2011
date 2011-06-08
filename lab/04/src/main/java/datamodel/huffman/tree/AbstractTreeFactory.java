@@ -14,5 +14,6 @@ public abstract class AbstractTreeFactory {
 	public abstract Tree produceTree(PriorityQueue<Map.Entry<RGB,Integer>> queue);
 	public abstract TreeNode produceTreeNode();
 	public abstract TreeNode produceTreeNode(RGB rgb);
+	public abstract TreeNode produceTreeNode(int Value);
 
 }
