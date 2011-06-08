@@ -1,6 +1,10 @@
 package test_private;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import io.ImageReader;
 import logic.trie.TrieCode;
 import datamodel.RGB;
 import datamodel.trie.Trie;
@@ -19,7 +23,10 @@ public class TrieTest {
 	private RGB a = new RGB(0, 255, 0, 255);
 	private RGB b = new RGB(255, 255, 255, 255);
 	private RGB c = new RGB(170, 255, 170, 255);
-	private RGB d = new RGB(0, 0, 0, 0);
+	private RGB black = new RGB(0, 0, 0, 0);
+	private RGB green = new RGB(0, 255, 0, 0);
+	private RGB blue = new RGB(0, 0, 255, 0);
+	private RGB red = new RGB(255, 0, 0, 0);
 	
 	@Before public void init(){
 		
@@ -30,11 +37,11 @@ public class TrieTest {
 		filled_triecode.addColor(a);
 		filled_triecode.addColor(b);
 		filled_triecode.addColor(c);
-		filled_triecode.addColor(d);
+		filled_triecode.addColor(black);
 	}
 	
 	
-	@Test public void buildTrie(){
+	@Test public void TrieStructure(){
 		
 		trie.moveToRoot();
 		
@@ -120,9 +127,27 @@ public class TrieTest {
 		assertTrue(filled_triecode.containsColor(a));
 		assertTrue(filled_triecode.containsColor(b));
 		assertTrue(filled_triecode.containsColor(c));
-		assertTrue(filled_triecode.containsColor(d));
+		assertTrue(filled_triecode.containsColor(black));
 		assertFalse(filled_triecode.containsColor(new RGB(123,123,123,123)));
 		assertFalse(filled_triecode.containsColor(new RGB(32, 32, 23, 23)));	
+	}
+	
+	@Test public void buildTrie() throws FileNotFoundException, IOException{
+		try{
+		ImageReader reader = new ImageReader("test2.png");
+		triecode.buildTrie(reader);
+		assertTrue(triecode.containsColor(black));
+		assertTrue(triecode.containsColor(green));
+		assertTrue(triecode.containsColor(red));
+		assertTrue(triecode.containsColor(blue));
+		assertFalse(triecode.containsColor(a));
+		assertFalse(triecode.containsColor(c));
+		
+		
+		}catch(AssertionError e){
+			
+		}
+		
 	}
 
 }

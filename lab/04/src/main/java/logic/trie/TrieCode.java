@@ -37,8 +37,10 @@ public class TrieCode {
 	 *            the image via an ImageReader
 	 */
 	public void buildTrie(ImageReader reader) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		
+		if(reader.iterator().hasNext()){
+			addColor(new RGB(reader.iterator().next().getRGBValue()));
+		}
 	}
 
 	/**
@@ -136,7 +138,6 @@ public class TrieCode {
 	 * @return true if tree contains color; otherwise false
 	 */
 	public boolean containsColor(RGB color) {
-		
 		trieCodeTree.moveToRoot();
 		
 		for (int i = 0; i < 7; i++){
