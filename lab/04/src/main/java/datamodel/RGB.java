@@ -85,6 +85,11 @@ public class RGB {
 		return brightness;
 	}
 
+	public int getTrieKeyForDepth(int depth){
+		//coming soon
+		return 0;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
