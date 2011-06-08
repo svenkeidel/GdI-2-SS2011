@@ -136,8 +136,20 @@ public class TrieCode {
 	 * @return true if tree contains color; otherwise false
 	 */
 	public boolean containsColor(RGB color) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		
+		trieCodeTree.moveToRoot();
+		
+		for (int i = 0; i < 7; i++){
+			
+			if		(!trieCodeTree.getCurrentNode().hasNodeAtSlot(color.getTrieKeyForDepth(i)))
+						return false;
+			
+			trieCodeTree.moveToChild(color.getTrieKeyForDepth(i));
+		}
+		
+		if 			(trieCodeTree.getCurrentNode().hasLeafAtSlot(color.getTrieKeyForDepth(7)))
+						return true;
+		else			return false;
 	}
 
 	/**

@@ -14,14 +14,23 @@ public class TrieTest {
 	
 	private Trie trie;
 	private TrieCode triecode;
+	private TrieCode filled_triecode;
+	
 	private RGB a = new RGB(0, 255, 0, 255);
 	private RGB b = new RGB(255, 255, 255, 255);
 	private RGB c = new RGB(170, 255, 170, 255);
+	private RGB d = new RGB(0, 0, 0, 0);
 	
 	@Before public void init(){
 		
 		trie = new Trie();
 		triecode = new TrieCode();
+		filled_triecode = new TrieCode();
+		
+		filled_triecode.addColor(a);
+		filled_triecode.addColor(b);
+		filled_triecode.addColor(c);
+		filled_triecode.addColor(d);
 	}
 	
 	
@@ -104,8 +113,16 @@ public class TrieTest {
 		assertTrue(c_trie.getCurrentNode().hasNodeAtSlot(10));
 		assertTrue(c_trie.getCurrentNode().hasNodeAtSlot(15));
 		
-		
 	}
 	
+	@Test public void containsColor(){
+		
+		assertTrue(filled_triecode.containsColor(a));
+		assertTrue(filled_triecode.containsColor(b));
+		assertTrue(filled_triecode.containsColor(c));
+		assertTrue(filled_triecode.containsColor(d));
+		assertFalse(filled_triecode.containsColor(new RGB(123,123,123,123)));
+		assertFalse(filled_triecode.containsColor(new RGB(32, 32, 23, 23)));	
+	}
 
 }
