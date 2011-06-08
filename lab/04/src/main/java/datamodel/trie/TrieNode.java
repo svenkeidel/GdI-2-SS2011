@@ -39,7 +39,7 @@ public class TrieNode {
 	 */
 	public boolean setNodeAtSlot(int index, TrieNode node){
 		
-		if		(nodeSlots[index] != null)
+		if		(hasNodeAtSlot(index))
 					return false;
 					//or Exception "there is already a node"
 		
@@ -59,7 +59,7 @@ public class TrieNode {
 	public boolean setLeafValueAtSlot(int index, int value){
 			if		(isLeaf){
 				
-					if		(leafSlots[index] != null)
+					if		(hasLeafAtSlot(index))
 								return false;
 								//or Exception "there is already a value set"
 			
@@ -77,7 +77,7 @@ public class TrieNode {
 	 * @return node or exception
 	 */
 	public TrieNode getNodeAtSlot(int index){
-		if		(nodeSlots[index] != null){
+		if		(hasLeafAtSlot(index)){
 					return nodeSlots[index];
 					}
 		
@@ -93,9 +93,8 @@ public class TrieNode {
 	public Integer getLeafAtSlot(int index){
 		if		(isLeaf){
 			
-				if		(leafSlots[index] != null){
+				if		(hasLeafAtSlot(index))
 							return leafSlots[index];
-							}
 				
 				else	throw new UnsupportedOperationException("Error: There is no value at this Leaf!");
 		}
@@ -103,6 +102,34 @@ public class TrieNode {
 	}
 	
 	
+	/**
+	 * checks if this node has free leaf-slot at
+	 * @param index index
+	 * @return yes/no
+	 */
+	public boolean hasLeafAtSlot(int index){
+				
+		if		(leafSlots[index] != null)
+					return true;
+							
+		else	return false;
+	}
+	
+	
+	/**
+	 * checks if this node has a free node-slot at
+	 * @param index index
+	 * @return yes/no
+	 */
+	public boolean hasNodeAtSlot(int index){
+	
+		if		(nodeSlots[index] != null)
+					return true;
+		
+		else	return false;
+	}
+	
+
 	/**
 	 * sets whether a node is a leaf or not
 	 * @param status true = leaf, false = not

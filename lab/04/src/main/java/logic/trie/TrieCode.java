@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import datamodel.RGB;
 import datamodel.trie.Trie;
+import datamodel.trie.TrieNode;
 
 /**
  * provides methods to build and maintain a TrieCode- Tree
@@ -59,8 +60,35 @@ public class TrieCode {
 	 *            the color to add
 	 */
 	public void addColor(RGB color) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		trieCodeTree.moveToRoot();
+		TrieNode root = trieCodeTree.getCurrentNode();
+		
+		rec_addColor(root, color);
+	}
+	
+	
+	/**
+	 * recursive submethod to help inserting a color
+	 * @param node current node
+	 * @param color color
+	 */
+	public void rec_addColor(TrieNode node, RGB color){
+		
+		int key = color.getTrieKeyForDepth(node.getDepth());
+		boolean isLeaf = (node.getDepth() == 6);
+		if		(!node.getLeafStatus()){
+						if		(!node.hasNodeAtSlot(key)){
+								trieCodeTree.createChildAt(key, isLeaf);
+								trieCodeTree.moveToChild(key);}
+						else	trieCodeTree.moveToChild(key);
+						
+						rec_addColor(trieCodeTree.getCurrentNode(), color);
+				}
+		
+		else{			if 		(!node.hasLeafAtSlot(key))	
+								trieCodeTree.setLeafSlot(key, key);
+		}
+		trieCodeTree.moveToRoot();
 	}
 
 

@@ -81,4 +81,11 @@ public class Trie {
 		
 	}
 	
+	/**
+	 * get current node
+	 * @return current node
+	 */
+	public TrieNode getCurrentNode(){
+		return currentNode;
+	}
 }

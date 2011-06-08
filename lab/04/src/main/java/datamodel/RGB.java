@@ -86,9 +86,22 @@ public class RGB {
 	}
 
 	public int getTrieKeyForDepth(int depth){
-		//coming soon
-		return 0;
-	}
+		int key = 0;
+		int and_mask = 1;
+		
+		//shifted related to depth, and-masked -> the important bit is everywhere at bit0,
+		//shifted to add the 4 bits correctly to get the final key
+		//SM = Shifted and Masked
+		int SM_Brightness = ((getBrightness() >> (7 - depth)) & and_mask) << 3;
+		int SM_Red = ((getRed() >> (7 - depth)) & and_mask) << 2;
+		int SM_Blue = ((getBlue() >> (7 - depth)) & and_mask) << 1;
+		int SM_Green = (getGreen() >> (7 - depth)) & and_mask;
+		
+		key = (SM_Brightness | SM_Red | SM_Blue | SM_Green);
+		
+		return key;
+		}
+		
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
