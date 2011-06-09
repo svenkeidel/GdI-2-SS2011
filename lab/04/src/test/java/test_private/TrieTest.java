@@ -183,7 +183,7 @@ public class TrieTest {
 	
 	@Test public void compress() throws FileNotFoundException, IOException{
 		
-		ImageReader reader = new ImageReader("test2.png");
+		ImageReader reader = new ImageReader("test.png");
 		triecode.buildTrie(reader);
 		assertTrue(triecode.containsColor(black1));
 		assertTrue(triecode.containsColor(green));
