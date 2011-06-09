@@ -42,8 +42,8 @@ Aufgabenzuteilung
 <table border="1">
 	<tr> <th>Assignee</th> <th>Huffman</th> <th>Trie</th>       <th>Suchen</th>  </tr>
 	<tr> <td>Tim</td>      <td>1, 4, 5</td> <td>7</td>          <td>&empty;</td> </tr>
-	<tr> <td>Seb</td>      <td>&empty;</td> <td>1, 2, 5, 6</td> <td>&empty;</td> </tr>
-	<tr> <td>Sven</td>     <td>2, 3</td>    <td>3, 4</td>       <td>&empty;</td> </tr>
+	<tr> <td>Seb</td>      <td>&empty;</td> <td>1, 2, 3, 4,  5, 6</td> <td>&empty;</td> </tr>
+	<tr> <td>Sven</td>     <td>2, 3, TESTS</td>    <td>TESTS</td>       <td>&empty;</td> </tr>
 </table>
 
 Das Suchen in Huffman- und Trie- B&auml;umen bleibt bis auf weiteres offen.
