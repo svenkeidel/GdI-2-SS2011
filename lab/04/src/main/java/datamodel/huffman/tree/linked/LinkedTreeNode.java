@@ -16,6 +16,15 @@ public class LinkedTreeNode extends TreeNode {
 	 * 
 	 * @param rgb the The color which should be stored in the node
 	 */
+	public LinkedTreeNode(RGB rgb, int value) {
+		super(rgb, value);
+	}
+
+	/**
+	 * constructor
+	 * 
+	 * @param rgb the The color which should be stored in the node
+	 */
 	public LinkedTreeNode(RGB rgb) {
 		super(rgb);
 	}

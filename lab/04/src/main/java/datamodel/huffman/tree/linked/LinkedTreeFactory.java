@@ -1,6 +1,5 @@
 package datamodel.huffman.tree.linked;
 
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import datamodel.RGB;
@@ -20,12 +19,16 @@ public class LinkedTreeFactory extends AbstractTreeFactory {
 		return new LinkedTree(this);
    	}
 
-	public Tree produceTree(PriorityQueue<Map.Entry<RGB,Integer>> queue) {
+	public Tree produceTree(PriorityQueue<TreeNode> queue) {
 		return new LinkedTree(this, queue);
 	}
 
 	public TreeNode produceTreeNode() {
 		return new LinkedTreeNode();
+	}
+
+	public TreeNode produceTreeNode(RGB rgb, int value) {
+		return new LinkedTreeNode(rgb, value);
 	}
 
 	public TreeNode produceTreeNode(RGB rgb) {

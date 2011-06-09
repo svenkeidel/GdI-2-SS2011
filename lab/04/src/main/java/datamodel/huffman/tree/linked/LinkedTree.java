@@ -3,10 +3,7 @@
  */
 package datamodel.huffman.tree.linked;
 
-import java.util.Map;
 import java.util.PriorityQueue;
-
-import datamodel.RGB;
 
 import datamodel.huffman.tree.AbstractTreeFactory;
 import datamodel.huffman.tree.Tree;
@@ -22,23 +19,20 @@ import datamodel.huffman.tree.TreeNode;
  */
 public class LinkedTree extends Tree {
 
-	protected LinkedTreeNode root;
-	protected LinkedTreeNode currentNode;
-
 	/**
 	 * Constructor: Creates an empty sequential tree
 	 */
 	LinkedTree(AbstractTreeFactory factory) {
 		super(factory);
 
-		this.root = null;
+		this.rootNode = null;
 		this.currentNode = null;
 	}
 
 	/**
 	 * Constructor: Creates a huffman sequential tree
 	 */
-	LinkedTree(AbstractTreeFactory factory, PriorityQueue<Map.Entry<RGB,Integer>> queue) {
+	LinkedTree(AbstractTreeFactory factory, PriorityQueue<TreeNode> queue) {
 		super(factory, queue);
 	}
 	
@@ -51,7 +45,7 @@ public class LinkedTree extends Tree {
 	 */
 	public boolean moveToLeftNode() {
 		if (currentNode.getLeftNode() != null) {
-			currentNode = (LinkedTreeNode) currentNode.getLeftNode();
+			currentNode = currentNode.getLeftNode();
 			return true;
 		} else {
 			return false;
@@ -66,7 +60,7 @@ public class LinkedTree extends Tree {
 	 */
 	public boolean moveToRightNode() {
 		if (currentNode.getRightNode() != null) {
-			currentNode = (LinkedTreeNode) currentNode.getRightNode();
+			currentNode = currentNode.getRightNode();
 			return true;
 		} else {
 			return false;
@@ -82,7 +76,7 @@ public class LinkedTree extends Tree {
 	 */
 	public boolean moveToParentNode() {
 		if (currentNode.getParentNode() != null) {
-			currentNode = (LinkedTreeNode) currentNode.getParentNode();
+			currentNode = currentNode.getParentNode();
 			return true;
 		} else { 
 			return false;
@@ -121,7 +115,7 @@ public class LinkedTree extends Tree {
 	/**
 	 * Sets the left child of the current node
 	 * 
-	 * @return true if successful; otherwise false (no root set)
+	 * @return true if successful; otherwise false (no rootNode set)
 	 * 
 	 */
 	public boolean setLeftNode(TreeNode node) {
@@ -138,7 +132,7 @@ public class LinkedTree extends Tree {
 	/**
 	 * Sets the right child of the current node
 	 * 
-	 * @return true if successful; otherwise false (no root set)
+	 * @return true if successful; otherwise false (no rootNode set)
 	 * 
 	 */
 	public boolean setRightNode(TreeNode node) {
@@ -153,13 +147,13 @@ public class LinkedTree extends Tree {
 
 
 	/**
-	 * Sets the current node. If the tree is empty, sets the root.
+	 * Sets the current node. If the tree is empty, sets the rootNode.
 	 */
 	public void setCurrentNode(TreeNode node) {
-		currentNode = (LinkedTreeNode) node;
+		currentNode = node;
 		
-		if (root == null)
-			root = (LinkedTreeNode) node;
+		if (rootNode == null)
+			rootNode = node;
 	}
 
 
@@ -167,32 +161,32 @@ public class LinkedTree extends Tree {
 	 * @return the current node or null if the tree is empty
 	 */
 	public TreeNode getCurrentNode() {
-			if (root != null)
+			if (rootNode != null)
 			return currentNode;
 			else
 			return null;
 	}
 
 	/**
-	 * moves to the root node of this tree
+	 * moves to the rootNode node of this tree
 	 * 
-	 * @return true if there's a root; otherwise false
+	 * @return true if there's a rootNode; otherwise false
 	 */
 	public boolean moveToRoot() {
-		if 		(root == null)
+		if 		(rootNode == null)
 					return false;
 		else{
-			currentNode = root;
+			currentNode = rootNode;
 			return true;
 		}
 	}
 
 	/**
-	 * clears the whole tree, which includes deleting all nodes and the root
+	 * clears the whole tree, which includes deleting all nodes and the rootNode
 	 * node
 	 */
 	public void clearTree() {
-		root = null;
+		rootNode = null;
 		currentNode = null;
 	}	
 }

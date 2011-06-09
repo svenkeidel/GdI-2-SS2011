@@ -6,14 +6,15 @@ package logic.huffman;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
 import datamodel.RGB;
 
+import datamodel.huffman.tree.AbstractTreeFactory;
 import datamodel.huffman.tree.Tree;
+import datamodel.huffman.tree.TreeNode;
 
 import datamodel.huffman.tree.linked.LinkedTreeFactory;
 
@@ -27,42 +28,6 @@ import io.ImageReader;
  * 
  */
 public class HuffmanTree {
-
-
-	/**
-	 * Comparator to compare two Map.Entrys
-	 */
-	public static class ColorComparator implements Comparator<Map.Entry<RGB,Integer>> {
-
-		/**
-		 * Compare the amount of a color with another
-		 */
-		public int compare(Map.Entry<RGB,Integer> o1, Map.Entry<RGB,Integer> o2) {
-			return o1.getValue() - o2.getValue();
-		}
-
-		/**
-		 * Two Map.Entrys equals if the have equal colors
-		 */
-		public boolean equals(Object o) {
-			if(this == o)
-				return true;
-			else if(o == null)
-				return false;
-			else if(!(o instanceof Map.Entry<?,?>))
-				return false;
-			else {
-
-				Map.Entry<?,?> other = (Map.Entry<?,?>) o;
-
-				if(!this.equals(other.getKey()))
-					return false;
-				else
-					return true;
-			}
-		}
-	}
-
 
 	/**
 	 * returns a HuffmanTree which is based on the given file (an image)<br>
@@ -78,12 +43,15 @@ public class HuffmanTree {
 			getHashMapOfImage(new ImageReader(file));
 
 		// Pack Map.Entrys into a sorted list
-		PriorityQueue<Map.Entry<RGB,Integer>> amountOfColors = 
-			new PriorityQueue<Map.Entry<RGB,Integer>>(1, 
-				new ColorComparator());
-		amountOfColors.addAll(amountOfColorsMap.entrySet());
+		PriorityQueue<TreeNode> amountOfColors = 
+			new PriorityQueue<TreeNode>(1, new TreeNode.comparator());
 
-		return new LinkedTreeFactory().produceTree(amountOfColors);
+		AbstractTreeFactory factory = new LinkedTreeFactory();
+
+		for(Map.Entry<RGB, Integer> entry : amountOfColorsMap.entrySet())
+			amountOfColors.add(factory.produceTreeNode(entry.getKey(), entry.getValue()));
+
+		return factory.produceTree(amountOfColors);
 	}
 
 

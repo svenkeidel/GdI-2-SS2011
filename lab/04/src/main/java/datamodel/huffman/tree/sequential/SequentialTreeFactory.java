@@ -1,6 +1,5 @@
 package datamodel.huffman.tree.sequential;
 
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import datamodel.RGB;
@@ -23,13 +22,17 @@ public class SequentialTreeFactory extends AbstractTreeFactory {
 		return tree;
    	}
 
-	public Tree produceTree(PriorityQueue<Map.Entry<RGB,Integer>> queue) {
+	public Tree produceTree(PriorityQueue<TreeNode> queue) {
 		tree = new SequentialTree(this, queue);
 		return tree;
 	}
 
 	public TreeNode produceTreeNode() {
 		return new SequentialTreeNode(tree);
+	}
+
+	public TreeNode produceTreeNode(RGB rgb, int value) {
+		return new SequentialTreeNode(tree, rgb, value);
 	}
 
 	public TreeNode produceTreeNode(RGB rgb) {

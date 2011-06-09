@@ -3,11 +3,8 @@
  */
 package datamodel.huffman.tree.sequential;
 
-import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Vector;
-
-import datamodel.RGB;
 
 import datamodel.huffman.tree.AbstractTreeFactory;
 import datamodel.huffman.tree.Tree;
@@ -26,16 +23,13 @@ public class SequentialTree extends Tree {
 	
 	private Vector<TreeNode> nodes;
 	private int depth;
-	private TreeNode rootNode;
-
-	private TreeNode currentNode;
 	private int currentPosition;
 
 	/**
 	 * Constructor: Creates a sequential tree filled with the RGB colors
 	 * in the queue.
 	 */
-	public SequentialTree(AbstractTreeFactory factory, PriorityQueue<Map.Entry<RGB,Integer>> queue) {
+	public SequentialTree(AbstractTreeFactory factory, PriorityQueue<TreeNode> queue) {
 		super(factory, queue);
 		this.nodes = new Vector<TreeNode>(1);
 		this.rootNode = null;

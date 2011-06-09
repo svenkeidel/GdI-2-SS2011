@@ -15,12 +15,28 @@ public class SequentialTreeNode extends TreeNode {
 	 * constructor
 	 * 
 	 * @param rgb the color to set
+	 * @param value the amount of the color
+	 */
+	public SequentialTreeNode(SequentialTree tree, RGB rgb, int value) {
+		super(rgb, value);
+		this.tree = tree;
+	}
+
+	/**
+	 * constructor
+	 * 
+	 * @param rgb the color to set
 	 */
 	public SequentialTreeNode(SequentialTree tree, RGB rgb) {
 		super(rgb);
 		this.tree = tree;
 	}
 
+	/**
+	 * constructor
+	 * 
+	 * @param value the amount of the color
+	 */
 	public SequentialTreeNode(SequentialTree tree, int Value) {
 		super(Value);
 		this.tree = tree;

@@ -1,5 +1,7 @@
 package datamodel.huffman.tree;
 
+import java.util.Comparator;
+
 import datamodel.RGB;
 
 /**
@@ -7,17 +9,35 @@ import datamodel.RGB;
  */
 public abstract class TreeNode {
 
+
+	/**
+	 * Comparator to compare two TreeNodes
+	 */
+	public static class comparator implements Comparator<TreeNode> {
+		/**
+		 * Compare the amount of a color with another
+		 */
+		@Override
+		public int compare(TreeNode o1, TreeNode o2) {
+			return o1.getValue() - o2.getValue();
+		}
+	}
+
 	private RGB rgb;
 	private int value;
 
+	public TreeNode(RGB rgb, int value) {
+		this.value = value;
+		this.rgb = rgb;
+	}
+
 	public TreeNode(RGB rgb) {
-		super();
 		this.rgb = rgb;
 	}
 	
 	public TreeNode(int value) {
-		super();
 		this.value = value;
+		this.rgb = null;
 	}
 
 	/**

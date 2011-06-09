@@ -55,10 +55,11 @@ public class HuffmanCode {
 	private void buildCodeForSubtree(StringBuffer codeSequence) {
 
 		TreeNode currentNode = huffmanTree.getCurrentNode();
-		RGB currentColor = currentNode.getRGB();
 
-		if(currentNode.isLeaf())
+		if(currentNode.isLeaf()) {
+			RGB currentColor = currentNode.getRGB();
 			huffmanCode.put(currentColor, codeSequence.toString());
+		}
 
 		if(huffmanTree.hasLeftNode()) {
 			huffmanTree.moveToLeftNode();

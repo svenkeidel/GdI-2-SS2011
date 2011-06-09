@@ -1,10 +1,6 @@
 package datamodel.huffman.tree;
 
-import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Comparator;
-
-import datamodel.RGB;
 
 /**
  * A implementation of your Huffman tree.<br>
@@ -16,6 +12,8 @@ import datamodel.RGB;
 public abstract class Tree {
 
 	protected AbstractTreeFactory factory;
+	protected TreeNode rootNode;
+	protected TreeNode currentNode;
 
 	/**
 	 * Constructor.
@@ -23,7 +21,7 @@ public abstract class Tree {
 	 * Gets a sorted list of the colors and its amount and constructs a
 	 * huffman tree out of it.
 	 */
-	public Tree(AbstractTreeFactory factory, PriorityQueue<Map.Entry<RGB,Integer>> queue) {
+	public Tree(AbstractTreeFactory factory, PriorityQueue<TreeNode> queue) {
 		this(factory);
 		buildTree(queue);
 	}
@@ -42,36 +40,30 @@ public abstract class Tree {
 	/**
 	 * builds up an huffman tree from a sorted list of colors.
 	 */
-	public void buildTree(PriorityQueue<Map.Entry<RGB,Integer>> queue) {
-		// create a new queue, create for each entry a new node and put in the new queue.
-		Comparator<TreeNode> NodeComparator = new NodeComparator();
-		PriorityQueue<TreeNode> nodes = new PriorityQueue<TreeNode>(queue.size(), NodeComparator);
-		TreeNode node;
+	public void buildTree(PriorityQueue<TreeNode> nodes) {
 
-		// all entrys in the queue move in a new queue with a NodeComparator
-		for (int i = 0; i < queue.size(); i++){
-			node = factory.produceTreeNode(queue.poll().getValue());
-			nodes.add(node);
-		}
+		TreeNode node;
 
 		// pull the first two nodes, create a new node and put it in the queue.
 		// and do it n-1 times
-		TreeNode tmp1;
-		TreeNode tmp2;
-		int tmpvalue = 0;
-		int size = nodes.size();
-		for (int i = 0; i < size; i++){
-			tmp1 = nodes.poll();
-			tmpvalue += tmp1.getValue();
-			tmp2 = nodes.poll();
-			tmpvalue += tmp2.getValue();
-			node = factory.produceTreeNode(tmpvalue);
-			node.setLeftNode(tmp2);
-			node.setRightNode(tmp1);
+		TreeNode right;
+		TreeNode left;
+		int sumOfPropability;
+		while(nodes.size() > 1){
+
+			right = nodes.poll();
+			sumOfPropability = right.getValue();
+			left = nodes.poll();
+			sumOfPropability += left.getValue();
+
+			node = factory.produceTreeNode(sumOfPropability);
+			node.setLeftNode(left);
+			node.setRightNode(right);
 			nodes.add(node);
-			// reset tmpvalue for next round;
-			tmpvalue = 0;
 		}
+
+		rootNode = nodes.poll();
+		currentNode = rootNode;
 	}
 
 	/**

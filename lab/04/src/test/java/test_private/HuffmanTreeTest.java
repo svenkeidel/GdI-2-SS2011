@@ -1,12 +1,13 @@
 package test_private;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 import datamodel.RGB;
 
+import datamodel.huffman.tree.AbstractTreeFactory;
 import datamodel.huffman.tree.Tree;
+import datamodel.huffman.tree.TreeNode;
 
 import datamodel.huffman.tree.linked.LinkedTreeFactory;
 
@@ -15,7 +16,6 @@ import org.junit.Test;
 import org.junit.Before;
 
 import logic.huffman.HuffmanCode;
-import logic.huffman.HuffmanTree;
 
 public class HuffmanTreeTest {
 	
@@ -48,20 +48,20 @@ public class HuffmanTreeTest {
 
 	@Before
 	public void init() {
-		HashMap<RGB,Integer> amountOfColors = new HashMap<RGB,Integer>();
-		amountOfColors.put(Color.A.getRGB(), Color.A.getAmount());
-		amountOfColors.put(Color.B.getRGB(), Color.B.getAmount());
-		amountOfColors.put(Color.C.getRGB(), Color.C.getAmount());
-		amountOfColors.put(Color.D.getRGB(), Color.D.getAmount());
-		amountOfColors.put(Color.E.getRGB(), Color.E.getAmount());
-		amountOfColors.put(Color.F.getRGB(), Color.F.getAmount());
-		amountOfColors.put(Color.G.getRGB(), Color.G.getAmount());
+		AbstractTreeFactory factory = new LinkedTreeFactory();
 
-		PriorityQueue<Map.Entry<RGB,Integer>> queue = 
-			new PriorityQueue<Map.Entry<RGB,Integer>>(1, 
-				new HuffmanTree.ColorComparator());
+		PriorityQueue<TreeNode> queue = 
+			new PriorityQueue<TreeNode>(1, 
+				new TreeNode.comparator());
+		queue.add(factory.produceTreeNode(Color.A.getRGB(), Color.A.getAmount()));
+		queue.add(factory.produceTreeNode(Color.B.getRGB(), Color.B.getAmount()));
+		queue.add(factory.produceTreeNode(Color.C.getRGB(), Color.C.getAmount()));
+		queue.add(factory.produceTreeNode(Color.D.getRGB(), Color.D.getAmount()));
+		queue.add(factory.produceTreeNode(Color.E.getRGB(), Color.E.getAmount()));
+		queue.add(factory.produceTreeNode(Color.F.getRGB(), Color.F.getAmount()));
+		queue.add(factory.produceTreeNode(Color.G.getRGB(), Color.G.getAmount()));
 
-		tree = new LinkedTreeFactory().produceTree(queue);
+		tree = factory.produceTree(queue);
 	}
 
 	private void isLeaf(Color col) {
