@@ -43,10 +43,10 @@ public class Project4PublicTest {
 	public void HuffmanTest() throws FileNotFoundException, IOException {
 		try {
 			// encrypt with Huffman, test binary String
-			Tree tree = HuffmanTree.getHuffmanTree("test2.png");
+			Tree tree = HuffmanTree.getHuffmanTree("test.png");
 			HuffmanCode code = new HuffmanCode(tree);
 
-			ImageReader reader = new ImageReader("test2.png");
+			ImageReader reader = new ImageReader("test.png");
 			String encryptedImage = code.encryptImage(reader);
 
 			Assert.assertEquals(
@@ -83,7 +83,7 @@ public class Project4PublicTest {
 
 		try {
 			// encrypt with Trie
-			ImageReader reader = new ImageReader("test2.png");	//was test.png
+			ImageReader reader = new ImageReader("test.png");
 			trie.buildTrie(reader);
 			String temp = trie.encryptImage(reader);
 
