@@ -18,6 +18,7 @@ public class Trie {
 	private TrieNode root;
 	private TrieNode currentNode;
 	private int depth;
+	//TODO check correct depth handling an passing
 	
 	
 	/**
