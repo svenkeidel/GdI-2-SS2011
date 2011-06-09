@@ -83,7 +83,7 @@ public class Project4PublicTest {
 
 		try {
 			// encrypt with Trie
-			ImageReader reader = new ImageReader("test.png");
+			ImageReader reader = new ImageReader("test2.png");	//was test.png
 			trie.buildTrie(reader);
 			String temp = trie.encryptImage(reader);
 

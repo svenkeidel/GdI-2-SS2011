@@ -68,7 +68,7 @@ public class Trie {
 		
 		int childDepth = currentNode.getDepth() + 1;
 		TrieNode childNode = new TrieNode(isLeaf, childDepth);
-		depth++;
+		depth = childDepth;
 		
 		return currentNode.setNodeAtSlot(index, childNode);
 	}

@@ -6,6 +6,7 @@ package logic.trie;
 import io.ImageReader;
 
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
 
 import datamodel.RGB;
 import datamodel.trie.Trie;
@@ -37,9 +38,14 @@ public class TrieCode {
 	 *            the image via an ImageReader
 	 */
 	public void buildTrie(ImageReader reader) {
-		
-		if(reader.iterator().hasNext()){
-			addColor(new RGB(reader.iterator().next().getRGBValue()));
+//		int x = 0;
+		Iterator<RGB> i = reader.iterator();
+		while(i.hasNext()){
+			RGB temp_col = new RGB(i.next().getRGBValue());
+			addColor(temp_col);
+
+//			System.err.println("col nr: "+x+": "+temp_col+"");
+//			x++;
 		}
 	}
 
@@ -52,10 +58,11 @@ public class TrieCode {
 	public String encryptImage(ImageReader reader) {
 		
 		StringBuffer x = new StringBuffer();
+		Iterator<RGB> i = reader.iterator();
 		
-		if(reader.iterator().hasNext()){
+		while(i.hasNext()){
 			
-			RGB temp_col = new RGB(reader.iterator().next().getRGBValue());
+			RGB temp_col = new RGB(i.next().getRGBValue());
 			int missing = trieCodeTree.getMissingDepth(temp_col);
 			int keys = trieCodeTree.getDepth() + 1 - missing;
 			
@@ -68,7 +75,7 @@ public class TrieCode {
 				x.append("1000");	
 			}
 		}
-		System.err.println(""+x.toString()+"");
+//		System.err.println(""+x.toString()+"");
 		return x.toString();
 		
 	}
