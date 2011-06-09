@@ -116,6 +116,10 @@ public class Trie {
 		return currentNode;
 	}
 	
+	public void setCurrentNode(TrieNode node){
+		currentNode = node;
+	}
+	
 	
 	/**
 	 * set the depth of this Trie manually

@@ -22,6 +22,7 @@ import datamodel.trie.TrieNode;
 public class TrieCode {
 
 	private Trie trieCodeTree;
+	private Trie choppedTree;
 
 	/**
 	 * constructor
@@ -29,6 +30,7 @@ public class TrieCode {
 	 */
 	public TrieCode() {
 		this.trieCodeTree = new Trie();
+		this.choppedTree = new Trie();
 	}
 
 	/**
@@ -202,8 +204,40 @@ public class TrieCode {
 	 *         of levels)
 	 */
 	public boolean compress(int count) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		choppedTree = trieCodeTree;
+		choppedTree.moveToRoot();
+		
+		if	(count == 0)
+			return true;
+		
+		else{
+				if 	(!(count >= choppedTree.getDepth())){
+					
+							int last_depth = choppedTree.getDepth() - count;
+							
+							rec_compress(choppedTree.getRoot(), last_depth);
+							
+							choppedTree.moveToRoot();
+							trieCodeTree = choppedTree;		//overwrite the TrieCode or create seperate Trie choppedTrie in this class???
+							return true;
+				}
+				else return false;
+			}
+}
+	
+	public void rec_compress(TrieNode node, int last_depth){
+		
+		if		(node.getDepth() != last_depth){
+						for	(int i = 0; i < 16; i++){
+									if (node.hasNodeAtSlot(i)){
+											rec_compress(node.getNodeAtSlot(i), last_depth);}
+										}
+				}
+		
+		else{	for (int j = 0; j < 16; j++){
+						node.removeNodeAtSlot(j);
+						}
+		}
 	}
 
 	/**
@@ -234,6 +268,18 @@ public class TrieCode {
 	 */
 	public Trie getTrieCodeTree() {
 		return trieCodeTree;
+	}
+	
+	/**
+	 * returns the compressed tree
+	 * @return compressed tree, triecodetree if compress() wasnt executed
+	 */
+	public Trie getChoppedTree(){
+		
+		if (choppedTree == null)
+			return trieCodeTree; //or exception??
+		
+		else return choppedTree;
 	}
 
 }
