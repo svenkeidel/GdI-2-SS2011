@@ -59,6 +59,8 @@ public abstract class Tree {
 			node = factory.produceTreeNode(sumOfPropability);
 			node.setLeftNode(left);
 			node.setRightNode(right);
+			left.setParentNode(node);
+			right.setParentNode(node);
 			nodes.add(node);
 		}
 
@@ -144,4 +146,31 @@ public abstract class Tree {
 	 * node
 	 */
 	public abstract void clearTree();
+	
+	@Override
+	public String toString() {
+		StringBuffer out = new StringBuffer();
+		out.append("[ ");
+		rec_toString(out);
+		out.append(" ]");
+		return out.toString();
+	}
+	
+	private void rec_toString(StringBuffer out) {
+		if(currentNode.isLeaf()) {
+			out.append(currentNode.toString()+", ");
+		}
+		
+		if(hasLeftNode()) {
+			moveToLeftNode();
+			rec_toString(out);
+			moveToParentNode();
+		}
+		
+		if(hasRightNode()) {
+			moveToRightNode();
+			rec_toString(out);
+			moveToParentNode();
+		}
+	}
 }

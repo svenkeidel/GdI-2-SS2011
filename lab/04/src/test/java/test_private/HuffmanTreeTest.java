@@ -162,12 +162,12 @@ public class HuffmanTreeTest {
 	public void huffmanCodeTest() {
 		HuffmanCode huffmanCode = new HuffmanCode(tree);
 		HashMap<RGB, String> code = huffmanCode.getHuffmanCode();
-		assertEquals("00011", code.get(Color.A));
-		assertEquals("00010", code.get(Color.B));
-		assertEquals("0000",  code.get(Color.C));
-		assertEquals("001",   code.get(Color.D));
-		assertEquals("11",    code.get(Color.E));
-		assertEquals("10",    code.get(Color.F));
-		assertEquals("01",    code.get(Color.G));
+		assertEquals("00011", code.get(Color.A.getRGB()));
+		assertEquals("00010", code.get(Color.B.getRGB()));
+		assertEquals("0000",  code.get(Color.C.getRGB()));
+		assertEquals("001",   code.get(Color.D.getRGB()));
+		assertEquals("11",    code.get(Color.E.getRGB()));
+		assertEquals("10",    code.get(Color.F.getRGB()));
+		assertEquals("01",    code.get(Color.G.getRGB()));
 	}
 }

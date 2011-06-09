@@ -46,6 +46,8 @@ public class HuffmanCode {
 	 * The right subtrees will be coded with 1s and the left subtree will be coded with 0s.
 	 */
 	private void buildHuffmanCode() {
+		huffmanTree.moveToRoot();
+		huffmanCode = new HashMap<RGB, String>();
 		buildCodeForSubtree(new StringBuffer());
 	}
 

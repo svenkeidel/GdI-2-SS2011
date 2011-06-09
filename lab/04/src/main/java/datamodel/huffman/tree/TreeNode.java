@@ -79,4 +79,15 @@ public abstract class TreeNode {
 	public abstract void setLeftNode(TreeNode left);
 	public abstract void setRightNode(TreeNode right);
 	public abstract void setParentNode(TreeNode parent);
+	
+	@Override
+	public String toString() {
+		StringBuffer out = new StringBuffer();
+		out.append(isLeaf() ? "Leaf": "Node");
+		if(rgb != null)
+			out.append(" [ "+rgb.toString()+", Value ["+value+"] ]");
+		else
+			out.append(" [ RGB [null], Value ["+value+"] ]");
+		return out.toString();
+	}
 }
