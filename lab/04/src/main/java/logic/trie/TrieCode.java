@@ -135,11 +135,61 @@ public class TrieCode {
 		BufferedImage image = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_ARGB);
 		
-		//TODO: implement this method
-		//use the given BufferedImage for your code
 		
+		int size = picture.length();
+		char[] arr = picture.toCharArray();
+		int pic_Width = image.getWidth()-1;
+		int x = 0; 
+		int y = 0;
+		int shift_index = 0;
+		Integer[] rgb_vals = new Integer[4];
+		
+		for	(int i = 0; i < size; i = i+32){
+			
+			shift_index = 7;
+			rgb_vals[0] = rgb_vals[1] = rgb_vals[2] = rgb_vals[3] = 0;
+			
+			for	(int j = 0; j < 32; j = j+4){
+				
+					char bright_char = arr[i+j];
+					int bright_int = (bright_char - '0') << shift_index;
+					rgb_vals[0] = rgb_vals[0] + bright_int;
+//					System.err.println("BRIGHT-AS: "+bright_int+"");
+					
+					char red_char = arr[i+j+1];
+					int red_int = (red_char - '0') << shift_index;
+					rgb_vals[1] = rgb_vals[1] + red_int;
+					
+					char green_char = arr[i+j+2];
+					int green_int = (green_char - '0') << shift_index;
+					rgb_vals[2] = rgb_vals[2] + green_int;
+					
+					char blue_char = arr[i+j+3];
+					int blue_int = (blue_char - '0') << shift_index;
+					rgb_vals[3] = rgb_vals[3] + blue_int;
+					
+					shift_index--;
+				}
+			
+			RGB rgb = new RGB(rgb_vals[1], rgb_vals[2], rgb_vals[3], rgb_vals[0]);
+//			System.err.println("RGB: "+rgb+"");
+			int rgb_val = rgb.getRGBValue();
+//			System.err.println("RGBVALUE: "+rgb_val+"");
+//			RGB test_rgb = new RGB(rgb_val);
+//			System.err.println("RGB-AVAL: "+test_rgb+"");
+			image.setRGB(x, y, rgb_val);
+			
+			if (x == pic_Width) {
+				x = 0;
+				y++;
+			} else 
+				x++;
+			
+			
+		}
 		return image;
-	}
+}					
+
 
 	/**
 	 * severs the given amount of levels in the stored tree to compress image
