@@ -239,27 +239,27 @@ public class TrieTest {
 		
 		String noChopp = triecode.encryptImage(reader);
 		BufferedImage noComp = triecode.decryptImage(noChopp, reader.getHeight(), reader.getWidth());
-		IO.writeBinaryString("NoComp_encrypted", noChopp);
-		IO.saveImage("NoComp", noComp);
+		IO.writeBinaryString("target/NoComp_encrypted", noChopp);
+		IO.saveImage("target/NoComp", noComp);
 		
 		triecode.compress(3);
 		String ThreeChopp = triecode.encryptImage(reader);
 		BufferedImage ThreeComp = triecode.decryptImage(ThreeChopp, reader.getHeight(), reader.getWidth());
-		IO.writeBinaryString("ThreeComp_encrypted", ThreeChopp);
-		IO.saveImage("ThreeComp", ThreeComp);
+		IO.writeBinaryString("target/ThreeComp_encrypted", ThreeChopp);
+		IO.saveImage("target/ThreeComp", ThreeComp);
 		
 		triecode.compress(6);
 		String SixChopp = triecode.encryptImage(reader);
 		BufferedImage SixComp= triecode.decryptImage(SixChopp, reader.getHeight(), reader.getWidth());
-		IO.writeBinaryString("SixComp_encrypted", SixChopp);
-		IO.saveImage("SixComp", SixComp);
+		IO.writeBinaryString("target/SixComp_encrypted", SixChopp);
+		IO.saveImage("target/SixComp", SixComp);
 		
-		assertTrue(new ImageReader("NoComp_encrypted") != null);
-		assertTrue(new ImageReader("NoComp.png") != null);
-		assertTrue(new ImageReader("ThreeComp_encrypted") != null);
-		assertTrue(new ImageReader("ThreeComp.png") != null);
-		assertTrue(new ImageReader("SixComp_encrypted") != null);
-		assertTrue(new ImageReader("SixComp.png") != null);
+		assertTrue(new ImageReader("target/NoComp_encrypted") != null);
+		assertTrue(new ImageReader("target/NoComp.png") != null);
+		assertTrue(new ImageReader("target/ThreeComp_encrypted") != null);
+		assertTrue(new ImageReader("target/ThreeComp.png") != null);
+		assertTrue(new ImageReader("target/SixComp_encrypted") != null);
+		assertTrue(new ImageReader("target/SixComp.png") != null);
 		
 		
 	}
@@ -271,8 +271,8 @@ public class TrieTest {
 		ImageReader reader2 = new ImageReader("test2.png");
 		String encrypted = triecode.encryptImage(reader2);
 		BufferedImage decrypted = triecode.decryptImage(encrypted, reader2.getHeight(), reader2.getWidth());
-		IO.saveImage("Seven", decrypted);
-		assertTrue(new ImageReader("Seven.png") != null);
+		IO.saveImage("target/Seven", decrypted);
+		assertTrue(new ImageReader("target/Seven.png") != null);
 	}
 }
 
