@@ -131,6 +131,9 @@ public class HuffmanCode {
 			}
 		}
 		
+		if(encImage.length() != 0)
+			throw new IllegalArgumentException("Picture can't be decrypted correctly");
+		
 		return image;
 	}
 
@@ -156,7 +159,7 @@ public class HuffmanCode {
 			if(huffmanDecryption.containsKey(codeSequence.toString()))
 				return huffmanDecryption.get(codeSequence.toString());
 		}
-
+		
 		throw new IllegalArgumentException("Picture can't be decrypted correctly");
 	}
 
