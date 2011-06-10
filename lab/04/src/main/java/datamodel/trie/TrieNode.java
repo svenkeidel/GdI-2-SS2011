@@ -48,6 +48,7 @@ public class TrieNode {
 					}
 		}
 	
+	
 	/**
 	 * removes a node at certain nodeSlot index
 	 * @param index index
@@ -55,6 +56,16 @@ public class TrieNode {
 	public void removeNodeAtSlot (int index){
 		nodeSlots[index] = null;
 	}
+	
+	
+	/**
+	 * removes a leaf at certain LeafSlot index
+	 * @param index index
+	 */
+	public void removeLeafAtSlot (int index){
+		leafSlots[index] = null;
+	}
+	
 	
 	/**
 	 * sets a LeafValue on a certain LeafSlot

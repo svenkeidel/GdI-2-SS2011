@@ -66,9 +66,9 @@ public class TrieCode {
 			
 			RGB temp_col = new RGB(i.next().getRGBValue());
 			int missing = trieCodeTree.getMissingDepth(temp_col);
-			int keys = trieCodeTree.getDepth() + 1 - missing;
+			int keys = trieCodeTree.getDepth() - missing;
 			
-			for	(int j = 0;j < keys; j++){
+			for	(int j = 1;j <= keys; j++){
 				int key = temp_col.getTrieKeyForDepth(j);
 				x.append(Integer.toBinaryString(key));	
 			}
@@ -105,7 +105,8 @@ public class TrieCode {
 	public void rec_addColor(TrieNode node, RGB color){
 		
 		int key = color.getTrieKeyForDepth(node.getDepth());
-		boolean isLeaf = (node.getDepth() == 6);
+		boolean isLeaf = (node.getDepth() == 7);
+		
 		if		(!node.getLeafStatus()){
 						if		(!node.hasNodeAtSlot(key)){
 								trieCodeTree.createChildAt(key, isLeaf);
@@ -213,7 +214,7 @@ public class TrieCode {
 		else{
 				if 	(!(count >= choppedTree.getDepth())){
 					
-							int last_depth = choppedTree.getDepth() - count;
+							int last_depth = choppedTree.getDepth() - count + 1;
 							
 							rec_compress(choppedTree.getRoot(), last_depth);
 							
@@ -235,7 +236,9 @@ public class TrieCode {
 				}
 		
 		else{	for (int j = 0; j < 16; j++){
-						node.removeNodeAtSlot(j);
+						if 	(!node.getLeafStatus())
+									node.removeNodeAtSlot(j);
+						else		node.removeLeafAtSlot(j);
 						}
 		}
 	}
@@ -250,7 +253,7 @@ public class TrieCode {
 	public boolean containsColor(RGB color) {
 		trieCodeTree.moveToRoot();
 		
-		for (int i = 0; i < 7; i++){
+		for (int i = 1; i <= 7; i++){
 			
 			if		(!trieCodeTree.getCurrentNode().hasNodeAtSlot(color.getTrieKeyForDepth(i)))
 						return false;
@@ -258,7 +261,7 @@ public class TrieCode {
 			trieCodeTree.moveToChild(color.getTrieKeyForDepth(i));
 		}
 		
-		if 			(trieCodeTree.getCurrentNode().hasLeafAtSlot(color.getTrieKeyForDepth(7)))
+		if 			(trieCodeTree.getCurrentNode().hasLeafAtSlot(color.getTrieKeyForDepth(8)))
 						return true;
 		else			return false;
 	}

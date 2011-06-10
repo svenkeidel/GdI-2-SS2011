@@ -17,10 +17,7 @@ public class RGB {
 	private int blue;
 	private int brightness;
 	
-	
-	//	IMPORTANT NOTE: THIS CONSTRUCTOR HAS NOT THE SAME STRUCTUR LIKE 
-	// 	THE ENCODING EXAMPLE ON THE SHEET (MISTAKE)?
-	// 	(sebastian)
+
 	/**
 	 * constructor
 	 * 
@@ -90,16 +87,17 @@ public class RGB {
 	}
 
 	public int getTrieKeyForDepth(int depth){
+		if (depth > 0){
 		int key = 0;
 		int and_mask = 1;
 		
 		//shifted related to depth, and-masked -> the important bit is everywhere at bit0,
 		//shifted to add the 4 bits correctly to get the final key
 		//SM = Shifted and Masked
-		int SM_Brightness = ((getBrightness() >> (7 - depth)) & and_mask) << 3;
-		int SM_Red = ((getRed() >> (7 - depth)) & and_mask) << 2;
-		int SM_Green = ((getGreen() >> (7 - depth)) & and_mask) << 1;
-		int SM_Blue = (getBlue() >> (7 - depth)) & and_mask;
+		int SM_Brightness = ((getBrightness() >> (8 - depth)) & and_mask) << 3;
+		int SM_Red = ((getRed() >> (8 - depth)) & and_mask) << 2;
+		int SM_Green = ((getGreen() >> (8 - depth)) & and_mask) << 1;
+		int SM_Blue = (getBlue() >> (8 - depth)) & and_mask;
 		
 //		System.err.println("SM_BRIGHT: "+SM_Brightness+"");
 //		System.err.println("SM_Red: "+SM_Red+"");
@@ -111,6 +109,8 @@ public class RGB {
 //		System.err.println("key: "+key+"");
 		
 		return key;
+		}
+		else throw new UnsupportedOperationException("Invalid depth for key generating!");
 		}
 		
 	

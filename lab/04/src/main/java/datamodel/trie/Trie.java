@@ -25,9 +25,9 @@ public class Trie {
 	 * The Trie-Constructor
 	 */
 	public Trie(){
-		root = new TrieNode(false, 0);
+		root = new TrieNode(false, 1);
 		currentNode = root;
-		depth = 0;
+		depth = 1;
 	}
 	
 	
@@ -95,16 +95,19 @@ public class Trie {
 	 */
 	public int getMissingDepth(RGB color){
 		moveToRoot();
-		int missing = depth+1;
+		int missing = depth;
 		
-		for	(int i = 0; i < depth; i++){
+		for	(int i = 1; i <= depth; i++){
 				int present_key = color.getTrieKeyForDepth(i);
 				
-				if		(currentNode.hasNodeAtSlot(present_key)){
-								missing--;
-								this.moveToChild(present_key);}
-				else	return missing;
-				}
+			if 	(!currentNode.hasLeafAtSlot(present_key)){
+						if		(currentNode.hasNodeAtSlot(present_key)){
+										missing--;
+										this.moveToChild(present_key);}
+						else	return missing;
+						}
+			else missing--;
+		}
 		return 0;
 	}
 	

@@ -199,7 +199,7 @@ public class TrieTest {
 		assertTrue(a.equals(b));
 		assertFalse(triecode.compress(24));
 		
-		triecode.compress(6);
+		triecode.compress(7);
 		assertFalse(triecode.containsColor(black1));
 		assertFalse(triecode.containsColor(green));
 		assertFalse(triecode.containsColor(red));
