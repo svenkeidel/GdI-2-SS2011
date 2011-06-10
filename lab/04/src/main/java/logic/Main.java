@@ -33,12 +33,24 @@ package logic;
  * Betrachten Sie nun die beiden decodierten Bilder. Erklären Sie Ihre Beobachtungen.
  * Worauf sind diese zurückzuführen?
  * 
- * TODO: Answer
+ * Answer 3:
+ * Die drei unterschiedlich kompriemiert codierten Dateien sind gleich groß, da sie lediglich als Bitstring und dadurch ohne jeglich 
+ * native Dateikomprimierung (wie zB jpg oder png) abgespeichert werden. Somit ist die Größe der Datei linear zu der Auflösung des ursprünglichen
+ * Bildes: 
+ * 1 Pixel = 4 Bytes; 800*600 = 480 000; 4Bytes * 480 000 = 1 920 000 Bytes = 1,92 MB;
+ * 
+ * Der Speicherbedarf der codierten Dateien ändert sich bei unterschiedlich komprimierten Bildern nicht, da fehlende Bits im Code-Trie in dem encrypt-String
+ * ersetzt werden. Da die Methode writeBinaryString, die man verwenden soll um die codierten Bilder zu speichern, einfach nur einen Bit-Array als Stream
+ * abspeichert, besitzt sie keinerlei Komprimierung und erstellt unabhängig vom Komprimierungsgrad die gleiche Dateigröße.
+ * 
  * 
  * Frage 4:
  * Wie erklärt sich der Unterschied im Orginalbild und dem wieder decodierten Bild?
  * 
- * TODO: Answer
+ * Answer 4:
+ * TODO: Check correct exercise understanding
+ * Der Code-Trie des 8x8-Pixelbildes funktioniert hier als Filter. Alle Farben im Bild test.png die auch in test2.png vorhanden sind,
+ * sind sichtbar, der Rest ist schwarz.
  *
  * Frage 5:
  * Vergleichen Sie die Geschwindigkeit beider Suchmethoden. Geben Sie eine theoretische Erklärung für ihre Beobachtungen an.
