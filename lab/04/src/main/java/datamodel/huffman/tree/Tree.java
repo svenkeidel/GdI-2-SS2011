@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 /**
  * A implementation of your Huffman tree.<br>
- * 
+ *
  * @author Kevin Munk, Jakob Karolus
  * @version 1.0
  * 
@@ -66,6 +66,31 @@ public abstract class Tree {
 
 		rootNode = nodes.poll();
 		currentNode = rootNode;
+	}
+
+	private int maxDepth;
+	public int getDepth() {
+		moveToRoot();
+		maxDepth = 0;
+		getDepth(0);
+		return maxDepth;
+	}
+
+	private void getDepth(int currentDepth) {
+		if(currentDepth > maxDepth)
+			maxDepth = currentDepth;
+
+		if(hasLeftNode()) {
+			moveToLeftNode();
+			getDepth(currentDepth+1);
+			moveToParentNode();
+		}
+
+		if(hasRightNode()) {
+			moveToRightNode();
+			getDepth(currentDepth+1);
+			moveToParentNode();
+		}
 	}
 
 	/**
@@ -174,3 +199,4 @@ public abstract class Tree {
 		}
 	}
 }
+

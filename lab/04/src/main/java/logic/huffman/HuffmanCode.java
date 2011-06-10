@@ -1,11 +1,6 @@
-/**
- * 
- */
 package logic.huffman;
 
 import java.lang.StringBuffer;
-
-import java.util.Map;
 
 import datamodel.huffman.tree.TreeNode;
 
@@ -28,7 +23,6 @@ import datamodel.huffman.tree.Tree;
 public class HuffmanCode {
 
 	private HashMap<RGB, String> huffmanCode = null;
-	private HashMap<String, RGB> huffmanDecryption = null;
 	private Tree huffmanTree = null;
 
 	/**
@@ -120,47 +114,63 @@ public class HuffmanCode {
 			int height) {
 		BufferedImage image = new BufferedImage(width, height,
 				BufferedImage.TYPE_INT_ARGB);
-		StringBuffer encImage = new StringBuffer(encryptedImage);
 
-		if(huffmanDecryption == null)
-			buildDecryptionCode();
+		// Convert string to bool array for performance
 
+		imagePosition = 0;
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
-				image.setRGB(x, y, decryptColor(encImage).getRGBValue());
+				image.setRGB(x, y, decryptColor(encryptedImage).getRGBValue());
 			}
 		}
-		
-		if(encImage.length() != 0)
+
+		if(imagePosition != encryptedImage.length())
 			throw new IllegalArgumentException("Picture can't be decrypted correctly");
-		
+
 		return image;
 	}
 
-	/**
-	 * inverts keys and values of the hashmap
-	 */
-	private void buildDecryptionCode() {
-		huffmanDecryption = new HashMap<String, RGB>();
-		for(Map.Entry<RGB, String> entry : huffmanCode.entrySet()) {
-			huffmanDecryption.put(entry.getValue(), entry.getKey());
-		}
-	}
-
+	private int imagePosition;
 	/**
 	 * decrypts a codesequence into a color
 	 */
-	private RGB decryptColor(StringBuffer encImage) {
-		StringBuffer codeSequence = new StringBuffer();
+	private RGB decryptColor(String encImage) {
+		huffmanTree.moveToRoot();
 
-		while(encImage.length() >= 0) {
-			codeSequence.append(encImage.charAt(0));
-			encImage.deleteCharAt(0);
-			if(huffmanDecryption.containsKey(codeSequence.toString()))
-				return huffmanDecryption.get(codeSequence.toString());
+		// Iterate through the tree along the codeword
+		while(!huffmanTree.getCurrentNode().isLeaf()) {
+
+			try {
+
+				if(encImage.charAt(imagePosition) == '1')
+					huffmanTree.moveToRightNode();
+				else
+					huffmanTree.moveToLeftNode();
+
+				imagePosition++;
+
+			} catch(Exception e) {
+				throw new IllegalArgumentException("Picture can't be decrypted correctly");
+			}
 		}
-		
-		throw new IllegalArgumentException("Picture can't be decrypted correctly");
+
+		RGB nextColor = huffmanTree.getCurrentNode().getRGB();
+
+		// skip rest of codeword
+		if(huffmanTree.getCurrentNode().isCutOff()) {
+			do {
+
+				if(encImage.charAt(imagePosition) == '1')
+					huffmanTree.moveToRightNode();
+				else
+					huffmanTree.moveToLeftNode();
+
+				imagePosition++;
+
+			} while (!huffmanTree.getCurrentNode().isLeaf());
+		}
+
+		return nextColor;
 	}
 
 	/**
@@ -193,8 +203,34 @@ public class HuffmanCode {
 	 *         of levels)
 	 */
 	public boolean compress(int count) {
-		//TODO: implement this method
-		throw new UnsupportedOperationException("Implement me!");
+		int depth = huffmanTree.getDepth();
+		if(count >= depth)
+			return false;
+		compress(count, depth, 0);
+		buildHuffmanCode();
+		return true;
+	}
+
+	private void compress(int count, int depth, int currentDepth) {
+
+		if(depth - currentDepth <= count &&
+				(huffmanTree.hasLeftNode() || huffmanTree.hasRightNode())) {
+			huffmanTree.getCurrentNode().cutOff();
+			huffmanTree.getCurrentNode().setRGB(new RGB(255, 255, 255, 255));
+		} else {
+
+			if(huffmanTree.hasLeftNode()) {
+				huffmanTree.moveToLeftNode();
+				compress(count, depth, currentDepth+1);
+				huffmanTree.moveToParentNode();
+			}
+
+			if(huffmanTree.hasRightNode()) {
+				huffmanTree.moveToRightNode();
+				compress(count, depth, currentDepth+1);
+				huffmanTree.moveToParentNode();
+			}
+		}
 	}
 
 	/**
@@ -205,3 +241,4 @@ public class HuffmanCode {
 	}
 
 }
+

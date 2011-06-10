@@ -25,6 +25,7 @@ public abstract class TreeNode {
 
 	private RGB rgb;
 	private int value;
+	private boolean isCutOff = false;
 
 	public TreeNode(RGB rgb, int value) {
 		this.value = value;
@@ -63,7 +64,15 @@ public abstract class TreeNode {
 	public void setValue(int value){
 		this.value = value;
 	}
-	
+
+	public void cutOff() {
+		this.isCutOff = true;
+	}
+
+	public boolean isCutOff() {
+		return isCutOff;
+	}
+
 	/**
 	 * the node is a leaf if the rgb variable is not null, else it's
 	 * inside the huffman tree.
@@ -91,3 +100,4 @@ public abstract class TreeNode {
 		return out.toString();
 	}
 }
+

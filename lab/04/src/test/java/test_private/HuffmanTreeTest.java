@@ -16,18 +16,20 @@ import org.junit.Test;
 import org.junit.Before;
 
 import logic.huffman.HuffmanCode;
+import logic.huffman.HuffmanTree;
 
 public class HuffmanTreeTest {
-	
-	private static enum Color {
+
+	public static enum Color {
 		A(1, 1),
 		B(2, 2),
 		C(3, 4),
 		D(4, 6),
 		E(5, 8),
 		F(6, 9),
-		G(7, 10);
-		
+		G(7, 10),
+		W(new RGB(255,255,255,255).getRGBValue(), 0);
+
 		private int rgb, amount;
 
 		Color(int rgb, int amount) {
@@ -50,8 +52,8 @@ public class HuffmanTreeTest {
 	public void init() {
 		AbstractTreeFactory factory = new LinkedTreeFactory();
 
-		PriorityQueue<TreeNode> queue = 
-			new PriorityQueue<TreeNode>(1, 
+		PriorityQueue<TreeNode> queue =
+			new PriorityQueue<TreeNode>(1,
 				new TreeNode.comparator());
 		queue.add(factory.produceTreeNode(Color.A.getRGB(), Color.A.getAmount()));
 		queue.add(factory.produceTreeNode(Color.B.getRGB(), Color.B.getAmount()));
@@ -87,9 +89,9 @@ public class HuffmanTreeTest {
 	 *      ------      G    F    E
 	 *     7      6
 	 *   -----    D
-	 *  4     3     
-	 *  C    ---       
-	 *      2   1       
+	 *  4     3
+	 *  C    ---
+	 *      2   1
 	 *      B   A
 	 */
 	@Test
@@ -153,9 +155,9 @@ public class HuffmanTreeTest {
 	 *      ------      G    F    E
 	 *     0      1
 	 *   -----    D
-	 *  0     1     
-	 *  C    ---       
-	 *      0   1       
+	 *  0     1
+	 *  C    ---
+	 *      0   1
 	 *      B   A
 	 */
 	@Test
@@ -169,5 +171,49 @@ public class HuffmanTreeTest {
 		assertEquals("11",    code.get(Color.E.getRGB()));
 		assertEquals("10",    code.get(Color.F.getRGB()));
 		assertEquals("01",    code.get(Color.G.getRGB()));
+	}
+
+	/**
+	 * Tree Layout.
+	 * Color:  A B C D E F G
+	 * Amount: 1 2 4 6 8 9 10
+	 *
+	 *                   40
+	 *              ------------
+	 *             23          17
+	 *         ---------      ----
+	 *         13      10    9    8
+	 *         W        G    F    E
+	 *  ====================================
+	 */
+	@Test
+	public void compressionTest() {
+		HuffmanCode code = new HuffmanCode(tree);
+		code.compress(3);
+		tree = code.getHuffmanTree();
+
+		tree.moveToRoot();
+		isNoLeaf();
+
+		tree.moveToRightNode();
+		isNoLeaf();
+
+		tree.moveToRightNode();
+		isLeaf(Color.E);
+
+		tree.moveToParentNode();
+		tree.moveToLeftNode();
+		isLeaf(Color.F);
+
+		tree.moveToRoot();
+		tree.moveToLeftNode();
+		isNoLeaf();
+
+		tree.moveToRightNode();
+		isLeaf(Color.G);
+
+		tree.moveToParentNode();
+		tree.moveToLeftNode();
+		isLeaf(Color.W);
 	}
 }
