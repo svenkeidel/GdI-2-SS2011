@@ -16,23 +16,23 @@ Aufgabenstellung
 
 ### Codieren mit Tries
 
-1.        Trie und TrieNode implimentieren.
-2.        TrieCode/-Baum erstellen.
-3.        Funktion implimentieren um ein Bild mit dem zugeh&ouml;rigen TrieCode
+1. [DONE] Trie und TrieNode implimentieren.
+2. [DONE] TrieCode/-Baum erstellen.
+3. [DONE] Funktion implementieren um ein Bild mit dem zugeh&ouml;rigen TrieCode
           zu codieren.
-4.        Funktion implimentieren um mit TrieCode codierte Bilder zu decodieren.
-5.        Triebaum mit der Compress-Methode abschneiden.
-6.        Aus test.png TrieCode-Baum erstellen. Bild codieren. Baum um 3-6
+4. [DONE] Funktion implementieren um mit TrieCode codierte Bilder zu decodieren.
+5. [DONE] Triebaum mit der Compress-Methode abschneiden.
+6. [DONE] Aus test.png TrieCode-Baum erstellen. Bild codieren. Baum um 3-6
           Stufen abschneiden. Bild erneut codieren. Speicherbedarf vergleichen.
           Frage 3 in Main.java beantworten.
-7.        TrieCode-Baum f&uuml;r test.png erstellen und damit test2.png codieren.
+7. [DONE] TrieCode-Baum f&uuml;r test.png erstellen und damit test2.png codieren.
           Was f&auml;llt beim Decodieren auf? Frage 4 in Main.java beantworten.
 
 ### Suchen in Huffman- und Trie- B&auml;umen
 
-1. ContainsColor implimentieren. Frage 5 in Main.java beantworten.
-
-
+1.        ContainsColor für Huffman implementieren.
+1. [DONE] ContainsColor für Trie implementieren.
+3.        Frage 5 in Main.java beantworten.
 --------------------------------------------------------------------------------------
 
 
