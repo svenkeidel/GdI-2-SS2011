@@ -129,7 +129,7 @@ public class Project4PublicTest {
 			Assert.assertFalse(trie.containsColor(new RGB(234, 12, 67, 0)));
 
 			// huffman
-			Tree tree = HuffmanTree.getHuffmanTree("test.png");
+			Tree tree = HuffmanTree.getHuffmanTree("test2.png");
 			HuffmanCode code = new HuffmanCode(tree);
 
 			Assert.assertTrue(code.containsColor(new RGB(255, 255, 0, 255)));

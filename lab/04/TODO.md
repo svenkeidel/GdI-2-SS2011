@@ -7,26 +7,26 @@ Aufgabenstellung
 
 ### Codieren mit Huffman
 
-1. Huffman.tree implimentieren.
-2. Logik-Funktionen &uuml;ber dem Huffmanbaum implimentieren.
-3. Frage 1 in Main.java beantworten.
-4. Huffmanbaum mit der Compress-Methode abschneiden.
-5. test2.png codieren. Baum um eine Stufe abschneiden. Decodieren und
-   Frage 2 in Main.java beanworten.
+1. [DONE] Huffman.tree implimentieren.
+2. [DONE] Logik-Funktionen &uuml;ber dem Huffmanbaum implimentieren.
+3.        Frage 1 in Main.java beantworten.
+4. [DONE] Huffmanbaum mit der Compress-Methode abschneiden.
+5.        test2.png codieren. Baum um eine Stufe abschneiden. Decodieren und
+          Frage 2 in Main.java beanworten.
 
 ### Codieren mit Tries
 
-1. Trie und TrieNode implimentieren.
-2. TrieCode/-Baum erstellen.
-3. Funktion implimentieren um ein Bild mit dem zugeh&ouml;rigen TrieCode
-   zu codieren.
-4. Funktion implimentieren um mit TrieCode codierte Bilder zu decodieren.
-5. Triebaum mit der Compress-Methode abschneiden.
-6. Aus test.png TrieCode-Baum erstellen. Bild codieren. Baum um 3-6
-   Stufen abschneiden. Bild erneut codieren. Speicherbedarf vergleichen.
-   Frage 3 in Main.java beantworten.
-7. TrieCode-Baum f&uuml;r test.png erstellen und damit test2.png codieren.
-   Was f&auml;llt beim Decodieren auf? Frage 4 in Main.java beantworten.
+1.        Trie und TrieNode implimentieren.
+2.        TrieCode/-Baum erstellen.
+3.        Funktion implimentieren um ein Bild mit dem zugeh&ouml;rigen TrieCode
+          zu codieren.
+4.        Funktion implimentieren um mit TrieCode codierte Bilder zu decodieren.
+5.        Triebaum mit der Compress-Methode abschneiden.
+6.        Aus test.png TrieCode-Baum erstellen. Bild codieren. Baum um 3-6
+          Stufen abschneiden. Bild erneut codieren. Speicherbedarf vergleichen.
+          Frage 3 in Main.java beantworten.
+7.        TrieCode-Baum f&uuml;r test.png erstellen und damit test2.png codieren.
+          Was f&auml;llt beim Decodieren auf? Frage 4 in Main.java beantworten.
 
 ### Suchen in Huffman- und Trie- B&auml;umen
 

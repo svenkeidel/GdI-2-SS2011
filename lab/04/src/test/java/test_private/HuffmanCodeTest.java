@@ -18,8 +18,8 @@ import datamodel.huffman.tree.Tree;
 
 public class HuffmanCodeTest {
 
-	private Tree tree, tree2;
-	private HuffmanCode code, code2;
+	private Tree tree;
+	private HuffmanCode code;
 
 	@Before
 	public void init() throws FileNotFoundException, IOException {
@@ -28,52 +28,26 @@ public class HuffmanCodeTest {
 
 	}
 
-	@Test
-	public void detectCorruptedEncryptedImage() throws FileNotFoundException, IOException {
-		ImageReader reader = new ImageReader("test.png");
-		StringBuffer encryptedImage = new StringBuffer(code.encryptImage(reader));
-
-		// corrupt image muhuha :P
-		encryptedImage.append(0);
-
-		try {
-			code.decryptImage(encryptedImage.toString(), 8, 8);
-
-			// Fail, no exception was thrown
-			fail();
-		} catch(IllegalArgumentException e) {
-			// Everything is ok
-		}
-	}
-
 	private void compressTolevel(int level) throws FileNotFoundException, IOException {
-		tree2 = HuffmanTree.getHuffmanTree("test2.png");
-		code2 = new HuffmanCode(tree2);
+		tree = HuffmanTree.getHuffmanTree("test2.png");
+		code = new HuffmanCode(tree);
+		String compressedFileName = "target/compLevel"+level;
+		String compressedFileName2 = "target/compLevel"+level+"_2";
+
 		ImageReader reader = new ImageReader("test2.png");
-		String encryptedString = code2.encryptImage(reader);
-		code2.compress(level);
-		BufferedImage compressionLevel1png = code2.decryptImage(encryptedString, reader.getWidth(), reader.getHeight());
-		//IO.writeBinaryString("target/compLevel"+level+"_encrypted", compressionLevel);
-		IO.saveImage("target/compLevel"+level, compressionLevel1png);
+		String encryptedString = code.encryptImage(reader);
+		code.compress(level);
+		BufferedImage compressedFile = code.decryptImage(encryptedString, reader.getWidth(), reader.getHeight());
+		IO.saveImage(compressedFileName, compressedFile);
+		
+		reader = new ImageReader(compressedFileName+".png");
+		encryptedString = code.encryptImage(reader);
+		BufferedImage compressedFile2 = code.decryptImage(encryptedString, reader.getWidth(), reader.getHeight());
+		IO.saveImage(compressedFileName2, compressedFile2);
 	}
 
 	@Test
 	public void compressionLevel1Test() throws FileNotFoundException, IOException {
 		compressTolevel(1);
-	}
-
-	@Test
-	public void compressionLevel2Test() throws FileNotFoundException, IOException {
-		compressTolevel(2);
-	}
-
-	@Test
-	public void compressionLevel3Test() throws FileNotFoundException, IOException {
-		compressTolevel(3);
-	}
-
-	@Test
-	public void compressionLevel4Test() throws FileNotFoundException, IOException {
-		compressTolevel(4);
 	}
 }

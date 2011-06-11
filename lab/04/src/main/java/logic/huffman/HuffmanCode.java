@@ -117,15 +117,16 @@ public class HuffmanCode {
 
 		// Convert string to bool array for performance
 
-		imagePosition = 0;
-		for(int y = 0; y < height; y++) {
-			for(int x = 0; x < width; x++) {
-				image.setRGB(x, y, decryptColor(encryptedImage).getRGBValue());
+		try {
+			imagePosition = 0;
+			for(int y = 0; y < height; y++) {
+				for(int x = 0; x < width; x++) {
+					image.setRGB(x, y, decryptColor(encryptedImage).getRGBValue());
+				}
 			}
+		} catch(IllegalArgumentException e) {
+			// Ignore
 		}
-
-		if(imagePosition != encryptedImage.length())
-			throw new IllegalArgumentException("Picture can't be decrypted correctly");
 
 		return image;
 	}
@@ -173,6 +174,7 @@ public class HuffmanCode {
 		return nextColor;
 	}
 
+	
 	/**
 	 * @return the huffmanCode a map which holds for every color the huffman
 	 *         code
@@ -181,6 +183,7 @@ public class HuffmanCode {
 		return huffmanCode;
 	}
 
+	
 	/**
 	 * return true if the given color is in the huffman tree
 	 * 
@@ -192,6 +195,7 @@ public class HuffmanCode {
 		return huffmanCode.containsKey(color);
 	}
 
+	
 	/**
 	 * severs the given amount of levels in the stored tree to compress image
 	 * information<br>
@@ -211,10 +215,20 @@ public class HuffmanCode {
 		return true;
 	}
 
+	
+	/**
+	 * recursively traverse through the tree. If the wanted depth is reached,
+	 * remove the colors below and cut of the subtree.
+	 * 
+	 * @param count the count of level to cut
+	 * @param depth the number of levels below the root node
+	 * @param currentDepth the depth traversed down the tree
+	 */
 	private void compress(int count, int depth, int currentDepth) {
 
 		if(depth - currentDepth <= count &&
 				(huffmanTree.hasLeftNode() || huffmanTree.hasRightNode())) {
+			removeCuttedColors();
 			huffmanTree.getCurrentNode().cutOff();
 			huffmanTree.getCurrentNode().setRGB(new RGB(255, 255, 255, 255));
 		} else {
@@ -230,6 +244,27 @@ public class HuffmanCode {
 				compress(count, depth, currentDepth+1);
 				huffmanTree.moveToParentNode();
 			}
+		}
+	}
+	
+	
+	/**
+	 * Remove the cutted colors from the encoding map.
+	 */
+	private void removeCuttedColors() {
+		if(huffmanTree.getCurrentNode().isLeaf())
+			huffmanCode.remove(huffmanTree.getCurrentNode().getRGB());
+		
+		if(huffmanTree.hasLeftNode()) {
+			huffmanTree.moveToLeftNode();
+			removeCuttedColors();
+			huffmanTree.moveToParentNode();
+		}
+		
+		if(huffmanTree.hasRightNode()) {
+			huffmanTree.moveToRightNode();
+			removeCuttedColors();
+			huffmanTree.moveToParentNode();
 		}
 	}
 
