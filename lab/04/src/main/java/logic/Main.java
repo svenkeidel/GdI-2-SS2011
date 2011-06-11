@@ -41,16 +41,20 @@ package logic;
  * 
  * Der Speicherbedarf der codierten Dateien ändert sich bei unterschiedlich komprimierten Bildern nicht, da fehlende Bits im Code-Trie in dem encrypt-String
  * ersetzt werden. Da die Methode writeBinaryString, die man verwenden soll um die codierten Bilder zu speichern, einfach nur einen Bit-Array als Stream
- * abspeichert, besitzt sie keinerlei Komprimierung und erstellt unabhängig vom Komprimierungsgrad die gleiche Dateigröße.
+ * abspeichert, besitzt sie keinerlei Komprimierung und erstellt dadruch - unabhängig vom Komprimierungsgrad - die gleiche Dateigröße.
  * 
  * 
  * Frage 4:
  * Wie erklärt sich der Unterschied im Orginalbild und dem wieder decodierten Bild?
  * 
  * Answer 4:
- * TODO: Check correct exercise understanding
- * Der Code-Trie des 8x8-Pixelbildes funktioniert hier als Filter. Alle Farben im Bild test.png die auch in test2.png vorhanden sind,
- * sind sichtbar, der Rest ist schwarz.
+ * Auf den ersten Blick ist kein großer Unterschied zwischen dem original und decodiertem test2.png zu erkennen.
+ * Um einen möglichen Unterschied besser einschätzen zu können, haben wir eine Hilfsmethode für den ImageReader
+ * geschrieben, welche analysiert wieviele gemeinsame Pixel ein Bild mit einem anderen hat. Analysiert man nun test.png
+ * und test2.png mittels dieser Methode, kommt man auf das Ergebnis, dass 14.29% (1 von 7) der Farben von test.png in test2.png
+ * enthalten sind. Das bedeutet in der Praxis, dass durch eine Codierung von test2.png mittels des Tries von test.png 7 von 8 Farben
+ * verändert. Sie werden dadurch dunkler, da die fehlenden Farb-Bits mit 0 aufgefüllt werden.
+ *
  *
  * Frage 5:
  * Vergleichen Sie die Geschwindigkeit beider Suchmethoden. Geben Sie eine theoretische Erklärung für ihre Beobachtungen an.

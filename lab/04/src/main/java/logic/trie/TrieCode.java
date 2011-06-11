@@ -191,7 +191,7 @@ public class TrieCode {
 			
 		}
 		return image;
-}					
+	}					
 
 
 	/**
@@ -224,7 +224,7 @@ public class TrieCode {
 				}
 				else return false;
 			}
-}
+	}
 	
 	public void rec_compress(TrieNode node, int last_depth){
 		
@@ -243,6 +243,7 @@ public class TrieCode {
 		}
 	}
 
+	
 	/**
 	 * return true if the given color is in the trie
 	 * 
@@ -266,12 +267,14 @@ public class TrieCode {
 		else			return false;
 	}
 
+	
 	/**
 	 * @return the trieCodeTree
 	 */
 	public Trie getTrieCodeTree() {
 		return trieCodeTree;
 	}
+	
 	
 	/**
 	 * returns the compressed tree
@@ -284,5 +287,6 @@ public class TrieCode {
 		
 		else return choppedTree;
 	}
+	
 
 }

@@ -11,6 +11,8 @@ import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
+import logic.trie.TrieCode;
+
 
 import datamodel.RGB;
 
@@ -68,4 +70,47 @@ public class ImageReader implements Iterable<RGB> {
 	public int getWidth() {
 		return image.getWidth();
 	}
+	
+	
+	public float AmountOfColorsInPicture(ImageReader reader){
+
+		float sum = 0;
+		
+		TrieCode counted_colors = new TrieCode();
+		TrieCode triecode = new TrieCode();
+		triecode.buildTrie(reader);
+		
+		Iterator<RGB> i = this.iterator();
+	
+		while(i.hasNext()){
+			RGB tempRGB = i.next();
+			
+			if (triecode.containsColor(tempRGB)){
+					
+				if (!counted_colors.containsColor(tempRGB)){
+							sum++;
+							counted_colors.addColor(tempRGB);}
+			}
+		}
+		return sum;
+	}
+	
+	
+	public int countDifferentColors(){
+		
+		int sum = 0;
+		TrieCode counted_colors = new TrieCode();
+		Iterator<RGB> i = this.iterator();
+		
+		while(i.hasNext()){
+			RGB tempRGB = i.next();
+			
+			if (!counted_colors.containsColor(tempRGB)){
+				sum++;
+				counted_colors.addColor(tempRGB);}
+			}
+		return sum;
+	}
 }
+
+

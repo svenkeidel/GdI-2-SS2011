@@ -265,14 +265,34 @@ public class TrieTest {
 	}
 	
 	@Test public void Seven() throws FileNotFoundException, IOException{
-		ImageReader reader = new ImageReader("test.png");
-		triecode.buildTrie(reader);
+		ImageReader test_reader = new ImageReader("test.png");
+		triecode.buildTrie(test_reader);
+				
+		ImageReader test2_reader = new ImageReader("test2.png");
+		String encrypted = triecode.encryptImage(test2_reader);
 		
-		ImageReader reader2 = new ImageReader("test2.png");
-		String encrypted = triecode.encryptImage(reader2);
-		BufferedImage decrypted = triecode.decryptImage(encrypted, reader2.getHeight(), reader2.getWidth());
+		BufferedImage decrypted = triecode.decryptImage(encrypted, test2_reader.getHeight(), test2_reader.getWidth());
 		IO.saveImage("target/Seven", decrypted);
 		assertTrue(new ImageReader("target/Seven.png") != null);
+		
+		ImageReader pixel_coded = new ImageReader("target/Seven.png");
+		ImageReader left = new ImageReader("left.png");
+		ImageReader right = new ImageReader("right.png");
+		
+		assertTrue(test2_reader.AmountOfColorsInPicture(test2_reader)/test2_reader.countDifferentColors() == 1);		
+		
+		float x = pixel_coded.AmountOfColorsInPicture(test2_reader);
+		float x1 = pixel_coded.countDifferentColors();
+		float y = test2_reader.AmountOfColorsInPicture(test_reader);
+		float y1 = test2_reader.countDifferentColors();
+		float z = left.AmountOfColorsInPicture(right);
+		float z1 = left.countDifferentColors();
+		
+		System.err.println("\n");
+			
+		System.err.println(""+z+" von "+z1+" Farben ("+z/z1*100+"%) aus left.png sind in right.png enthalten!");
+		System.err.println(""+y+" von "+y1+" Farben ("+y/y1*100+"%) aus original test2.png sind in test.png enthalten!");
+		System.err.println(""+x+" von "+x1+" Farben ("+x/x1*100+"%) aus coded test2.png sind in test.png enthalten!");
 	}
 }
 
