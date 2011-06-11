@@ -72,6 +72,11 @@ public class ImageReader implements Iterable<RGB> {
 	}
 	
 	
+	/**
+	 * counts the amount of common colors of two pictures
+	 * @param reader target-picture
+	 * @return amount of colors
+	 */
 	public float AmountOfColorsInPicture(ImageReader reader){
 
 		float sum = 0;
@@ -96,6 +101,10 @@ public class ImageReader implements Iterable<RGB> {
 	}
 	
 	
+	/**
+	 * counts how much colors a ImageReader of a picture has
+	 * @return amount of different colors
+	 */
 	public int countDifferentColors(){
 		
 		int sum = 0;
