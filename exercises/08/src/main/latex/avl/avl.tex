@@ -1,0 +1,283 @@
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\graphicspath{{../../graphviz/}}
+\DeclareGraphicsExtensions{.png}
+\usepackage{listings}
+\usepackage[lined, boxed, commentsnumbered]{algorithm2e}
+
+\lstset{numbers=left, 
+		frame=single,
+		basicstyle=\footnotesize,
+		tabsize=4}
+
+\begin{document}
+
+\section*{H 8.4 Operationen auf AVL-Bäumen}
+
+\subsection*{a)}
+
+Der AVL-Baum ist durch einfügen des Knotens 75 entstanden. Das Balance
+Kriterium wird durch eine LR-Rotation mit w=79 wieder hergestellt.
+Siehe Abbildung Origianl auf der Seite weiter unten.
+
+\subsection*{b)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_00.png}
+	\end{center}
+	\caption{Original}
+	\label{fig:original}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_i1_00.png}
+	\end{center}
+	\caption{Einfügen: 20, keine Rotation}
+	\label{fig:avl_i1_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_i2_00.png}
+	\end{center}
+	\caption{Einfügen: 8, vor RL-Rotation mit w=6}
+	\label{fig:avl_i2_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_i2_01.png}
+	\end{center}
+	\caption{Einfügen: 8, nach RL-Rotation mit w=6}
+	\label{fig:avl_i2_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii1_00.png}
+	\end{center}
+	\caption{Löschen: 47}
+	\label{fig:avl_ii1_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii1_01.png}
+	\end{center}
+	\caption{Löschen: 47, keine Rotation}
+	\label{fig:avl_ii1_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii2_00.png}
+	\end{center}
+	\caption{Löschen: 30}
+	\label{fig:avl_ii2_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii2_01.png}
+	\end{center}
+	\caption{Löschen: 30, vor LL-Rotation mit w=29}
+	\label{fig:avl_ii2_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii2_02.png}
+	\end{center}
+	\caption{Löschen: 30, nach LL-Rotation mit w=29}
+	\label{fig:avl_ii2_02}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii3_00.png}
+	\end{center}
+	\caption{Löschen: 78}
+	\label{fig:avl_ii3_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii3_01.png}
+	\end{center}
+	\caption{Löschen: 78, keine Rotation}
+	\label{fig:avl_ii3_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii4_00.png}
+	\end{center}
+	\caption{Löschen: 73}
+	\label{fig:avl_ii4_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii4_01.png}
+	\end{center}
+	\caption{Löschen: 73, keine Rotation}
+	\label{fig:avl_ii4_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii5_00.png}
+	\end{center}
+	\caption{Löschen: 68}
+	\label{fig:avl_ii5_00}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii5_01.png}
+	\end{center}
+	\caption{Löschen: 68, vor LR Rotation mit w=49}
+	\label{fig:avl_ii5_01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_ii5_02.png}
+	\end{center}
+	\caption{Löschen: 68, nach LR Rotation mit w=49}
+	\label{fig:avl_ii5_02}
+\end{figure}
+
+\clearpage
+\section*{H 8.5 Algorithmen durchführen}
+\subsection*{a)}
+
+\lstinputlisting[language=Java,
+	caption={Einfüge Reihenfolge in AVL-Baum ohne Rotation},
+	captionpos=b,
+	label=avlInsert]
+	{../../../src/main/java/avl/avl.java}
+
+\clearpage
+Ausgabe:
+\begin{verbatim}
+Contents of queue in each iteration
+i = 0	Q = [3, 7, 13, 15, 21, 33, 40, 47]
+i = 1	Q = [3, 7, 13, 15, 33, 40, 47]
+i = 2	Q = [3, 7, 13, 33, 40, 47]
+i = 3	Q = [3, 7, 13, 40, 47]
+i = 4	Q = [3, 7, 40, 47]
+i = 5	Q = [3, 7, 47]
+i = 6	Q = [3, 47]
+i = 7	Q = [3]
+
+Order = [21, 15, 33, 13, 40, 7, 47, 3, ]
+\end{verbatim}
+
+\subsection*{b)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_b_01.png}
+	\end{center}
+	\caption{AVL-Bäume vor der Vereinigung}
+	\label{fig:befor_union}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{avl_b_02.png}
+	\end{center}
+	\caption{AVL-Bäume nach der Vereinigung}
+	\label{fig:after_union}
+\end{figure}
+
+\section*{H 8.6 Rotationsoperation}
+
+\subsection*{a)}
+
+\begin{algorithm}[H]
+	\SetKwInOut{Input}{Eingabe}
+	\SetKwInOut{Output}{Ausgabe}
+
+	\SetKwFunction{parent}{Elternknoten}
+	\SetKwFunction{left}{linker Nachfolger}
+	\SetKwFunction{right}{rechter Nachfolger}
+	\SetKwFunction{setleft}{setze linken Nachfolger}
+	\SetKwFunction{setright}{setze rechten Nachfolger}
+	\SetKwFunction{setparent}{setze Elternknoten}
+	\SetKwData{W}{w}
+	\SetKwData{E}{e}
+	\SetKwData{LE}{u}
+	\SetKwData{R}{r}
+
+	\Input{Knoten w bei dem eine LL-Rotation durchgeführt soll}
+	\Output{nichts}
+
+	\BlankLine
+	\E $\leftarrow$ \parent{\W}\;
+	\LE $\leftarrow$ \left{\W}\;
+	\R $\leftarrow$ \right{\LE}\;
+
+	\BlankLine
+	\tcp{setze Nachfolger von \E}
+
+	\eIf{\left{\E} = \W}{
+		\setleft{\E,\LE}\;
+	}{
+		\setright{\E,\LE}\;
+	}
+
+	\BlankLine
+	\setleft{\W,\R}\;
+
+	\BlankLine
+	\setright{\LE, \W}\;
+	
+	\BlankLine
+	\setparent{\LE, \E}\;
+	\setparent{\W, \LE}\;
+	\setparent{\R, \W}\;
+
+	\caption{AVL-Rechtsrotation LL in Pseudocode}
+\end{algorithm}
+
+\clearpage
+\subsection*{b)}
+
+\begin{lstlisting}[
+	caption={Einfüge- und Löschoperation für i)},
+	captionpos=b,
+	label=insertAndRemoveI]
+remove(5);
+remove(6);
+insert(5);
+insert(6);
+remove(4);
+insert(4);
+\end{lstlisting}
+
+\begin{lstlisting}[
+	caption={Einfüge- und Löschoperation für ii)},
+	captionpos=b,
+	label=insertAndRemoveII]
+remove(7);
+remove(8);
+remove(9);
+insert(8);
+insert(7);
+insert(9);
+\end{lstlisting}
+
+\subsection*{c)}
+
+Man muss teilweise ganze Teilbäume löschen um sie zu verschieben. Dies
+ruft wesentlich mehr Elementar Operationen hervor als die Funktion aus
+b).
+
+\end{document}

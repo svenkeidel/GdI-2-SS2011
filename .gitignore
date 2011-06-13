@@ -13,3 +13,9 @@ target/
 
 # ignore vi swap files
 *.swp
+
+# ignore latex output
+*.pdf
+*.aux
+*.dvi
+*.log

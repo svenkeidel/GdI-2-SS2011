@@ -22,5 +22,6 @@
 
   <modules>
     <module>01</module>
+    <module>08</module>
   </modules>
 </project>

@@ -1,0 +1,30 @@
+digraph G {
+
+node [shape = record];
+
+w1  [label=" <l> | <c> w1  | <r> "];
+15  [label=" <l> | <c> 15  | <r> "];
+n1  [label=" <l> | <c>     | <r> "];
+n2  [label=" <l> | <c>     | <r> "];
+n3  [label=" <l> | <c>     | <r> "];
+n4  [label=" <l> | <c>     | <r> "];
+n5  [label=" <l> | <c>     | <r> "];
+
+w2  [label=" <l> | <c> w2  | <r> "];
+23  [label=" <l> | <c> 23  | <r> "];
+m1  [label=" <l> | <c>     | <r> "];
+m2  [label=" <l> | <c>     | <r> "];
+
+15:l -> w1:c
+15:r -> w2:c
+
+w1:l -> n1:c
+w1:r -> n2:c
+n1:l -> n3:c
+n2:l -> n4:c
+n2:r -> n5:c
+
+w2:l -> 23:c
+w2:r -> m1:c
+m1:r -> m2:c
+}
