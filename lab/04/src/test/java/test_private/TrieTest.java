@@ -3,6 +3,7 @@ package test_private;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Iterator;
 
 import junit.framework.Assert;
@@ -156,11 +157,10 @@ public class TrieTest {
 		ImageReader reader = new ImageReader("test2.png");
 		triecode.buildTrie(reader);
 		String x = triecode.encryptImage(reader);
-		assertTrue(x.length() > 32);
+		assertTrue(x.length() == 64*32);
 		Assert.assertEquals(
 				"11001100110011001100110011001100101010101010101010101010101010101001100110011001100110011001100110101010101010101010101010101010100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000110111011101110111011101110111011010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101101110111011101110111011101110111011101110111011101110111011101101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101110111011101110111011101110111010101010101010101010101010101011001100110011001100110011001100100010001000100010001000100010001101110111011101110111011101110111001100110011001100110011001100101010101010101010101010101010101010101010101010101010101010101011011101110111011101110111011101101110111011101110111011101110111101110111011101110111011101110110101010101010101010101010101010110011001100110011001100110011001101110111011101110111011101110110111011101110111011101110111011110111011101110111011101110111011010101010101010101010101010101010101010101010101010101010101010101110111011101110111011101110111010101010101010101010101010101010001000100010001000100010001000101010101010101010101010101010101100110011001100110011001100110010111011101110111011101110111011101010101010101010101010101010101100110011001100110011001100110010101010101010101010101010101010100010001000100010001000100010001011101110111011101110111011101111011101110111011101110111011101101010101010101010101010101010101010101010101010101010101010101011101110111011101110111011101110101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010110011001100110011001100110011001010101010101010101010101010101010101010101010101010101010101010110011001100110011001100110011001001100110011001100110011001100111011101110111011101110111011101110111011101110111011101110111011101110111011101110111011101110110101010101010101010101010101010101010101010101010101010101010101011101110111011101110111011101110101010101010101010101010101010",
 				x);
-		 System.err.println("test2.png encrypted String without compress(): \n"+x+"\n");
 
 	}
 
@@ -195,7 +195,6 @@ public class TrieTest {
 		String a = triecode.encryptImage(reader);
 		triecode.compress(0);
 		String b = triecode.getChoppedTrie().encryptImage(reader);
-		System.err.println("test2.png encrypted String after compress(0): \n"+b+"\n");
 
 		assertTrue(a.equals(b));
 		
@@ -209,27 +208,30 @@ public class TrieTest {
 
 		String x = triecode.getChoppedTrie().encryptImage(reader);
 		assertFalse("11001100110011001100110011001100101010101010101010101010101010101001100110011001100110011001100110101010101010101010101010101010100010001000100010001000100010001000100010001000100010001000100010001000100010001000100010001000110111011101110111011101110111011010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101101110111011101110111011101110111011101110111011101110111011101101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101110111011101110111011101110111010101010101010101010101010101011001100110011001100110011001100100010001000100010001000100010001101110111011101110111011101110111001100110011001100110011001100101010101010101010101010101010101010101010101010101010101010101011011101110111011101110111011101101110111011101110111011101110111101110111011101110111011101110110101010101010101010101010101010110011001100110011001100110011001101110111011101110111011101110110111011101110111011101110111011110111011101110111011101110111011010101010101010101010101010101010101010101010101010101010101010101110111011101110111011101110111010101010101010101010101010101010001000100010001000100010001000101010101010101010101010101010101100110011001100110011001100110010111011101110111011101110111011101010101010101010101010101010101100110011001100110011001100110010101010101010101010101010101010100010001000100010001000100010001011101110111011101110111011101111011101110111011101110111011101101010101010101010101010101010101010101010101010101010101010101011101110111011101110111011101110101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010110011001100110011001100110011001010101010101010101010101010101010101010101010101010101010101010110011001100110011001100110011001001100110011001100110011001100111011101110111011101110111011101110111011101110111011101110111011101110111011101110111011101110110101010101010101010101010101010101010101010101010101010101010101011101110111011101110111011101110101010101010101010101010101010" == x);
-//		assertTrue(x.length()< 550);
-		System.err.println("test2.png encrypted String after compress(7): \n"+x+"\n");
+		assertTrue(x.length() == 256);
 
 		BufferedImage image = triecode.getChoppedTrie().decryptImage(x, 8, 8);
-		Iterator<RGB> iter = reader.iterator();
+//		Iterator<RGB> iter = reader.iterator();
 
 		// test correct chopping
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				RGB rgb = iter.next();
 				RGB local_rgb = new RGB(image.getRGB(j, i));
 
+				// This assert is only True if u fill with 1's while decrypting
+				// look at TrieCode.decrypt-Function for more Information
 				assertTrue(local_rgb.getBrightness() == 255);
+				//
+				
 				assertTrue(local_rgb.getGreen() == 0
 						|| local_rgb.getGreen() == 128);
 				assertTrue(local_rgb.getBlue() == 0
 						|| local_rgb.getBlue() == 128);
 				assertTrue(local_rgb.getRed() == 0 || local_rgb.getRed() == 128);
-
-				 System.err.println("Original RBG: "+Integer.toBinaryString(rgb.getRGBValue())+"   Decrypted RGB: "+Integer.toBinaryString(image.getRGB(j,
-				 i))+"");
+				
+//				 RGB rgb = iter.next();
+//				 System.err.println("Original RBG: "+Integer.toBinaryString(rgb.getRGBValue())+"   Decrypted RGB: "+Integer.toBinaryString(image.getRGB(j,
+//				 i))+"");
 			}
 
 		}
@@ -240,27 +242,44 @@ public class TrieTest {
 
 		ImageReader reader = new ImageReader("test.png");
 		triecode.buildTrie(reader);
-
+		
+		
+		long start = new Date().getTime();
 		String noChopp = triecode.encryptImage(reader);
+		System.out.println("String-Length of encrypted test.png after no compression: "+noChopp.length()+" ("+noChopp.length() / 8000+" kBytes)");
 		BufferedImage noComp = triecode.decryptImage(noChopp,
 				reader.getHeight(), reader.getWidth());
 		IO.writeBinaryString("target/NoComp_encrypted", noChopp);
 		IO.saveImage("target/NoComp", noComp);
-
+		long runningTime = new Date().getTime() - start;
+		System.out.println("Time elapsed for <encrypting, no compressing, decrypting>: "+runningTime+" ms\n");
+		
+		
+		long start1 = new Date().getTime();
 		triecode.compress(3);
 		String ThreeChopp = triecode.getChoppedTrie().encryptImage(reader);
+		System.out.println("String-Length of encrypted test.png after compress(3): "+ThreeChopp.length()+" ("+ThreeChopp.length() / 8000+" kBytes)");
 		BufferedImage ThreeComp = triecode.getChoppedTrie().decryptImage(ThreeChopp,
 				reader.getHeight(), reader.getWidth());
 		IO.writeBinaryString("target/ThreeComp_encrypted", ThreeChopp);
 		IO.saveImage("target/ThreeComp", ThreeComp);
-
+		long runningTime1 = new Date().getTime() - start1;
+		System.out.println("Time elapsed for <encrypting, compressing(3), decrypting>: "+runningTime1+" ms\n");
+		
+		
+		long start2 = new Date().getTime();
 		triecode.compress(6);
 		String SixChopp = triecode.getChoppedTrie().encryptImage(reader);
+		System.out.println("String-Length of encrypted test.png after compress(6): "+SixChopp.length()+" ("+SixChopp.length() / 8000+" kBytes)");
 		BufferedImage SixComp = triecode.getChoppedTrie().decryptImage(SixChopp,
 				reader.getHeight(), reader.getWidth());
 		IO.writeBinaryString("target/SixComp_encrypted", SixChopp);
 		IO.saveImage("target/SixComp", SixComp);
+		long runningTime2 = new Date().getTime() - start2;
+		System.out.println("Time elapsed for <encrypting, compressing(6), decrypting>: "+runningTime2+" ms\n");
 
+		System.err.println("------------------------------------------------\n");
+		
 		assertTrue(new ImageReader("target/NoComp_encrypted") != null);
 		assertTrue(new ImageReader("target/NoComp.png") != null);
 		assertTrue(new ImageReader("target/ThreeComp_encrypted") != null);
@@ -299,13 +318,12 @@ public class TrieTest {
 		float z = left.AmountOfColorsInPicture(right);
 		float z1 = left.countDifferentColors();
 
-		System.err.println("\n");
-
-		System.err.println("" + z + " von " + z1 + " Farben (" + z / z1 * 100
+		System.out.println("" + z + " von " + z1 + " Farben (" + z / z1 * 100
 				+ "%) aus left.png sind in right.png enthalten!");
-		System.err.println("" + y + " von " + y1 + " Farben (" + y / y1 * 100
+		System.out.println("" + y + " von " + y1 + " Farben (" + y / y1 * 100
 				+ "%) aus original test2.png sind in test.png enthalten!");
-		System.err.println("" + x + " von " + x1 + " Farben (" + x / x1 * 100
-				+ "%) aus coded test2.png sind in test.png enthalten!");
+		System.out.println("" + x + " von " + x1 + " Farben (" + x / x1 * 100
+				+ "%) aus coded test2.png sind in test.png enthalten!\n");
+		
 	}
 }
