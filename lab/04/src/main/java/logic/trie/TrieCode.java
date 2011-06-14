@@ -22,7 +22,7 @@ import datamodel.trie.TrieNode;
 public class TrieCode {
 
 	private Trie trieCodeTree;
-	private Trie choppedTree;
+	private TrieCode choppedTree;
 
 	/**
 	 * constructor
@@ -30,7 +30,6 @@ public class TrieCode {
 	 */
 	public TrieCode() {
 		this.trieCodeTree = new Trie();
-		this.choppedTree = new Trie();
 	}
 
 	/**
@@ -115,8 +114,13 @@ public class TrieCode {
 		}
 
 		else {
-			if (!node.hasLeafAtSlot(key))
-				trieCodeTree.setLeafSlot(key, key);
+			if (node.getLeafStatus()){
+						if (!node.hasLeafAtSlot(key))
+							trieCodeTree.setLeafSlot(key);
+			}
+			else {	node.setLeafStatus(true);
+					trieCodeTree.setLeafSlot(key);
+			}
 		}
 		trieCodeTree.moveToRoot();
 	}
@@ -134,47 +138,54 @@ public class TrieCode {
 				BufferedImage.TYPE_INT_ARGB);
 
 		int size = picture.length();
-		char[] arr = picture.toCharArray();
 		int pic_Width = image.getWidth() - 1;
 		int x = 0;
 		int y = 0;
 		int shift_index = 0;
+		int BitsPerRGB = trieCodeTree.getDepth() * 4;
 		Integer[] rgb_vals = new Integer[4];
 
-		for (int i = 0; i < size; i = i + 32) {
+		for (int i = 0; i < size; i = i + BitsPerRGB) {
 
 			shift_index = 7;
 			rgb_vals[0] = rgb_vals[1] = rgb_vals[2] = rgb_vals[3] = 0;
 
-			for (int j = 0; j < 32; j = j + 4) {
+			for (int j = 0; j < BitsPerRGB; j = j + 4) {
 
-				char bright_char = arr[i + j];
+				char bright_char = picture.charAt(i + j);
 				int bright_int = (bright_char - '0') << shift_index;
 				rgb_vals[0] = rgb_vals[0] + bright_int;
-				// System.err.println("BRIGHT-AS: "+bright_int+"");
+//				System.err.println("BRIGHT-AS: "+bright_int+"");
 
-				char red_char = arr[i + j + 1];
+				char red_char = picture.charAt(i + j + 1);
 				int red_int = (red_char - '0') << shift_index;
 				rgb_vals[1] = rgb_vals[1] + red_int;
 
-				char green_char = arr[i + j + 2];
+				char green_char = picture.charAt(i + j + 2);
 				int green_int = (green_char - '0') << shift_index;
 				rgb_vals[2] = rgb_vals[2] + green_int;
 
-				char blue_char = arr[i + j + 3];
+				char blue_char =  picture.charAt(i + j + 3);
 				int blue_int = (blue_char - '0') << shift_index;
 				rgb_vals[3] = rgb_vals[3] + blue_int;
 
 				shift_index--;
 			}
-
+			
+			
+			//commentate THIS to not fill the brighntess with 1's !!
+			for (int k = 1; k <= 8 - (BitsPerRGB / 4); k++){
+				rgb_vals[0] = rgb_vals[0] | (1 << (k-1));
+				}
+			/////////
+			
 			RGB rgb = new RGB(rgb_vals[1], rgb_vals[2], rgb_vals[3],
 					rgb_vals[0]);
-			// System.err.println("RGB: "+rgb+"");
+//			 System.err.println("RGB: "+rgb+"");
 			int rgb_val = rgb.getRGBValue();
-			// System.err.println("RGBVALUE: "+rgb_val+"");
-			// RGB test_rgb = new RGB(rgb_val);
-			// System.err.println("RGB-AVAL: "+test_rgb+"");
+//			 System.err.println("RGBVALUE: "+rgb_val+"");
+//			 RGB test_rgb = new RGB(rgb_val);
+//			 System.err.println("RGB-AVAL: "+test_rgb+"");
 			image.setRGB(x, y, rgb_val);
 
 			if (x == pic_Width) {
@@ -197,23 +208,25 @@ public class TrieCode {
 	 * of levels)
 	 */
 	public boolean compress(int count) {
-		choppedTree = trieCodeTree;
-		choppedTree.moveToRoot();
+		choppedTree = new TrieCode();
+		choppedTree.setTrieCodeTree(trieCodeTree.clone());
+		Trie choppedTrie = choppedTree.getTrieCodeTree();
+		choppedTrie.moveToRoot();
 
 		if (count == 0)
 			return true;
 
 		else {
-			if (!(count >= choppedTree.getDepth())) {
+			if (!(count >= choppedTrie.getDepth())) {
 
-				int last_depth = choppedTree.getDepth() - count + 1;
+				int last_depth = choppedTrie.getDepth() - count;
 
-				rec_compress(choppedTree.getRoot(), last_depth);
+				rec_compress(choppedTrie.getRoot(), last_depth);
 
-				choppedTree.moveToRoot();
-				trieCodeTree = choppedTree; // overwrite the TrieCode or create
-											// seperate Trie choppedTrie in this
-											// class???
+				choppedTrie.moveToRoot();
+//				trieCodeTree = choppedTree; // overwrite the TrieCode or create
+//											// seperate Trie choppedTrie in this
+//											// class???
 				return true;
 			} else
 				return false;
@@ -231,11 +244,15 @@ public class TrieCode {
 		}
 
 		else {
-			for (int j = 0; j < 16; j++) {
-				if (!node.getLeafStatus())
-					node.removeNodeAtSlot(j);
-				else
-					node.removeLeafAtSlot(j);
+			
+			if (!node.getLeafStatus()){
+						node.setLeafStatus(true);
+						this.getChoppedTrie().getTrieCodeTree().setDepth(node.getDepth());
+						for (int j = 0; j < 16; j++) {
+								if (node.hasNodeAtSlot(j)){
+									node.setLeafAtSlot(j);
+									node.removeNodeAtSlot(j);}
+						}
 			}
 		}
 	}
@@ -271,19 +288,34 @@ public class TrieCode {
 	public Trie getTrieCodeTree() {
 		return trieCodeTree;
 	}
+	
+	/**
+	 * sets the triecodetree of a triecode
+	 */
+	public void setTrieCodeTree(Trie trie) {
+		trieCodeTree = trie;
+	}
 
+
+	/**
+	 * sets a choppedtrie
+	 */
+	public void setChoppedTree(Trie trie) {
+		if (choppedTree != null)
+		choppedTree.setTrieCodeTree(trie);}
+	
 	/**
 	 * returns the compressed tree
 	 * 
 	 * @return compressed tree, triecodetree if compress() wasnt executed
 	 */
-	public Trie getChoppedTree() {
+	public TrieCode getChoppedTrie() {
 
 		if (choppedTree == null)
-			return trieCodeTree; // or exception??
+			throw new UnsupportedOperationException("Error: Please compress this Trie first to get the choppedTrie");
 
 		else
 			return choppedTree;
 	}
-
+	
 }

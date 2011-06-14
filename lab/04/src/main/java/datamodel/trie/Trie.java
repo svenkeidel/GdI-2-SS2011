@@ -25,7 +25,7 @@ public class Trie {
 	 * The Trie-Constructor
 	 */
 	public Trie() {
-		root = new TrieNode(false, 1);
+		root = new TrieNode(1, false);
 		currentNode = root;
 		depth = 1;
 	}
@@ -72,7 +72,7 @@ public class Trie {
 	public boolean createChildAt(int index, boolean isLeaf) {
 
 		int childDepth = currentNode.getDepth() + 1;
-		TrieNode childNode = new TrieNode(isLeaf, childDepth);
+		TrieNode childNode = new TrieNode(childDepth, isLeaf);
 		depth = childDepth;
 
 		return currentNode.setNodeAtSlot(index, childNode);
@@ -85,9 +85,9 @@ public class Trie {
 	 * @param value value
 	 * @return successful?
 	 */
-	public boolean setLeafSlot(int index, Integer value) {
+	public boolean setLeafSlot(int index) {
 
-		return currentNode.setLeafValueAtSlot(index, value);
+		return currentNode.setLeafAtSlot(index);
 
 	}
 
@@ -156,4 +156,33 @@ public class Trie {
 		return root;
 	}
 
+	public Trie clone(){
+		Trie output_trie = new Trie();
+		moveToRoot();
+		output_trie.setDepth(getDepth());
+		
+		TrieNode clone_root = output_trie.getRoot();
+		
+		rec_clone(root, clone_root);
+		
+		return output_trie;
+	}
+	
+	
+	public void rec_clone(TrieNode node, TrieNode clone_node) {
+
+		for (int i = 0; i < 16; i++){
+		
+		if (!node.getLeafStatus()) {
+					if (node.hasNodeAtSlot(i)) {
+						clone_node.setNodeAtSlot(i, new TrieNode(node.getNodeAtSlot(i).getDepth(), node.getNodeAtSlot(i).getLeafStatus()));
+						rec_clone(node.getNodeAtSlot(i), clone_node.getNodeAtSlot(i));
+					} 
+				}
+		else if (node.getLeafStatus())
+				if (node.hasLeafAtSlot(i))
+					clone_node.setLeafAtSlot(i);
+
+		}
+	}
 }

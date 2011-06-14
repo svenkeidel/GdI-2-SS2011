@@ -14,8 +14,8 @@ package datamodel.trie;
 public class TrieNode {
 
 	private TrieNode[] nodeSlots = new TrieNode[16];
-	private Integer[] leafSlots = new Integer[16];
-	private boolean isLeaf;
+	private boolean[] leafSlots;;
+	private boolean isLeaf = false;
 	private int depth;
 
 	/**
@@ -24,8 +24,10 @@ public class TrieNode {
 	 * @param isLeaf Leaf-status
 	 * @param depth depth
 	 */
-	public TrieNode(boolean isLeaf, int depth) {
-		this.isLeaf = isLeaf;
+	public TrieNode(int depth, boolean isLeaf) {
+		
+		this.setLeafStatus(isLeaf);
+		
 		this.depth = depth;
 	}
 
@@ -58,23 +60,22 @@ public class TrieNode {
 	}
 
 	/**
-	 * removes a leaf at certain LeafSlot index
+	 * removes a leaf at certain LeafSlot index (sets them false)
 	 * 
 	 * @param index index
 	 */
 	public void removeLeafAtSlot(int index) {
-		leafSlots[index] = null;
+		leafSlots[index] = false;
 	}
 
 	/**
 	 * sets a LeafValue on a certain LeafSlot
 	 * 
-	 * @param index the leave you want to set
-	 * @param value the value which will be set on a leaf
+	 * @param index the leave you want to set true
 	 * @return true if successful, false if already a leaf is set there,
 	 * exception if leafstatus false
 	 */
-	public boolean setLeafValueAtSlot(int index, int value) {
+	public boolean setLeafAtSlot(int index) {
 		if (isLeaf) {
 
 			if (hasLeafAtSlot(index))
@@ -82,7 +83,7 @@ public class TrieNode {
 			// or Exception "there is already a value set"
 
 			else {
-				leafSlots[index] = value;
+				leafSlots[index] = true;
 				return true;
 			}
 		} else
@@ -112,7 +113,7 @@ public class TrieNode {
 	 * @param index slot number
 	 * @return value or exception
 	 */
-	public Integer getLeafAtSlot(int index) {
+	public boolean getLeafAtSlot(int index) {
 		if (isLeaf) {
 
 			if (hasLeafAtSlot(index))
@@ -133,13 +134,16 @@ public class TrieNode {
 	 * @return yes/no
 	 */
 	public boolean hasLeafAtSlot(int index) {
-
-		if (leafSlots[index] != null)
-			return true;
-
-		else
-			return false;
+		if (leafSlots != null){
+				if (leafSlots[index] == true)
+					return true;
+		
+				else
+					return false;
+					}		
+		else return false;
 	}
+		
 
 	/**
 	 * checks if this node has a free node-slot at
@@ -162,6 +166,17 @@ public class TrieNode {
 	 * @param status true = leaf, false = not
 	 */
 	public void setLeafStatus(boolean status) {
+		
+		if (!isLeaf && status){
+			leafSlots = new boolean[16];
+				for (int i = 0; i < 16; i++){
+					leafSlots[i] = false;
+				}
+		}
+		
+		if (isLeaf && !status)
+			leafSlots = null;
+		
 		this.isLeaf = status;
 	}
 
