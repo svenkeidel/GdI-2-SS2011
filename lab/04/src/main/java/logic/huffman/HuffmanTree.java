@@ -38,34 +38,35 @@ public class HuffmanTree {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static Tree getHuffmanTree(String file) throws FileNotFoundException, IOException {
-		HashMap<RGB, Integer> amountOfColorsMap = 
-			getHashMapOfImage(new ImageReader(file));
+	public static Tree getHuffmanTree(String file)
+			throws FileNotFoundException, IOException {
+		HashMap<RGB, Integer> amountOfColorsMap = getHashMapOfImage(new ImageReader(
+				file));
 
 		// Pack Map.Entrys into a sorted list
-		PriorityQueue<TreeNode> amountOfColors = 
-			new PriorityQueue<TreeNode>(1, new TreeNode.comparator());
+		PriorityQueue<TreeNode> amountOfColors = new PriorityQueue<TreeNode>(1,
+				new TreeNode.comparator());
 
 		AbstractTreeFactory factory = new LinkedTreeFactory();
 
-		for(Map.Entry<RGB, Integer> entry : amountOfColorsMap.entrySet())
-			amountOfColors.add(factory.produceTreeNode(entry.getKey(), entry.getValue()));
+		for (Map.Entry<RGB, Integer> entry : amountOfColorsMap.entrySet())
+			amountOfColors.add(factory.produceTreeNode(entry.getKey(),
+					entry.getValue()));
 
 		return factory.produceTree(amountOfColors);
 	}
 
-
 	/**
 	 * Iterates over an Image and accumulates amount of color.
-	 *
+	 * 
 	 * @param reader an instance of the ImageReader to iterate over
 	 * @return a hashmap of the color of the image and its amount
 	 */
 	private static HashMap<RGB, Integer> getHashMapOfImage(ImageReader reader) {
 		HashMap<RGB, Integer> amountOfColors = new HashMap<RGB, Integer>();
 		int value;
-		for(RGB color : reader) {
-			if(amountOfColors.containsKey(color)) {
+		for (RGB color : reader) {
+			if (amountOfColors.containsKey(color)) {
 				value = amountOfColors.get(color);
 				amountOfColors.remove(color);
 				amountOfColors.put(color, value + 1);

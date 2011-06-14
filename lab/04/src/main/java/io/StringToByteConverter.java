@@ -25,7 +25,7 @@ public class StringToByteConverter {
 	public StringToByteConverter() {
 		super();
 	}
-	
+
 	/**
 	 * constructor
 	 * 
@@ -33,19 +33,17 @@ public class StringToByteConverter {
 	 */
 	public StringToByteConverter(byte[] array) {
 		this();
-		
+
 		for (int i = 0; i < array.length; i++) {
 			byteArray.add(array[i]);
 		}
 	}
-	
 
 	/**
 	 * Adds a whole String with binary data(0, 1) to the internal array. Other
 	 * chars than 0 and 1 will be ignored.
 	 * 
-	 * @param binaryString
-	 *            the string with the binary representation of a number
+	 * @param binaryString the string with the binary representation of a number
 	 */
 	public void addBinaryString(String binaryString) {
 		for (int i = 0; i < binaryString.length(); i++) {
@@ -99,7 +97,7 @@ public class StringToByteConverter {
 	 * left.
 	 * 
 	 * @return the current byte shifted to the left, or null if there are no
-	 *         unfinished data
+	 * unfinished data
 	 */
 	private Byte getFinalUnfinished() {
 		// if we have unfinished data
@@ -115,29 +113,29 @@ public class StringToByteConverter {
 
 	/**
 	 * Returns the internal data in an array.<br>
-	 * the last byte can have 0s which wasn't in the internal array, due to
-	 *  the length of a byte(8 Bit)
+	 * the last byte can have 0s which wasn't in the internal array, due to the
+	 * length of a byte(8 Bit)
 	 * 
 	 * @return the internal data.
 	 */
 	public byte[] getData() {
 		@SuppressWarnings("unchecked")
 		Vector<Byte> copy = (Vector<Byte>) byteArray.clone();
-		
+
 		Byte last = getFinalUnfinished();
-		
-		if(last != null) {
+
+		if (last != null) {
 			copy.add(last);
 		}
-		
+
 		byte[] array = new byte[copy.size()];
 		for (int i = 0; i < array.length; i++) {
 			array[i] = copy.get(i);
 		}
-		
+
 		return array;
 	}
-	
+
 	/**
 	 * delivers a binaryString of the internal byte[]
 	 * 
@@ -145,7 +143,7 @@ public class StringToByteConverter {
 	 */
 	public String getBinaryString() {
 		BigInteger bigInt = new BigInteger(getData());
-		
+
 		return bigInt.toString(2);
 	}
 }

@@ -10,6 +10,7 @@ import datamodel.huffman.tree.TreeNode;
 
 /**
  * produces sequential trees and treenodes
+ * 
  * @apiviz.uses datamodel.huffman.tree.sequential.SequentialTree
  * @apiviz.uses datamodel.huffman.tree.sequential.SequentialTreeNode
  */
@@ -20,7 +21,7 @@ public class SequentialTreeFactory extends AbstractTreeFactory {
 	public Tree produceTree() {
 		tree = new SequentialTree(this);
 		return tree;
-   	}
+	}
 
 	public Tree produceTree(PriorityQueue<TreeNode> queue) {
 		tree = new SequentialTree(this, queue);

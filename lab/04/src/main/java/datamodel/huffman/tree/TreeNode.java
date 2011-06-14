@@ -9,7 +9,6 @@ import datamodel.RGB;
  */
 public abstract class TreeNode {
 
-
 	/**
 	 * Comparator to compare two TreeNodes
 	 */
@@ -35,7 +34,7 @@ public abstract class TreeNode {
 	public TreeNode(RGB rgb) {
 		this.rgb = rgb;
 	}
-	
+
 	public TreeNode(int value) {
 		this.value = value;
 		this.rgb = null;
@@ -43,7 +42,7 @@ public abstract class TreeNode {
 
 	/**
 	 * gets the rgb color of a treenode.
-	 *
+	 * 
 	 * @return null if the treenode is not a leaf
 	 */
 	public RGB getRGB() {
@@ -57,11 +56,11 @@ public abstract class TreeNode {
 		this.rgb = rgb;
 	}
 
-	public int getValue(){
+	public int getValue() {
 		return this.value;
 	}
-	
-	public void setValue(int value){
+
+	public void setValue(int value) {
 		this.value = value;
 	}
 
@@ -74,30 +73,35 @@ public abstract class TreeNode {
 	}
 
 	/**
-	 * the node is a leaf if the rgb variable is not null, else it's
-	 * inside the huffman tree.
+	 * the node is a leaf if the rgb variable is not null, else it's inside the
+	 * huffman tree.
 	 */
-	public boolean isLeaf() { return rgb != null; }
+	public boolean isLeaf() {
+		return rgb != null;
+	}
 
 	// Getter
 	public abstract TreeNode getLeftNode();
+
 	public abstract TreeNode getRightNode();
+
 	public abstract TreeNode getParentNode();
 
 	// Setter
 	public abstract void setLeftNode(TreeNode left);
+
 	public abstract void setRightNode(TreeNode right);
+
 	public abstract void setParentNode(TreeNode parent);
-	
+
 	@Override
 	public String toString() {
 		StringBuffer out = new StringBuffer();
-		out.append(isLeaf() ? "Leaf": "Node");
-		if(rgb != null)
-			out.append(" [ "+rgb.toString()+", Value ["+value+"] ]");
+		out.append(isLeaf() ? "Leaf" : "Node");
+		if (rgb != null)
+			out.append(" [ " + rgb.toString() + ", Value [" + value + "] ]");
 		else
-			out.append(" [ RGB [null], Value ["+value+"] ]");
+			out.append(" [ RGB [null], Value [" + value + "] ]");
 		return out.toString();
 	}
 }
-

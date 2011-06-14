@@ -29,15 +29,14 @@ public class ImageIterator implements Iterator<RGB> {
 	/**
 	 * constructor
 	 * 
-	 * @param image
-	 *            the image to iterate over
+	 * @param image the image to iterate over
 	 */
 	public ImageIterator(BufferedImage image) {
 		this.image = image;
 		this.currentX = 0;
 		this.currentY = 0;
-		this.heigth = image.getHeight()-1;
-		this.width = image.getWidth()-1;
+		this.heigth = image.getHeight() - 1;
+		this.width = image.getWidth() - 1;
 	}
 
 	@Override
@@ -56,7 +55,7 @@ public class ImageIterator implements Iterator<RGB> {
 			int rgb = this.image.getRGB(currentX, currentY);
 
 			inc();
-			
+
 			return new RGB(rgb);
 		} else {
 			throw new NoSuchElementException();

@@ -8,7 +8,7 @@ import datamodel.huffman.tree.TreeNode;
  * An implementation of the TreeNode interface for a linked tree.
  */
 public class LinkedTreeNode extends TreeNode {
-	
+
 	protected TreeNode left, right, parent;
 
 	/**
@@ -32,18 +32,34 @@ public class LinkedTreeNode extends TreeNode {
 	public LinkedTreeNode(int Value) {
 		super(Value);
 	}
-	
+
 	public LinkedTreeNode() {
 		super(null);
 	}
 
 	// Getter
-	public TreeNode getLeftNode()                  { return left;          }
-	public TreeNode getRightNode()                 { return right;         }
-	public TreeNode getParentNode()                { return parent;        }
+	public TreeNode getLeftNode() {
+		return left;
+	}
+
+	public TreeNode getRightNode() {
+		return right;
+	}
+
+	public TreeNode getParentNode() {
+		return parent;
+	}
 
 	// Setter
-	public void     setLeftNode(TreeNode left)     { this.left   = left;   }
-	public void     setRightNode(TreeNode right)   { this.right  = right;  }
-	public void     setParentNode(TreeNode parent) { this.parent = parent; }
+	public void setLeftNode(TreeNode left) {
+		this.left = left;
+	}
+
+	public void setRightNode(TreeNode right) {
+		this.right = right;
+	}
+
+	public void setParentNode(TreeNode parent) {
+		this.parent = parent;
+	}
 }

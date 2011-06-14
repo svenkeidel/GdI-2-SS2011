@@ -21,14 +21,8 @@ import logic.huffman.HuffmanTree;
 public class HuffmanTreeTest {
 
 	public static enum Color {
-		A(1, 1),
-		B(2, 2),
-		C(3, 4),
-		D(4, 6),
-		E(5, 8),
-		F(6, 9),
-		G(7, 10),
-		W(new RGB(255,255,255,255).getRGBValue(), 0);
+		A(1, 1), B(2, 2), C(3, 4), D(4, 6), E(5, 8), F(6, 9), G(7, 10), W(
+				new RGB(255, 255, 255, 255).getRGBValue(), 0);
 
 		private int rgb, amount;
 
@@ -52,8 +46,7 @@ public class HuffmanTreeTest {
 	public void init() {
 		AbstractTreeFactory factory = new LinkedTreeFactory();
 
-		PriorityQueue<TreeNode> queue =
-			new PriorityQueue<TreeNode>(1,
+		PriorityQueue<TreeNode> queue = new PriorityQueue<TreeNode>(1,
 				new TreeNode.comparator());
 		queue.add(factory.produceTreeNode(Color.A.getRGB(), Color.A.getAmount()));
 		queue.add(factory.produceTreeNode(Color.B.getRGB(), Color.B.getAmount()));
@@ -77,22 +70,10 @@ public class HuffmanTreeTest {
 	}
 
 	/**
-	 * Tree Layout.
-	 * Color:  A B C D E F G
-	 * Amount: 1 2 4 6 8 9 10
-	 *
-	 *                   40
-	 *              ------------
-	 *             23          17
-	 *         ---------      ----
-	 *        13       10    9    8
-	 *      ------      G    F    E
-	 *     7      6
-	 *   -----    D
-	 *  4     3
-	 *  C    ---
-	 *      2   1
-	 *      B   A
+	 * Tree Layout. Color: A B C D E F G Amount: 1 2 4 6 8 9 10
+	 * 
+	 * 40 ------------ 23 17 --------- ---- 13 10 9 8 ------ G F E 7 6 ----- D 4
+	 * 3 C --- 2 1 B A
 	 */
 	@Test
 	public void buildHuffmanTreeTest() {
@@ -143,22 +124,10 @@ public class HuffmanTreeTest {
 	}
 
 	/**
-	 * Tree Layout.
-	 * Color:  A B C D E F G
-	 * Amount: 1 2 4 6 8 9 10
-	 *
-	 * Huffman Code Tree:
-	 *              ------------
-	 *             0            1
-	 *         ---------      ----
-	 *        0         1    0    1
-	 *      ------      G    F    E
-	 *     0      1
-	 *   -----    D
-	 *  0     1
-	 *  C    ---
-	 *      0   1
-	 *      B   A
+	 * Tree Layout. Color: A B C D E F G Amount: 1 2 4 6 8 9 10
+	 * 
+	 * Huffman Code Tree: ------------ 0 1 --------- ---- 0 1 0 1 ------ G F E 0
+	 * 1 ----- D 0 1 C --- 0 1 B A
 	 */
 	@Test
 	public void huffmanCodeTest() {
@@ -166,25 +135,18 @@ public class HuffmanTreeTest {
 		HashMap<RGB, String> code = huffmanCode.getHuffmanCode();
 		assertEquals("00011", code.get(Color.A.getRGB()));
 		assertEquals("00010", code.get(Color.B.getRGB()));
-		assertEquals("0000",  code.get(Color.C.getRGB()));
-		assertEquals("001",   code.get(Color.D.getRGB()));
-		assertEquals("11",    code.get(Color.E.getRGB()));
-		assertEquals("10",    code.get(Color.F.getRGB()));
-		assertEquals("01",    code.get(Color.G.getRGB()));
+		assertEquals("0000", code.get(Color.C.getRGB()));
+		assertEquals("001", code.get(Color.D.getRGB()));
+		assertEquals("11", code.get(Color.E.getRGB()));
+		assertEquals("10", code.get(Color.F.getRGB()));
+		assertEquals("01", code.get(Color.G.getRGB()));
 	}
 
 	/**
-	 * Tree Layout.
-	 * Color:  A B C D E F G
-	 * Amount: 1 2 4 6 8 9 10
-	 *
-	 *                   40
-	 *              ------------
-	 *             23          17
-	 *         ---------      ----
-	 *         13      10    9    8
-	 *         W        G    F    E
-	 *  ====================================
+	 * Tree Layout. Color: A B C D E F G Amount: 1 2 4 6 8 9 10
+	 * 
+	 * 40 ------------ 23 17 --------- ---- 13 10 9 8 W G F E
+	 * ====================================
 	 */
 	@Test
 	public void compressionTest() {

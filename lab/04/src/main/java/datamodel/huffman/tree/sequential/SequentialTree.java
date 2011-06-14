@@ -19,17 +19,17 @@ import datamodel.huffman.tree.TreeNode;
  * 
  */
 public class SequentialTree extends Tree {
-	
-	
+
 	private Vector<TreeNode> nodes;
 	private int depth;
 	private int currentPosition;
 
 	/**
-	 * Constructor: Creates a sequential tree filled with the RGB colors
-	 * in the queue.
+	 * Constructor: Creates a sequential tree filled with the RGB colors in the
+	 * queue.
 	 */
-	public SequentialTree(AbstractTreeFactory factory, PriorityQueue<TreeNode> queue) {
+	public SequentialTree(AbstractTreeFactory factory,
+			PriorityQueue<TreeNode> queue) {
 		super(factory, queue);
 		this.nodes = new Vector<TreeNode>(1);
 		this.rootNode = null;
@@ -37,7 +37,7 @@ public class SequentialTree extends Tree {
 		this.currentPosition = 0;
 		this.depth = 0;
 	}
-	
+
 	/**
 	 * Constructor: Creates an empty sequential tree.
 	 */
@@ -54,10 +54,10 @@ public class SequentialTree extends Tree {
 	 * Moves to the left child of the current node
 	 * 
 	 * @return true if left child exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public boolean moveToLeftNode() {
-		if(hasLeftNode()) {
+		if (hasLeftNode()) {
 			currentPosition = 2 * currentPosition + 1;
 			currentNode = nodes.get(currentPosition);
 			return true;
@@ -70,10 +70,10 @@ public class SequentialTree extends Tree {
 	 * Moves to the right child of the current node
 	 * 
 	 * @return true if right child exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public boolean moveToRightNode() {
-		if(hasRightNode()) {
+		if (hasRightNode()) {
 			currentPosition = 2 * currentPosition + 2;
 			currentNode = nodes.get(currentPosition);
 			return true;
@@ -86,10 +86,10 @@ public class SequentialTree extends Tree {
 	 * Moves to the parent of the current node
 	 * 
 	 * @return true if parent exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public boolean moveToParentNode() {
-		if(hasParentNode()) {
+		if (hasParentNode()) {
 			currentPosition = getParentPosition();
 			currentNode = nodes.get(currentPosition);
 			return true;
@@ -104,7 +104,7 @@ public class SequentialTree extends Tree {
 	 * @return true if there's a root; otherwise false
 	 */
 	public boolean moveToRoot() {
-		if(rootNode != null) {
+		if (rootNode != null) {
 			currentNode = rootNode;
 			currentPosition = 0;
 			return true;
@@ -113,13 +113,12 @@ public class SequentialTree extends Tree {
 		}
 	}
 
-
-
 	/**
 	 * @return true if a nodes exists at the specified position
 	 */
 	private boolean nodeExists(int position) {
-		if(position >= 0 && position < nodes.size() && nodes.get(position) != null)
+		if (position >= 0 && position < nodes.size()
+				&& nodes.get(position) != null)
 			return true;
 		else
 			return false;
@@ -147,7 +146,7 @@ public class SequentialTree extends Tree {
 	}
 
 	private int getParentPosition(int index) {
-		if(index == 0)
+		if (index == 0)
 			return -1;
 		else
 			return index % 2 == 0 ? index / 2 - 1 : index / 2;
@@ -158,7 +157,7 @@ public class SequentialTree extends Tree {
 	 */
 	int getPosition(SequentialTreeNode node) {
 		return nodes.indexOf(node);
-	}	
+	}
 
 	/**
 	 * @return true if parent exists; otherwise false
@@ -168,20 +167,21 @@ public class SequentialTree extends Tree {
 	}
 
 	/**
-	 * Sets a node at the specified position, if the node opens a new
-	 * depth of the tree, the vector is expanded to hold the new node.
-	 *
+	 * Sets a node at the specified position, if the node opens a new depth of
+	 * the tree, the vector is expanded to hold the new node.
+	 * 
 	 * @return true if successful; otherwise false (no root set)
-	 *
+	 * 
 	 */
 	private boolean setNodeAt(TreeNode node, int newPosition) {
-		if(currentNode != null) {
-			int size    = nodes.size();
+		if (currentNode != null) {
+			int size = nodes.size();
 
 			// if the node opens a new depth
-			if(newPosition >= size) {
+			if (newPosition >= size) {
 				depth++;
-				nodes.setSize(size + new Long((long)Math.pow(2, depth)).intValue());
+				nodes.setSize(size
+						+ new Long((long) Math.pow(2, depth)).intValue());
 			}
 
 			nodes.remove(newPosition);
@@ -217,7 +217,7 @@ public class SequentialTree extends Tree {
 	 * 
 	 */
 	public void setCurrentNode(TreeNode node) {
-		if(currentPosition == 0) {
+		if (currentPosition == 0) {
 			rootNode = node;
 			currentNode = rootNode;
 		}
@@ -236,7 +236,7 @@ public class SequentialTree extends Tree {
 	 */
 	TreeNode getLeftNodeOf(SequentialTreeNode node) {
 		int index = getPosition(node);
-		if(nodeExists(2 * index + 1))
+		if (nodeExists(2 * index + 1))
 			return nodes.elementAt(2 * index + 1);
 		else
 			return null;
@@ -247,7 +247,7 @@ public class SequentialTree extends Tree {
 	 */
 	TreeNode getRightNodeOf(SequentialTreeNode node) {
 		int index = getPosition(node);
-		if(nodeExists(2 * index + 2))
+		if (nodeExists(2 * index + 2))
 			return nodes.elementAt(2 * index + 2);
 		else
 			return null;
@@ -258,7 +258,7 @@ public class SequentialTree extends Tree {
 	 */
 	TreeNode getParentNodeOf(SequentialTreeNode node) {
 		int index = getPosition(node);
-		if(nodeExists(getParentPosition(index)))
+		if (nodeExists(getParentPosition(index)))
 			return nodes.elementAt(getParentPosition(index));
 		else
 			return null;
@@ -300,9 +300,8 @@ public class SequentialTree extends Tree {
 	 * returns a string representation of the tree.
 	 */
 	public String toString() {
-		return "Sequential Tree:\n"
-			+ "size: "+nodes.size()+"\n"
-			+ "capacity: "+nodes.capacity()+"\n"
-			+ "elements: "+nodes.toString();
+		return "Sequential Tree:\n" + "size: " + nodes.size() + "\n"
+				+ "capacity: " + nodes.capacity() + "\n" + "elements: "
+				+ nodes.toString();
 	}
 }

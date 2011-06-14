@@ -41,7 +41,7 @@ public class SequentialTreeNode extends TreeNode {
 		super(Value);
 		this.tree = tree;
 	}
-	
+
 	/**
 	 * constructor. It sets no color
 	 */
@@ -51,12 +51,28 @@ public class SequentialTreeNode extends TreeNode {
 	}
 
 	// Getter
-	public TreeNode getLeftNode()   { return tree.getLeftNodeOf(this);   }
-	public TreeNode getRightNode()  { return tree.getRightNodeOf(this);  }
-	public TreeNode getParentNode() { return tree.getParentNodeOf(this); }
+	public TreeNode getLeftNode() {
+		return tree.getLeftNodeOf(this);
+	}
+
+	public TreeNode getRightNode() {
+		return tree.getRightNodeOf(this);
+	}
+
+	public TreeNode getParentNode() {
+		return tree.getParentNodeOf(this);
+	}
 
 	// Setter
-	public void setLeftNode(TreeNode left)     { this.tree.setLeftNodeOf(this, left);     }
-	public void setRightNode(TreeNode right)   { this.tree.setRightNodeOf(this, right);   }
-	public void setParentNode(TreeNode parent) { this.tree.setParentNodeOf(this, parent); }
+	public void setLeftNode(TreeNode left) {
+		this.tree.setLeftNodeOf(this, left);
+	}
+
+	public void setRightNode(TreeNode right) {
+		this.tree.setRightNodeOf(this, right);
+	}
+
+	public void setParentNode(TreeNode parent) {
+		this.tree.setParentNodeOf(this, parent);
+	}
 }

@@ -28,26 +28,30 @@ public class HuffmanCodeTest {
 
 	}
 
-	private void compressTolevel(int level) throws FileNotFoundException, IOException {
+	private void compressTolevel(int level) throws FileNotFoundException,
+			IOException {
 		tree = HuffmanTree.getHuffmanTree("test2.png");
 		code = new HuffmanCode(tree);
-		String compressedFileName = "target/compLevel"+level;
-		String compressedFileName2 = "target/compLevel"+level+"_2";
+		String compressedFileName = "target/compLevel" + level;
+		String compressedFileName2 = "target/compLevel" + level + "_2";
 
 		ImageReader reader = new ImageReader("test2.png");
 		String encryptedString = code.encryptImage(reader);
 		code.compress(level);
-		BufferedImage compressedFile = code.decryptImage(encryptedString, reader.getWidth(), reader.getHeight());
+		BufferedImage compressedFile = code.decryptImage(encryptedString,
+				reader.getWidth(), reader.getHeight());
 		IO.saveImage(compressedFileName, compressedFile);
-		
-		reader = new ImageReader(compressedFileName+".png");
+
+		reader = new ImageReader(compressedFileName + ".png");
 		encryptedString = code.encryptImage(reader);
-		BufferedImage compressedFile2 = code.decryptImage(encryptedString, reader.getWidth(), reader.getHeight());
+		BufferedImage compressedFile2 = code.decryptImage(encryptedString,
+				reader.getWidth(), reader.getHeight());
 		IO.saveImage(compressedFileName2, compressedFile2);
 	}
 
 	@Test
-	public void compressionLevel1Test() throws FileNotFoundException, IOException {
+	public void compressionLevel1Test() throws FileNotFoundException,
+			IOException {
 		compressTolevel(1);
 	}
 }

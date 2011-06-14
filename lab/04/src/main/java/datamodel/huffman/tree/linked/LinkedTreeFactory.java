@@ -10,6 +10,7 @@ import datamodel.huffman.tree.TreeNode;
 
 /**
  * produces linked trees and treenodes
+ * 
  * @apiviz.uses datamodel.huffman.tree.linked.LinkedTree
  * @apiviz.uses datamodel.huffman.tree.linked.LinkedTreeNode
  */
@@ -17,7 +18,7 @@ public class LinkedTreeFactory extends AbstractTreeFactory {
 
 	public Tree produceTree() {
 		return new LinkedTree(this);
-   	}
+	}
 
 	public Tree produceTree(PriorityQueue<TreeNode> queue) {
 		return new LinkedTree(this, queue);

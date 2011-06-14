@@ -3,7 +3,6 @@
  */
 package logic;
 
-
 /**
  * Questions (see exercise sheet for English version)
  * 
@@ -72,7 +71,7 @@ package logic;
 public class Main {
 
 	public static void main(String[] args) {
-		//TODO: You may build your images, etc. using this class
+		// TODO: You may build your images, etc. using this class
 	}
 
 }

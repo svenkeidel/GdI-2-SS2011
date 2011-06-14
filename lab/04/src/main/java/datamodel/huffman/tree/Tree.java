@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 /**
  * A implementation of your Huffman tree.<br>
- *
+ * 
  * @author Kevin Munk, Jakob Karolus
  * @version 1.0
  * 
@@ -18,25 +18,23 @@ public abstract class Tree {
 	/**
 	 * Constructor.
 	 * 
-	 * Gets a sorted list of the colors and its amount and constructs a
-	 * huffman tree out of it.
+	 * Gets a sorted list of the colors and its amount and constructs a huffman
+	 * tree out of it.
 	 */
 	public Tree(AbstractTreeFactory factory, PriorityQueue<TreeNode> queue) {
 		this(factory);
 		buildTree(queue);
 	}
 
-
 	/**
 	 * Constructor.
-	 *
+	 * 
 	 * initializes an empty tree.
 	 */
 	public Tree(AbstractTreeFactory factory) {
 		this.factory = factory;
 	}
 
-	
 	/**
 	 * builds up an huffman tree from a sorted list of colors.
 	 */
@@ -49,7 +47,7 @@ public abstract class Tree {
 		TreeNode right;
 		TreeNode left;
 		int sumOfPropability;
-		while(nodes.size() > 1){
+		while (nodes.size() > 1) {
 
 			right = nodes.poll();
 			sumOfPropability = right.getValue();
@@ -69,6 +67,7 @@ public abstract class Tree {
 	}
 
 	private int maxDepth;
+
 	public int getDepth() {
 		moveToRoot();
 		maxDepth = 0;
@@ -77,18 +76,18 @@ public abstract class Tree {
 	}
 
 	private void getDepth(int currentDepth) {
-		if(currentDepth > maxDepth)
+		if (currentDepth > maxDepth)
 			maxDepth = currentDepth;
 
-		if(hasLeftNode()) {
+		if (hasLeftNode()) {
 			moveToLeftNode();
-			getDepth(currentDepth+1);
+			getDepth(currentDepth + 1);
 			moveToParentNode();
 		}
 
-		if(hasRightNode()) {
+		if (hasRightNode()) {
 			moveToRightNode();
-			getDepth(currentDepth+1);
+			getDepth(currentDepth + 1);
 			moveToParentNode();
 		}
 	}
@@ -97,7 +96,7 @@ public abstract class Tree {
 	 * Moves to the left child of the current node
 	 * 
 	 * @return true if left child exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public abstract boolean moveToLeftNode();
 
@@ -105,7 +104,7 @@ public abstract class Tree {
 	 * Moves to the right child of the current node
 	 * 
 	 * @return true if right child exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public abstract boolean moveToRightNode();
 
@@ -113,7 +112,7 @@ public abstract class Tree {
 	 * Moves to the parent of the current node
 	 * 
 	 * @return true if parent exists and the move was successful; otherwise
-	 *         false
+	 * false
 	 */
 	public abstract boolean moveToParentNode();
 
@@ -171,7 +170,7 @@ public abstract class Tree {
 	 * node
 	 */
 	public abstract void clearTree();
-	
+
 	@Override
 	public String toString() {
 		StringBuffer out = new StringBuffer();
@@ -180,23 +179,22 @@ public abstract class Tree {
 		out.append(" ]");
 		return out.toString();
 	}
-	
+
 	private void rec_toString(StringBuffer out) {
-		if(currentNode.isLeaf()) {
-			out.append(currentNode.toString()+", ");
+		if (currentNode.isLeaf()) {
+			out.append(currentNode.toString() + ", ");
 		}
-		
-		if(hasLeftNode()) {
+
+		if (hasLeftNode()) {
 			moveToLeftNode();
 			rec_toString(out);
 			moveToParentNode();
 		}
-		
-		if(hasRightNode()) {
+
+		if (hasRightNode()) {
 			moveToRightNode();
 			rec_toString(out);
 			moveToParentNode();
 		}
 	}
 }
-

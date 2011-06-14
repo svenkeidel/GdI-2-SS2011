@@ -8,15 +8,14 @@ package datamodel;
  * 
  * @author Jakob Karolus, Kevin Munk
  * @version 1.0
- *
+ * 
  */
 public class RGB {
-	
+
 	private int red;
 	private int green;
 	private int blue;
 	private int brightness;
-	
 
 	/**
 	 * constructor
@@ -26,13 +25,13 @@ public class RGB {
 	 * @param blue the blue RGB value
 	 * @param brightness the brightness RGB value
 	 */
-	public RGB(int red, int green, int blue, int brightness){
+	public RGB(int red, int green, int blue, int brightness) {
 		this.red = red;
 		this.green = green;
 		this.blue = blue;
 		this.brightness = brightness;
 	}
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -45,7 +44,7 @@ public class RGB {
 		this.green = (rgb >> 8) & 0xff;
 		this.blue = rgb & 0xff;
 	}
-	
+
 	/**
 	 * @return an int with the complete RGB color
 	 */
@@ -54,7 +53,7 @@ public class RGB {
 		rgb = (rgb | red) << 8;
 		rgb = (rgb | green) << 8;
 		rgb = (rgb | blue);
-		
+
 		return rgb;
 	}
 
@@ -78,7 +77,7 @@ public class RGB {
 	public int getBlue() {
 		return blue;
 	}
-	
+
 	/**
 	 * @return the brightness
 	 */
@@ -86,35 +85,37 @@ public class RGB {
 		return brightness;
 	}
 
-	public int getTrieKeyForDepth(int depth){
-		if (depth > 0){
-		int key = 0;
-		int and_mask = 1;
-		
-		//shifted related to depth, and-masked -> the important bit is everywhere at bit0,
-		//shifted to add the 4 bits correctly to get the final key
-		//SM = Shifted and Masked
-		int SM_Brightness = ((getBrightness() >> (8 - depth)) & and_mask) << 3;
-		int SM_Red = ((getRed() >> (8 - depth)) & and_mask) << 2;
-		int SM_Green = ((getGreen() >> (8 - depth)) & and_mask) << 1;
-		int SM_Blue = (getBlue() >> (8 - depth)) & and_mask;
-		
-//		System.err.println("SM_BRIGHT: "+SM_Brightness+"");
-//		System.err.println("SM_Red: "+SM_Red+"");
-//		System.err.println("SM_Green: "+SM_Green+"");
-//		System.err.println("SM_Blue: "+SM_Blue+"");
-		
-		
-		key = (SM_Brightness | SM_Red | SM_Blue | SM_Green);
-//		System.err.println("key: "+key+"");
-		
-		return key;
-		}
-		else throw new UnsupportedOperationException("Invalid depth for key generating!");
-		}
-		
-	
-	/* (non-Javadoc)
+	public int getTrieKeyForDepth(int depth) {
+		if (depth > 0) {
+			int key = 0;
+			int and_mask = 1;
+
+			// shifted related to depth, and-masked -> the important bit is
+			// everywhere at bit0,
+			// shifted to add the 4 bits correctly to get the final key
+			// SM = Shifted and Masked
+			int SM_Brightness = ((getBrightness() >> (8 - depth)) & and_mask) << 3;
+			int SM_Red = ((getRed() >> (8 - depth)) & and_mask) << 2;
+			int SM_Green = ((getGreen() >> (8 - depth)) & and_mask) << 1;
+			int SM_Blue = (getBlue() >> (8 - depth)) & and_mask;
+
+			// System.err.println("SM_BRIGHT: "+SM_Brightness+"");
+			// System.err.println("SM_Red: "+SM_Red+"");
+			// System.err.println("SM_Green: "+SM_Green+"");
+			// System.err.println("SM_Blue: "+SM_Blue+"");
+
+			key = (SM_Brightness | SM_Red | SM_Blue | SM_Green);
+			// System.err.println("key: "+key+"");
+
+			return key;
+		} else
+			throw new UnsupportedOperationException(
+					"Invalid depth for key generating!");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -128,7 +129,9 @@ public class RGB {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -151,12 +154,15 @@ public class RGB {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "RGB [r=" + red + ", g=" + green + ", b=" + blue + ", br=" + brightness + "]";
+		return "RGB [r=" + red + ", g=" + green + ", b=" + blue + ", br="
+				+ brightness + "]";
 	}
 
 }
