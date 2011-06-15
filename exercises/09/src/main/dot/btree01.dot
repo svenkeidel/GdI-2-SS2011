@@ -1,0 +1,6 @@
+digraph g {
+	
+	node [shape = record];
+
+	n1 [label="<l>| 21 |<c>| |<r>"];
+}
