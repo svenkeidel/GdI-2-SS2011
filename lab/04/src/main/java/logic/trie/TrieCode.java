@@ -38,14 +38,13 @@ public class TrieCode {
 	 * @param reader the image via an ImageReader
 	 */
 	public void buildTrie(ImageReader reader) {
-		// int x = 0;
+
 		Iterator<RGB> i = reader.iterator();
 		while (i.hasNext()) {
 			RGB temp_col = new RGB(i.next().getRGBValue());
 			addColor(temp_col);
 
-			// System.err.println("col nr: "+x+": "+temp_col+"");
-			// x++;
+
 		}
 	}
 
@@ -75,7 +74,7 @@ public class TrieCode {
 				x.append("1000");
 			}
 		}
-		// System.err.println(""+x.toString()+"");
+
 		return x.toString();
 
 	}
@@ -155,7 +154,7 @@ public class TrieCode {
 				char bright_char = picture.charAt(i + j);
 				int bright_int = (bright_char - '0') << shift_index;
 				rgb_vals[0] = rgb_vals[0] + bright_int;
-//				System.err.println("BRIGHT-AS: "+bright_int+"");
+
 
 				char red_char = picture.charAt(i + j + 1);
 				int red_int = (red_char - '0') << shift_index;
@@ -181,11 +180,9 @@ public class TrieCode {
 			
 			RGB rgb = new RGB(rgb_vals[1], rgb_vals[2], rgb_vals[3],
 					rgb_vals[0]);
-//			 System.err.println("RGB: "+rgb+"");
+			
 			int rgb_val = rgb.getRGBValue();
-//			 System.err.println("RGBVALUE: "+rgb_val+"");
-//			 RGB test_rgb = new RGB(rgb_val);
-//			 System.err.println("RGB-AVAL: "+test_rgb+"");
+
 			image.setRGB(x, y, rgb_val);
 
 			if (x == pic_Width) {
@@ -224,9 +221,7 @@ public class TrieCode {
 				rec_compress(choppedTrie.getRoot(), last_depth);
 
 				choppedTrie.moveToRoot();
-//				trieCodeTree = choppedTree; // overwrite the TrieCode or create
-//											// seperate Trie choppedTrie in this
-//											// class???
+
 				return true;
 			} else
 				return false;
