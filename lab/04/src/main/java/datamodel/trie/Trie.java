@@ -25,7 +25,7 @@ public class Trie {
 	 * The Trie-Constructor
 	 */
 	public Trie() {
-		root = new TrieNode(1, false);
+		root = new TrieNode(1, true);
 		currentNode = root;
 		depth = 1;
 	}
@@ -162,6 +162,7 @@ public class Trie {
 		output_trie.setDepth(getDepth());
 		
 		TrieNode clone_root = output_trie.getRoot();
+		clone_root.setLeafStatus(false);
 		
 		rec_clone(root, clone_root);
 		
@@ -183,6 +184,35 @@ public class Trie {
 				if (node.hasLeafAtSlot(i))
 					clone_node.setLeafAtSlot(i);
 
+		}
+	}
+	
+	
+	public void prepareForExtending(){
+		moveToRoot();
+		if (this.getDepth() < 8)
+		rec_prepareForExtending(root);
+		
+	}
+	
+	
+	public void rec_prepareForExtending(TrieNode node){
+		boolean seventh_depth = (node.getDepth() == 7);
+		
+		if (node.getLeafStatus()) {
+				for (int i = 0; i < 16; i++){
+							if (node.hasLeafAtSlot(i)) {
+								node.setNodeAtSlot(i, new TrieNode(node.getDepth()+1, seventh_depth));
+								}
+							}
+				node.setLeafStatus(false);
+		}
+		else{ 
+				for (int k = 0; k < 16; k++){
+							if (node.hasNodeAtSlot(k))
+								rec_prepareForExtending(node.getNodeAtSlot(k));
+				
+				}
 		}
 	}
 }

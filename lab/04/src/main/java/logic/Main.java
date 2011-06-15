@@ -32,15 +32,40 @@ package logic;
  * Betrachten Sie nun die beiden decodierten Bilder. Erklären Sie Ihre Beobachtungen.
  * Worauf sind diese zurückzuführen?
  * 
- * Answer 3:
- * Die drei unterschiedlich kompriemiert codierten Dateien sind gleich groß, da sie lediglich als Bitstring und dadurch ohne jeglich 
- * native Dateikomprimierung (wie zB jpg oder png) abgespeichert werden. Somit ist die Größe der Datei linear zu der Auflösung des ursprünglichen
- * Bildes: 
- * 1 Pixel = 4 Bytes; 800*600 = 480 000; 4Bytes * 480 000 = 1 920 000 Bytes = 1,92 MB;
  * 
- * Der Speicherbedarf der codierten Dateien ändert sich bei unterschiedlich komprimierten Bildern nicht, da fehlende Bits im Code-Trie in dem encrypt-String
- * ersetzt werden. Da die Methode writeBinaryString, die man verwenden soll um die codierten Bilder zu speichern, einfach nur einen Bit-Array als Stream
- * abspeichert, besitzt sie keinerlei Komprimierung und erstellt dadruch - unabhängig vom Komprimierungsgrad - die gleiche Dateigröße.
+ * Answer 3:
+ * Die  unterschiedlich codierten Dateien sind gleich groß, da die Methode in IO.class, welche wir benutzen sollen um aus dem png
+ * einen Binärstring zu erstellen, über das Bild iteriert und Pixel für Pixel in voller Größe (32-Bit) nacheinander abspeichert.
+ * Der Ergebnisstring der Verschlüsselung des Bildes mit einem Baum, der vollständig alle Farben des Bildes enthält, ist mit dem obigen identisch.
+ * Jede Farbe wird vollständig (32-Bit) gefunden.
+ * 
+ * Größe für 8-Stufen Trie:
+ * 1 Pixel = 8 * 4 Bits = 4 Bytes; 800*600 = 480 000; 4Bytes * 480 000 = 1 920 000 Bytes = 1920 KB =  1,92 MB;
+ * 
+ * Größe für x-Stufen Trie:
+ * 1 Pixel = x * 4 Bits = x * 0.5 Bytes; 800*600 = 480 000; 0.5x Bytes * 480 000 = 240 000x Bytes = 240x KB = 0,24x MB
+ * 
+ * Wir haben folgende Bilder (siehe /target/-Verzeichnis nach private Tests) verglichen:
+ * test.png ohne compress ; test.png nach compress(3) ; test.png nach compress(6)
+ * Alle drei Bilder wurden zunächst codiert und zum Schluss decodiert.
+ * 
+ * Beobachtung:
+ * Die resultierenden PNG-Dateien haben folgende Größen:
+ * test.png:		767,4 KB
+ * NoComp.png:		  1,3 MB
+ * ThreeComp.png:	466,6 KB
+ * SixComp.png:		 94,4 KB
+ * Zusätzlich kann man beobachten, dass je höher der Kompressionsgrad ist, desto schlechtere Farbqualität hat das Bild.
+ * 
+ * Erklärung:
+ * NoComp.png ist größer als test.png, da die Java-Methode höchstwahrscheinlich nicht optimale verlustfreie Komprimierung von png-Dateien
+ * bietet. ThreeComp ist kleiner als test.png und NoComp, da hier das Deflate-Komprimierungsverfahren zur Geltung kommt mit welchem unter anderem
+ * png verlustfrei komprimiert. Je mehr aufgefüllt wird, desto mehr Bit-Redundanzen hat man. Je mehr Bit-Redundanzen vorhanden sind, desto kleiner
+ * die Datei nach der Deflate-Komprimierung.
+ * Selbiges gilt für SixComp.png.
+ * Die schlechte Farbqualität entsteht durch das Beschneiden der Bäume und somit das wegschneiden der hinteren Bits der einzelnen Farbkanäle, was
+ * zur Folge hat, dass ähnliche Farben als die gleiche codiert werden. Je kürzer der Trie, desto größer die Toleranz.
+ * 
  * 
  * 
  * Frage 4:
@@ -58,7 +83,7 @@ package logic;
  * Frage 5:
  * Vergleichen Sie die Geschwindigkeit beider Suchmethoden. Geben Sie eine theoretische Erklärung für ihre Beobachtungen an.
  * 
- * TODO: Answer
+ * TODO: TIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
  */
 
 /**

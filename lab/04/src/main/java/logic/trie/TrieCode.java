@@ -88,7 +88,7 @@ public class TrieCode {
 	public void addColor(RGB color) {
 		trieCodeTree.moveToRoot();
 		TrieNode root = trieCodeTree.getCurrentNode();
-
+		trieCodeTree.prepareForExtending();
 		rec_addColor(root, color);
 	}
 
@@ -276,10 +276,14 @@ public class TrieCode {
 		}
 
 		if (trieCodeTree.getCurrentNode().hasLeafAtSlot(
-				color.getTrieKeyForDepth(8)))
-			return true;
-		else
+				color.getTrieKeyForDepth(8))){
+			trieCodeTree.moveToRoot();
+			return true;}
+			
+		else{
+			trieCodeTree.moveToRoot();
 			return false;
+		}
 	}
 
 	/**

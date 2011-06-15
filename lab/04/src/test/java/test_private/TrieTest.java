@@ -44,13 +44,15 @@ public class TrieTest {
 		filled_triecode.addColor(b);
 		filled_triecode.addColor(c);
 		filled_triecode.addColor(black);
+		filled_triecode.addColor(new RGB(128, 128, 128, 128));
 	}
 
 	@Test
 	public void TrieStructure() {
 
 		trie.moveToRoot();
-
+		trie.getRoot().setLeafStatus(false);
+		
 		trie.createChildAt(0, false);
 		assertTrue(trie.getCurrentNode().hasNodeAtSlot(0));
 		assertFalse(trie.getCurrentNode().hasLeafAtSlot(0));
@@ -123,6 +125,17 @@ public class TrieTest {
 
 		assertTrue(c_trie.getCurrentNode().hasNodeAtSlot(10));
 		assertTrue(c_trie.getCurrentNode().hasNodeAtSlot(15));
+		
+		//addColor on compressed Trie 
+		triecode.compress(7);
+		assertTrue(triecode.getChoppedTrie().getTrieCodeTree().getDepth() == 1);
+		assertTrue(triecode.getChoppedTrie().getTrieCodeTree().getRoot().getLeafStatus());
+		triecode.getChoppedTrie().addColor(c);
+		assertTrue(triecode.getChoppedTrie().getTrieCodeTree().getDepth() == 8);
+		assertFalse(triecode.getChoppedTrie().getTrieCodeTree().getRoot().getLeafStatus());
+		triecode.getChoppedTrie().getTrieCodeTree().moveToRoot();
+		assertTrue(triecode.getChoppedTrie().containsColor(c));
+		assertFalse(triecode.getChoppedTrie().containsColor(a));
 
 	}
 
@@ -135,6 +148,11 @@ public class TrieTest {
 		assertTrue(filled_triecode.containsColor(black));
 		assertFalse(filled_triecode.containsColor(new RGB(123, 123, 123, 123)));
 		assertFalse(filled_triecode.containsColor(new RGB(32, 32, 23, 23)));
+		filled_triecode.compress(7);
+		assertFalse(filled_triecode.getChoppedTrie().containsColor(a));
+		assertFalse(filled_triecode.getChoppedTrie().containsColor(b));
+		assertFalse(filled_triecode.getChoppedTrie().containsColor(c));
+		assertFalse(filled_triecode.getChoppedTrie().containsColor(black));
 	}
 
 	@Test
@@ -242,6 +260,13 @@ public class TrieTest {
 
 		ImageReader reader = new ImageReader("test.png");
 		triecode.buildTrie(reader);
+		
+		
+		long start0 = new Date().getTime();
+		IO.writeImageBinaryString("target/NoComp_NotEncrypted", reader);
+		System.out.println("Not compressed and not encrypted binary String of test.png created!");
+		long runningTime0 = new Date().getTime() - start0;
+		System.out.println("Time elapsed for <creating>: "+runningTime0+" ms\n");
 		
 		
 		long start = new Date().getTime();

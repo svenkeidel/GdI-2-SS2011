@@ -39,7 +39,10 @@ public class TrieNode {
 	 * @return true if successful, false if a node is already set there
 	 */
 	public boolean setNodeAtSlot(int index, TrieNode node) {
-
+//
+//		if (node.getLeafStatus())
+//			throw new UnsupportedOperationException("Error: This is a leaf! You cannot add a node here!");
+//		else{
 		if (hasNodeAtSlot(index))
 			return false;
 		// or Exception "there is already a node"
@@ -49,6 +52,7 @@ public class TrieNode {
 			return true;
 		}
 	}
+//	}
 
 	/**
 	 * removes a node at certain nodeSlot index
