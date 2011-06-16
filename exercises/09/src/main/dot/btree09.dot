@@ -10,4 +10,5 @@ digraph g {
 	n1:l -> n2:c
 	n1:c -> n3:c
 	n1:r -> n4:c
+	84 -> n4:r
 }

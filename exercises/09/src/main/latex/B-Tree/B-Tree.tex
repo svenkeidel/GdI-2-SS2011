@@ -1,11 +1,214 @@
 \documentclass[a4paper]{article}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{../../graphviz/}}
+\DeclareGraphicsExtensions{.png}
+\usepackage{listings}
+\lstset{numbers=left, 
+		frame=single,
+		basicstyle=\footnotesize,
+		tabsize=4}
 
 \begin{document}
 
 \section*{H 9.5 B-Bäume}
 
 \subsection*{a)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree01.png}
+	\end{center}
+	\caption{Einfügen: 21}
+	\label{fig:btree01}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree02.png}
+	\end{center}
+	\caption{Einfügen: 57}
+	\label{fig:btree02}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree03.png}
+	\end{center}
+	\caption{Einfügen: 66, ausgleichen\ldots}
+	\label{fig:btree03}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree04.png}
+	\end{center}
+	\caption{Einfügen: 66, ausgeglichen}
+	\label{fig:btree04}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree05.png}
+	\end{center}
+	\caption{Einfügen: 67}
+	\label{fig:btree05}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree06.png}
+	\end{center}
+	\caption{Einfügen: 3}
+	\label{fig:btree06}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree07.png}
+	\end{center}
+	\caption{Einfügen: 13, ausgleichen\ldots}
+	\label{fig:btree07}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree08.png}
+	\end{center}
+	\caption{Einfügen: 3, ausgeglichen}
+	\label{fig:btree08}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree09.png}
+	\end{center}
+	\caption{Einfügen: 84, ausgleichen\ldots}
+	\label{fig:btree09}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree10.png}
+	\end{center}
+	\caption{Einfügen: 84, ausgleichen\ldots, Eltern für 66, 84 noch unbestimmt}
+	\label{fig:btree10}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree11.png}
+	\end{center}
+	\caption{Einfügen: 84, ausgeglichen}
+	\label{fig:btree11}
+\end{figure}
+
+\clearpage
+\subsection*{b)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree12.png}
+	\end{center}
+	\caption{Einfügen: 5}
+	\label{fig:btree12}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree13.png}
+	\end{center}
+	\caption{Einfügen: 12, ausgleichen\ldots}
+	\label{fig:btree13}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree14.png}
+	\end{center}
+	\caption{Einfügen: 12, ausgeglichen}
+	\label{fig:btree14}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree15.png}
+	\end{center}
+	\caption{Löschen: 3, verschiebe 12 nach 5}
+	\label{fig:btree15}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree16.png}
+	\end{center}
+	\caption{Löschen: 3, ausgeglichen}
+	\label{fig:btree16}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree17.png}
+	\end{center}
+	\caption{Löschen: 21, verschiebe 12 zur 13 und 13 zur 21}
+	\label{fig:btree17}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree18.png}
+	\end{center}
+	\caption{Löschen: 21, ausgeglichen}
+	\label{fig:btree18}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree19.png}
+	\end{center}
+	\caption{Löschen: 67, verschiebe 66 zur 67 und 84 rechts daneben}
+	\label{fig:btree19}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.4]{btree20.png}
+	\end{center}
+	\caption{Löschen: 67, ausgeglichen}
+	\label{fig:btree20}
+\end{figure}
+
+\clearpage
+\subsection*{c)}
+
+\begin{lstlisting}
+public class BTree {
+
+	// ...
+
+	public void insert(BTree tree) {
+		int order = tree.getOrder();
+
+		if(tree.getCurrentNode().isLeaf()) {
+			for(int i=0; i<order; i++)
+				if(tree.getCurrentNode().hasKeyAt(i))
+					this.addKey(tree.getCurrentNode().getKeyAt(i));
+		}
+
+		for(int i=0; i<order; i++) {
+			if(tree.hasChildAt(i)) {
+				tree.moveToChildAt(i);
+				insert(tree);
+				tree.moveToParent();
+			}
+		}
+	}
+
+	// ...
+
+}
+
+\end{lstlisting}
 
 \end{document}
