@@ -222,7 +222,7 @@ public class HuffmanCode {
 
 		if (depth - currentDepth <= count
 				&& (huffmanTree.hasLeftNode() || huffmanTree.hasRightNode())) {
-			removeCuttedColors();
+			removeCuttedColors(0);
 			huffmanTree.getCurrentNode().cutOff();
 			huffmanTree.getCurrentNode().setRGB(new RGB(255, 255, 255, 255));
 		} else {
@@ -244,19 +244,31 @@ public class HuffmanCode {
 	/**
 	 * Remove the cutted colors from the encoding map.
 	 */
-	private void removeCuttedColors() {
-		if (huffmanTree.getCurrentNode().isLeaf())
-			huffmanCode.remove(huffmanTree.getCurrentNode().getRGB());
+	private void removeCuttedColors(int levelsUnderCut) {
+		if (huffmanTree.getCurrentNode().isLeaf()) {
+			RGB color = huffmanTree.getCurrentNode().getRGB();
+			String codeForColor = huffmanCode.get(color);
+			huffmanCode.remove(color);
+			int length = codeForColor.length();
+			
+			// replace the code of the cutted color with the code of the white
+			// which replaces the cutted subtree
+			codeForColor = codeForColor.substring(0, length - levelsUnderCut);
+			huffmanCode.put(color, codeForColor);
+			
+			if(!huffmanCode.containsKey(new RGB(255,255,255,255)))
+				huffmanCode.put(new RGB(255,255,255,255), codeForColor);
+		}
 
 		if (huffmanTree.hasLeftNode()) {
 			huffmanTree.moveToLeftNode();
-			removeCuttedColors();
+			removeCuttedColors(levelsUnderCut+1);
 			huffmanTree.moveToParentNode();
 		}
 
 		if (huffmanTree.hasRightNode()) {
 			huffmanTree.moveToRightNode();
-			removeCuttedColors();
+			removeCuttedColors(levelsUnderCut+1);
 			huffmanTree.moveToParentNode();
 		}
 	}
