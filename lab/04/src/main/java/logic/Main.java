@@ -12,7 +12,22 @@ package logic;
  * Erklären Sie den Unterschied. Berechnen Sie aus der Dateigröße des Huffman- Bildes die mittlere
  * Anzahl Bits pro Pixel.
  * 
- * TODO: Answer
+ * Answer1:
+ * Das Bild test2.png hat nach dem codieren mit Huffman eine Größe von 19 Bytes.
+ * Der BinärString vom Bild mit RGB hat eine Größe von 256 Bytes.
+ * 256 Byte * 8 / 64 (Anzahl der Pixel) = 32 bit/Pixel
+ * Beim RGB-Bild wird also jedes Pixel mit 32 bit abgespeichert, jedoch wird beim Huffman-Bild danach 
+ * abgespeichert welche Farbe am häufigsten vorkommt. So wird für die Farbe Grün der kleinste 
+ * Huffman-Code verwendet was eine effiziente Speicherung ermöglicht.
+ * Außerdem hat dieses spezielle Bild nur 6 verschiedene Farben, so das der Huffman-Code 
+ * für die am wenigsten vorkommende Farbe legendlich 5 bit lang ist.
+ * Was immernoch deutlich weniger ist als die 32 bit beim RGB-Bild und den
+ * immensen Speichervorteil begründet.
+ * So kann man aus der Größe von 19 Byte für das Huffman-Bild folgendes errrechen:
+ * 19 Byte * 8 = 152 bit / 64 (Anzahl der Pixel) = 2,375 bit/Pixel
+ * Somit sieht man das beim Huffman-Bild pro Pixel im Durchschnitt nur 2,375 bit gespeichert 
+ * werden, anstatt von 32 bit/Pixel wie beim RGB-Bild.
+ *  
  * 
  * Frage 2: 
  * Was fällt Ihnen an den beiden decodierten Bildern auf, wie unterscheiden sich diese?

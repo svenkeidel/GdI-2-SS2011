@@ -28,6 +28,19 @@ public class HuffmanCodeTest {
 
 	}
 
+	private void createBinaryString() throws FileNotFoundException,
+	IOException {
+		ImageReader reader = new ImageReader("test2.png");
+		String binaryStringFileName = "target/binaryStringRGB";
+		
+		IO.writeImageBinaryString(binaryStringFileName, reader);
+		
+		String binaryStringFileName2 = "target/binaryStringHuffman";
+		tree = HuffmanTree.getHuffmanTree("test2.png");
+		code = new HuffmanCode(tree);
+		IO.writeBinaryString(binaryStringFileName2, code.encryptImage(reader));
+	}
+	
 	private void compressTolevel(int level) throws FileNotFoundException,
 			IOException {
 		tree = HuffmanTree.getHuffmanTree("test2.png");
@@ -53,5 +66,6 @@ public class HuffmanCodeTest {
 	public void compressionLevel1Test() throws FileNotFoundException,
 			IOException {
 		compressTolevel(1);
+		createBinaryString();
 	}
 }
