@@ -154,6 +154,20 @@ public class TrieTest {
 		assertFalse(filled_triecode.getChoppedTrie().containsColor(c));
 		assertFalse(filled_triecode.getChoppedTrie().containsColor(black));
 	}
+	
+	@Test
+	public void ContainsColorTime() {
+		long time1;
+		long time2;
+		time1 = System.currentTimeMillis();
+		for (int i = 0; i < 10000000; i++){
+			filled_triecode.containsColor(a);
+			filled_triecode.containsColor(b);
+			filled_triecode.containsColor(c);
+		}
+		time2 = System.currentTimeMillis();
+		System.out.println("Zeit: " + (time2-time1) + " ms");
+	}
 
 	@Test
 	public void buildTrie() throws FileNotFoundException, IOException {
