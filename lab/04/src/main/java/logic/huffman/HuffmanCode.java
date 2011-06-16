@@ -88,9 +88,9 @@ public class HuffmanCode {
 	public String encryptImage(ImageReader imageReader) {
 		StringBuffer out = new StringBuffer();
 
-		for (RGB color : imageReader) {
-			out.append(huffmanCode.get(color));
-		}
+		for (RGB color : imageReader)
+			if(huffmanCode.containsKey(color))
+				out.append(huffmanCode.get(color));
 
 		return out.toString();
 	}
@@ -206,7 +206,6 @@ public class HuffmanCode {
 		if (count >= depth)
 			return false;
 		compress(count, depth, 0);
-		buildHuffmanCode();
 		return true;
 	}
 
@@ -245,20 +244,8 @@ public class HuffmanCode {
 	 * Remove the cutted colors from the encoding map.
 	 */
 	private void removeCuttedColors(int levelsUnderCut) {
-		if (huffmanTree.getCurrentNode().isLeaf()) {
-			RGB color = huffmanTree.getCurrentNode().getRGB();
-			String codeForColor = huffmanCode.get(color);
-			huffmanCode.remove(color);
-			int length = codeForColor.length();
-			
-			// replace the code of the cutted color with the code of the white
-			// which replaces the cutted subtree
-			codeForColor = codeForColor.substring(0, length - levelsUnderCut);
-			huffmanCode.put(color, codeForColor);
-			
-			if(!huffmanCode.containsKey(new RGB(255,255,255,255)))
-				huffmanCode.put(new RGB(255,255,255,255), codeForColor);
-		}
+		if (huffmanTree.getCurrentNode().isLeaf())
+			huffmanCode.remove(huffmanTree.getCurrentNode().getRGB());
 
 		if (huffmanTree.hasLeftNode()) {
 			huffmanTree.moveToLeftNode();
