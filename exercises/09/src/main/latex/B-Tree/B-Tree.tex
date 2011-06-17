@@ -181,6 +181,7 @@
 
 \clearpage
 \subsection*{c)}
+\subsubsection*{i)}
 
 \begin{lstlisting}
 public class BTree {
@@ -208,7 +209,66 @@ public class BTree {
 	// ...
 
 }
-
 \end{lstlisting}
+
+\subsubsection*{ii)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\begin{tabular}[h]{|l|l|}
+			\hline
+			Stufe & Anzahl möglicher Schlüssel \\
+			\hline
+			1 & $10$               \\
+			2 & $11 * 10 = 110$    \\
+			3 & $11^2 * 10 = 1210$ \\
+			\hline
+			\hline
+			Summe: & $10 + 110 + 1210 = 1330$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\caption{Berechnung möglicher Schlüssel im B-Baum der Ordnung 5}
+	\label{fig:possible_keys}
+\end{figure}
+
+Wenn er 422 + 9 Schlüssel eingefügt hat, hat sein Baum also mindestens 3
+Stufen.
+
+Er kann also noch $1330 -(422 + 9) = 899$ Schlüssel einfügen ohne das er
+die Höhe des Baumes verändert.
+
+
+\clearpage
+\section*{H 9.6 Digitale Suchbäume}
+
+\subsection*{a)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.3]{trie.png}
+	\end{center}
+	\caption{m-ärer Trie für die Codewörter}
+	\label{fig:trie}
+\end{figure}
+
+\clearpage
+\subsection*{b)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.3]{pat-trie.png}
+	\end{center}
+	\caption{PATRICA-Trie, Trennzeichen kodiert mit 111}
+	\label{fig:pat-trie}
+\end{figure}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.3]{radix.png}
+	\end{center}
+	\caption{RADIX-Trie, Trennzeichen kodiert mit 111}
+	\label{fig:pat-trie}
+\end{figure}
 
 \end{document}

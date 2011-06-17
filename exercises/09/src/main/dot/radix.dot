@@ -1,0 +1,67 @@
+digraph g {
+	
+	node[shape=box]
+
+	n1 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>6</TD></TR>
+		<TR><TD>000010</TD></TR>
+	</TABLE>>]
+
+	n2 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>0</TD></TR>
+		<TR><TD>0</TD></TR>
+	</TABLE>>]
+
+	n3 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>API</TD></TR>
+		<TR><TD>101</TD></TR>
+	</TABLE>>]
+
+	n4 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>APFEL</TD></TR>
+		<TR><TD>01011110</TD></TR>
+	</TABLE>>]
+
+	n5 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>1</TD></TR>
+		<TR><TD>10</TD></TR>
+	</TABLE>>]
+
+	n6 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>APPETIT</TD></TR>
+		<TR><TD>011100101100</TD></TR>
+	</TABLE>>]
+
+	n7 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>1</TD></TR>
+		<TR><TD>11</TD></TR>
+	</TABLE>>]
+
+	n8 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>APPLET</TD></TR>
+		<TR><TD>0011100</TD></TR>
+	</TABLE>>]
+
+	n9 [label=
+	<<TABLE BORDER="0">
+		<TR><TD>APP#</TD></TR>
+		<TR><TD>1</TD></TR>
+	</TABLE>>]
+
+	n1 -> n2
+	n1 -> n3
+	n2 -> n4
+	n2 -> n5
+	n5 -> n6
+	n5 -> n7
+	n7 -> n8
+	n7 -> n9
+}

@@ -1,0 +1,52 @@
+digraph g {
+	node [shape = record];
+	n1  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n2  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n3  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n4  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n5  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n6  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n7  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n8  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n9  [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n10 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n11 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n12 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n13 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n14 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n15 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n16 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n17 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n18 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n19 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+	n20 [label="<a>A | <e>E | <f>F | <i>I | <l>L | <p>P | <t>T | <r>#"];
+
+	// Apfel#
+	n1:a -> n2
+	n2:p -> n3
+	n3:f -> n4
+	n4:e -> n5
+	n5:l -> n6
+	n6:r -> n7
+
+	// App#
+	n3:p -> n8
+	n8:r -> n9
+	
+	// Appetit#
+	n8:e -> n10
+	n10:t -> n11
+	n11:i -> n12
+	n12:t -> n13
+	n13:r -> n14
+
+	// Applet#
+	n8:l -> n15
+	n15:e -> n16
+	n16:t -> n17
+	n17:r -> n18
+
+	// Api#
+	n2:i -> n19
+	n19:r -> n20
+}

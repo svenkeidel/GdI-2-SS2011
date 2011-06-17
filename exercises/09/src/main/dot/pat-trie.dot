@@ -1,0 +1,32 @@
+digraph g {
+
+	n1 [label="6"]
+	n2 [label="0"]
+	n3 [label="API"]
+	n4 [label="APFEL"]
+	n5 [label="1"]
+	n6 [label="APPETIT"]
+	n7 [label="1"]
+	n8 [label="APPLET"]
+	n9 [label="APP#"]
+	n10 [label="000010101"]
+	n11 [label="000010001011110"]
+	n12 [label="000010010011100101100"]
+	n13 [label="000010010111"]
+	n14 [label="000010010110011100"]
+	n3 -> n10
+	n4 -> n11
+	n6 -> n12
+	n9 -> n13
+	n8 -> n14
+
+	n1 -> n2 [label="0"]
+	n1 -> n3 [label="1"]
+	n2 -> n4 [label="0"]
+	n2 -> n5 [label="1"]
+	n5 -> n6 [label="0"]
+	n5 -> n7 [label="1"]
+	n7 -> n8 [label="0"]
+	n7 -> n9 [label="1"]
+
+}
