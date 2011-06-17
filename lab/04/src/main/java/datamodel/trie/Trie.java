@@ -19,8 +19,7 @@ public class Trie {
 	private TrieNode currentNode;
 	private int depth;
 
-	// TODO check correct depth handling an passing
-
+	
 	/**
 	 * The Trie-Constructor
 	 */
@@ -156,6 +155,9 @@ public class Trie {
 		return root;
 	}
 
+	/**
+	 * clones a Trie
+	 */
 	public Trie clone(){
 		Trie output_trie = new Trie();
 		moveToRoot();
@@ -170,7 +172,12 @@ public class Trie {
 	}
 	
 	
-	public void rec_clone(TrieNode node, TrieNode clone_node) {
+	/**
+	 * recursive helping function for clone
+	 * @param node current node for recursion
+	 * @param clone_node clone target node
+	 */
+	private void rec_clone(TrieNode node, TrieNode clone_node) {
 
 		for (int i = 0; i < 16; i++){
 		
@@ -187,7 +194,10 @@ public class Trie {
 		}
 	}
 	
-	
+	/**
+	 * prepares a trie for extending
+	 * --> resolves leafs into nodes
+	 */
 	public void prepareForExtending(){
 		moveToRoot();
 		if (this.getDepth() < 8)
@@ -196,7 +206,11 @@ public class Trie {
 	}
 	
 	
-	public void rec_prepareForExtending(TrieNode node){
+	/**
+	 * recursive helping function for prepareForeExtending function
+	 * @param node current target node
+	 */
+	private void rec_prepareForExtending(TrieNode node){
 		boolean seventh_depth = (node.getDepth() == 7);
 		
 		if (node.getLeafStatus()) {

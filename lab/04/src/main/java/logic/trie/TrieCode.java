@@ -97,7 +97,7 @@ public class TrieCode {
 	 * @param node current node
 	 * @param color color
 	 */
-	public void rec_addColor(TrieNode node, RGB color) {
+	private void rec_addColor(TrieNode node, RGB color) {
 
 		int key = color.getTrieKeyForDepth(node.getDepth());
 		boolean isLeaf = (node.getDepth() == 7);
@@ -228,7 +228,12 @@ public class TrieCode {
 		}
 	}
 
-	public void rec_compress(TrieNode node, int last_depth) {
+	/**
+	 * recursive helping function
+	 * @param node current node for rec
+	 * @param last_depth last depth
+	 */
+	private void rec_compress(TrieNode node, int last_depth) {
 
 		if (node.getDepth() != last_depth) {
 			for (int i = 0; i < 16; i++) {
