@@ -133,6 +133,7 @@ package logic;
  * Information geht nach erstellen des Baumes verloren, wesegen er nach
  * einer gesuchten Farbe auch komplett durchlaufen werden muss um sie zu
  * finden.
+
  */
 
 /**

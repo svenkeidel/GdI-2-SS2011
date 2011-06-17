@@ -123,21 +123,6 @@ public class HuffmanTreeTest {
 		tree.moveToLeftNode();
 		isLeaf(Color.B);
 	}
-
-	@Test
-	public void ContainsColorTime() {
-		long time1;
-		long time2;
-		HuffmanCode code = new HuffmanCode(tree);
-		time1 = System.currentTimeMillis();
-		for (int i = 0; i < 10000000; i++){
-			code.containsColor(Color.A.getRGB());
-			code.containsColor(Color.B.getRGB());
-			code.containsColor(Color.C.getRGB());
-		}
-		time2 = System.currentTimeMillis();
-		System.out.println("Zeit: " + (time2-time1) + " ms");
-	}
 	
 	/**
 	 * Tree Layout. Color: A B C D E F G Amount: 1 2 4 6 8 9 10
@@ -162,7 +147,6 @@ public class HuffmanTreeTest {
 	 * Tree Layout. Color: A B C D E F G Amount: 1 2 4 6 8 9 10
 	 * 
 	 * 40 ------------ 23 17 --------- ---- 13 10 9 8 W G F E
-	 * ====================================
 	 */
 	@Test
 	public void compressionTest() {
