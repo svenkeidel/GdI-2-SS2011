@@ -122,7 +122,17 @@ package logic;
  * Frage 5: Vergleichen Sie die Geschwindigkeit beider Suchmethoden.
  * Geben Sie eine theoretische Erklärung für ihre Beobachtungen an.
  * 
- * TODO: TIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIM
+ * 30.000.000 x containColor im Trie 1,494s
+ * 30.000.000 x containColor im Huffman Tree 2,188
+ * 
+ * Das suchen im Trie ist schneller, da dort nur einen Ast herunter
+ * gelaufen werden muss um die Farbe zu finden. Man findet den richtigen
+ * Ast, in dem man die Information aus dem Farbwert zieht.  Die
+ * Information des Farbwertes ist im Huffmanbaum unerheblich, da die
+ * Farben nach Häufigkeit sortiert im Baum abgelegt sind. Diese
+ * Information geht nach erstellen des Baumes verloren, wesegen er nach
+ * einer gesuchten Farbe auch komplett durchlaufen werden muss um sie zu
+ * finden.
  */
 
 /**

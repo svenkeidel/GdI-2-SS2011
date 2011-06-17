@@ -1,22 +1,23 @@
 package test_private;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-import datamodel.RGB;
+import logic.huffman.HuffmanCode;
 
+import org.junit.Before;
+import org.junit.Test;
+
+import datamodel.RGB;
 import datamodel.huffman.tree.AbstractTreeFactory;
 import datamodel.huffman.tree.Tree;
 import datamodel.huffman.tree.TreeNode;
-
 import datamodel.huffman.tree.linked.LinkedTreeFactory;
-
-import static junit.framework.Assert.*;
-import org.junit.Test;
-import org.junit.Before;
-
-import logic.huffman.HuffmanCode;
-import logic.huffman.HuffmanTree;
 
 public class HuffmanTreeTest {
 

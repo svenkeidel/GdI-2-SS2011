@@ -1,6 +1,5 @@
 package test_private;
 
-import static junit.framework.Assert.fail;
 import io.IO;
 import io.ImageReader;
 

@@ -2,6 +2,8 @@ package datamodel.huffman.tree;
 
 import java.util.PriorityQueue;
 
+import datamodel.RGB;
+
 /**
  * A implementation of your Huffman tree.<br>
  * 
@@ -171,6 +173,43 @@ public abstract class Tree {
 	 */
 	public abstract void clearTree();
 
+	
+	/**
+	 * If tree contains the color
+	 * @param color the color to search for
+	 * @return true if the tree contains the color
+	 */
+	public boolean containsColor(RGB color) {
+		this.moveToRoot();
+		return containsColor_rec(color);
+	}
+	
+	/**
+	 * Searches recursively the complete tree for the given color
+	 * @param color the color to search for
+	 * @return true if the tree contains the color
+	 */
+	private boolean containsColor_rec(RGB color) {
+		if (currentNode.getRGB() != null && currentNode.getRGB().equals(color))
+			return true;
+		
+		if (hasLeftNode()) {
+			this.moveToLeftNode();
+			if(containsColor_rec(color))
+				return true;
+			this.moveToParentNode();
+		}
+		
+		if (hasRightNode()) {
+			this.moveToRightNode();
+			if(containsColor_rec(color))
+				return true;
+			this.moveToParentNode();
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuffer out = new StringBuffer();

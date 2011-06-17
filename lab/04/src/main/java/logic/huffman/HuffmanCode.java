@@ -189,7 +189,7 @@ public class HuffmanCode {
 	 * @return true if tree contains color; otherwise false
 	 */
 	public boolean containsColor(RGB color) {
-		return huffmanCode.containsKey(color);
+		return huffmanTree.containsColor(color);
 	}
 
 	/**
