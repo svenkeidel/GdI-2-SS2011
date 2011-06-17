@@ -122,8 +122,11 @@ package logic;
  * Frage 5: Vergleichen Sie die Geschwindigkeit beider Suchmethoden.
  * Geben Sie eine theoretische Erklärung für ihre Beobachtungen an.
  * 
- * 30.000.000 x containColor im Trie 1,494s
- * 30.000.000 x containColor im Huffman Tree 2,188
+ * Testergebnisse für Trie und Huffmantree mit 10.000 Farben:
+ * Suchzeit bei positiver Suche im Trie: 30 ms
+ * Suchzeit bei positiver Suche im Huffman: 7849 ms
+ * Suchzeit bei negativer Suche im Trie: 26 ms
+ * Suchzeit bei negativer Suche im Huffman: 18805 ms
  * 
  * Das suchen im Trie ist schneller, da dort nur einen Ast herunter
  * gelaufen werden muss um die Farbe zu finden. Man findet den richtigen

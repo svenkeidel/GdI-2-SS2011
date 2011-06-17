@@ -1,9 +1,8 @@
 package test_private;
 
-import static junit.framework.Assert.*;
-
 import java.util.PriorityQueue;
 import java.util.Random;
+import java.util.Vector;
 
 import logic.huffman.HuffmanCode;
 
@@ -26,9 +25,17 @@ public class ContainsColorTest {
 	
 	private TrieCode TrieCode;
 	
+	Vector<RGB> matchingColors;
+	Vector<RGB> missmatchingColors;
+	
+	private final int NUM_OF_COLORS = 10000;
+	
 	@Before
 	public void init() {
 		this.TrieCode = new TrieCode();
+		
+		matchingColors = new Vector<RGB>();
+		missmatchingColors = new Vector<RGB>();
 		
 		AbstractTreeFactory factory = new LinkedTreeFactory();
 		PriorityQueue<TreeNode> queue = new PriorityQueue<TreeNode>(1,
@@ -39,13 +46,15 @@ public class ContainsColorTest {
 		int random3;
 		int random4;
 		// fill up the trees
-		for (int i = 0; i < 100000; i++){
+		for (int i = 0; i < NUM_OF_COLORS; i++){
 			// fill the queue for the huffmanTree
 			random1 = rn.nextInt()%256;
 			random2 = rn.nextInt()%256;
 			random3 = rn.nextInt()%256;
 			random4 = rn.nextInt()%256;
 			queue.add(factory.produceTreeNode(new RGB(random1,random2,random3,random4), rn.nextInt()));
+			matchingColors.add(new RGB(random1%256,random2,random3,random4));
+			missmatchingColors.add(new RGB((random1+1)%256,random2,random3,random4));
 			
 			TrieCode.addColor(new RGB(random1,random2,random3,random4));
 		}
@@ -55,23 +64,32 @@ public class ContainsColorTest {
 	
 	@Test
 	public void speedTest() {
-		long time1;
-		long time2;
-		long time3;
-		long time4;
+		long time;
 		
-		time1 = System.currentTimeMillis();
-		for (int i = 0; i < 10000000; i++){
-			TrieCode.containsColor(new RGB(rn.nextInt()%256,rn.nextInt()%256,rn.nextInt()%256,rn.nextInt()%256));
+		// Positive tests
+		time = System.currentTimeMillis();
+		for (int i = 0; i < NUM_OF_COLORS; i++){
+			TrieCode.containsColor(matchingColors.get(i));
 		}
-		time2 = System.currentTimeMillis();
-		System.out.println("Suchzeit im Trie: " + (time2-time1) + " ms");
+		System.out.println("Suchzeit bei positiver Suche im Trie: " + (System.currentTimeMillis() - time) + " ms");
 		
-		time3 = System.currentTimeMillis();
-		for (int i = 0; i < 10000000; i++){
-			HuffCode.containsColor(new RGB(rn.nextInt()%256,rn.nextInt()%256,rn.nextInt()%256,rn.nextInt()%256));
+		time = System.currentTimeMillis();
+		for (int i = 0; i < NUM_OF_COLORS; i++){
+			HuffCode.containsColor(matchingColors.get(i));
 		}
-		time4 = System.currentTimeMillis();
-		System.out.println("Suchzeit im Huffman: " + (time4-time3) + " ms");
+		System.out.println("Suchzeit bei positiver Suche im Huffman: " + (System.currentTimeMillis() - time) + " ms");
+		
+		// Negative tests
+		time = System.currentTimeMillis();
+		for (int i = 0; i < NUM_OF_COLORS; i++){
+			TrieCode.containsColor(missmatchingColors.get(i));
+		}
+		System.out.println("Suchzeit bei negativer Suche im Trie: " + (System.currentTimeMillis() - time) + " ms");
+		
+		time = System.currentTimeMillis();
+		for (int i = 0; i < NUM_OF_COLORS; i++){
+			HuffCode.containsColor(missmatchingColors.get(i));
+		}
+		System.out.println("Suchzeit bei negativer Suche im Huffman: " + (System.currentTimeMillis() - time) + " ms");
 	}
 }
