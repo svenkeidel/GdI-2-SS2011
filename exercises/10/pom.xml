@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>exercises</artifactId>
+    <groupId>exercises</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <groupId>exercise</groupId>
+  <artifactId>10</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>10</name>
+  <url>http://maven.apache.org</url>
+
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>us.bryon</groupId>
+            <artifactId>graphviz-maven-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>dot</goal>
+                    </goals>
+                </execution>
+            </executions>
+			<configuration>
+				<output>png</output>
+			</configuration>
+        </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>latex-maven-plugin</artifactId>
+        <version>1.1</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+</project>
