@@ -43,10 +43,10 @@ public class Project4PublicTest {
 	public void HuffmanTest() throws FileNotFoundException, IOException {
 		try {
 			// encrypt with Huffman, test binary String
-			Tree tree = HuffmanTree.getHuffmanTree("test.png");
+			Tree tree = HuffmanTree.getHuffmanTree("test2.png");
 			HuffmanCode code = new HuffmanCode(tree);
 
-			ImageReader reader = new ImageReader("test.png");
+			ImageReader reader = new ImageReader("test2.png");
 			String encryptedImage = code.encryptImage(reader);
 
 			Assert.assertEquals(
@@ -83,7 +83,7 @@ public class Project4PublicTest {
 
 		try {
 			// encrypt with Trie
-			ImageReader reader = new ImageReader("test.png");
+			ImageReader reader = new ImageReader("test2.png");
 			trie.buildTrie(reader);
 			String temp = trie.encryptImage(reader);
 
@@ -129,7 +129,7 @@ public class Project4PublicTest {
 			Assert.assertFalse(trie.containsColor(new RGB(234, 12, 67, 0)));
 
 			// huffman
-			Tree tree = HuffmanTree.getHuffmanTree("test.png");
+			Tree tree = HuffmanTree.getHuffmanTree("test2.png");
 			HuffmanCode code = new HuffmanCode(tree);
 
 			Assert.assertTrue(code.containsColor(new RGB(255, 255, 0, 255)));

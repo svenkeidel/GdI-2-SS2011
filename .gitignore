@@ -19,3 +19,6 @@ target/
 *.aux
 *.dvi
 *.log
+
+# ignore generateable html files
+*.html
