@@ -7,11 +7,11 @@ public class StickDivision {
 		int q;
 		for (int subLength = 1; subLength <= length; subLength++) {
 			q = 0;
-			System.out.println("q = "+q);
+			System.out.println("0:\tq = "+q);
 
 			for (int cutPosition = 1; cutPosition <= subLength; cutPosition++) {
-				System.out.println("q = max("+q+", "+
-						(value[cutPosition] + result[subLength - cutPosition])+")");
+				System.out.println(cutPosition+":\tq = max("+q+", "+
+						value[cutPosition]+" + "+result[subLength - cutPosition]+")");
 				q = Math.max(q, value[cutPosition] + result[subLength - cutPosition]);
 			}
 			result[subLength] = q;
@@ -21,7 +21,7 @@ public class StickDivision {
 	}
 
 	public static void main (String [] args) {
-		int[] value = new int[] {1, 6, 8, 11, 12, 19, 20, 23, 26, 30};
+		int[] value = new int[] {0, 1, 6, 8, 11, 12, 19, 20, 23, 26, 30};
 		int length = value.length - 1;
 		System.out.println("=============================================");
 		int result = cutStick(value, length);

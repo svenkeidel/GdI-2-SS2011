@@ -5,6 +5,7 @@
 \usepackage{multirow}
 \graphicspath{{../../graphviz/}}
 \DeclareGraphicsExtensions{.png}
+\usepackage{verbatim}
 
 \usepackage{listings}
 \lstset{numbers=left, 
@@ -35,6 +36,13 @@
 		\caption{#2}
 		\label{fig:#3}
 	\end{figure}
+}
+
+\newcommand{\lstquote}[2]{
+\lstinputlisting[language=Java, 
+                 firstnumber=#1,
+				 linerange={#1-#2}]
+{../../../src/main/java/stickDivision/StickDivision2.java}
 }
 
 \begin{document}
@@ -215,73 +223,121 @@
 	{../../../src/main/java/stickDivision/StickDivision.java}
 
 \subsubsection*{Ausgabe:}
+
 \begin{verbatim}
 =============================================
-q = 0
-q = max(0, 6)
-result[1] = 6
-q = 0
-q = max(0, 12)
-q = max(12, 8)
-result[2] = 12
-q = 0
-q = max(0, 18)
-q = max(18, 14)
-q = max(18, 11)
-result[3] = 18
-q = 0
-q = max(0, 24)
-q = max(24, 20)
-q = max(24, 17)
-q = max(24, 12)
-result[4] = 24
-q = 0
-q = max(0, 30)
-q = max(30, 26)
-q = max(30, 23)
-q = max(30, 18)
-q = max(30, 19)
-result[5] = 30
-q = 0
-q = max(0, 36)
-q = max(36, 32)
-q = max(36, 29)
-q = max(36, 24)
-q = max(36, 25)
-q = max(36, 20)
-result[6] = 36
-q = 0
-q = max(0, 42)
-q = max(42, 38)
-q = max(42, 35)
-q = max(42, 30)
-q = max(42, 31)
-q = max(42, 26)
-q = max(42, 23)
-result[7] = 42
-q = 0
-q = max(0, 48)
-q = max(48, 44)
-q = max(48, 41)
-q = max(48, 36)
-q = max(48, 37)
-q = max(48, 32)
-q = max(48, 29)
-q = max(48, 26)
-result[8] = 48
-q = 0
-q = max(0, 54)
-q = max(54, 50)
-q = max(54, 47)
-q = max(54, 42)
-q = max(54, 43)
-q = max(54, 38)
-q = max(54, 35)
-q = max(54, 32)
-q = max(54, 30)
-result[9] = 54
+0:	q = 0
+1:	q = max(0, 1 + 0)
+result[1] = 1
+0:	q = 0
+1:	q = max(0, 1 + 1)
+2:	q = max(2, 6 + 0)
+result[2] = 6
+0:	q = 0
+1:	q = max(0, 1 + 6)
+2:	q = max(7, 6 + 1)
+3:	q = max(7, 8 + 0)
+result[3] = 8
+0:	q = 0
+1:	q = max(0, 1 + 8)
+2:	q = max(9, 6 + 6)
+3:	q = max(12, 8 + 1)
+4:	q = max(12, 11 + 0)
+result[4] = 12
+0:	q = 0
+1:	q = max(0, 1 + 12)
+2:	q = max(13, 6 + 8)
+3:	q = max(14, 8 + 6)
+4:	q = max(14, 11 + 1)
+5:	q = max(14, 12 + 0)
+result[5] = 14
+0:	q = 0
+1:	q = max(0, 1 + 14)
+2:	q = max(15, 6 + 12)
+3:	q = max(18, 8 + 8)
+4:	q = max(18, 11 + 6)
+5:	q = max(18, 12 + 1)
+6:	q = max(18, 19 + 0)
+result[6] = 19
+0:	q = 0
+1:	q = max(0, 1 + 19)
+2:	q = max(20, 6 + 14)
+3:	q = max(20, 8 + 12)
+4:	q = max(20, 11 + 8)
+5:	q = max(20, 12 + 6)
+6:	q = max(20, 19 + 1)
+7:	q = max(20, 20 + 0)
+result[7] = 20
+0:	q = 0
+1:	q = max(0, 1 + 20)
+2:	q = max(21, 6 + 19)
+3:	q = max(25, 8 + 14)
+4:	q = max(25, 11 + 12)
+5:	q = max(25, 12 + 8)
+6:	q = max(25, 19 + 6)
+7:	q = max(25, 20 + 1)
+8:	q = max(25, 23 + 0)
+result[8] = 25
+0:	q = 0
+1:	q = max(0, 1 + 25)
+2:	q = max(26, 6 + 20)
+3:	q = max(26, 8 + 19)
+4:	q = max(27, 11 + 14)
+5:	q = max(27, 12 + 12)
+6:	q = max(27, 19 + 8)
+7:	q = max(27, 20 + 6)
+8:	q = max(27, 23 + 1)
+9:	q = max(27, 26 + 0)
+result[9] = 27
+0:	q = 0
+1:	q = max(0, 1 + 27)
+2:	q = max(28, 6 + 25)
+3:	q = max(31, 8 + 20)
+4:	q = max(31, 11 + 19)
+5:	q = max(31, 12 + 14)
+6:	q = max(31, 19 + 12)
+7:	q = max(31, 20 + 8)
+8:	q = max(31, 23 + 6)
+9:	q = max(31, 26 + 1)
+10:	q = max(31, 30 + 0)
+result[10] = 31
 =============================================
-result = 54
+result = 31
 \end{verbatim}
+
+\subsection*{a)}
+
+\lstinputlisting[language=Java,
+	caption={StickDivision2.java},
+	captionpos=b,
+	label=stickdivision2]
+	{../../../src/main/java/stickDivision/StickDivision2.java}
+
+\subsubsection*{Ausgabe:}
+
+\begin{verbatim}
+Pieces after cutting (length, value):
+[2, 6]
+[2, 6]
+[6, 19]
+\end{verbatim}
+
+\subsubsection*{Erläuterung:}
+
+Es wird zusätzlich zu dem bestmöglich Wert für eine Stabteilung der
+Länge $n$ die Unterteilung abgespeichert mit der man zuletzt geteilt
+hat.
+\lstquote{18}{19}
+Dann wird dieser zusätliche Wert in einer Map abgespeichert und
+zurückgegeben.
+\lstquote{26}{30}
+Um die Lösung nun zusammenzubauen muss der größte Wert der Map gefunden
+werden.
+\lstquote{36}{37}
+Und dann der von dem Stab Stück für Stück die besten Teile abgebrochen
+werden.
+\lstquote{39}{46}
+
+
 
 \end{document}
