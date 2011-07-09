@@ -1,0 +1,296 @@
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\lstset{numbers=left, 
+		basicstyle=\footnotesize,
+		linewidth=\textwidth,
+		tabsize=2}
+
+\begin{document}
+
+\section*{H 11.5 Hashing}
+
+\lstinputlisting[language=Ruby,
+                 firstnumber=0,
+				 linerange={0-29}]
+{../../../src/main/ruby/hash.rb}
+
+\subsection*{a)}
+
+\begin{verbatim}
+ * insertion of key 1 at hash 1
+ * insertion of key 3 at hash 3
+ * insertion of key 5 at hash 5
+ * insertion of key 9 at hash 9
+ ! collision while insertion of key 11 at hash 1
+ * insertion of key 11 at hash 2
+ ! collision while insertion of key 13 at hash 3
+ * insertion of key 13 at hash 4
+ ! collision while insertion of key 15 at hash 5
+ * insertion of key 15 at hash 6
+ ! collision while insertion of key 19 at hash 9
+ * insertion of key 19 at hash 0
+ ! collision while insertion of key 10 at hash 0
+ ! collision while insertion of key 10 at hash 1
+ ! collision while insertion of key 10 at hash 2
+ ! collision while insertion of key 10 at hash 3
+ ! collision while insertion of key 10 at hash 4
+ ! collision while insertion of key 10 at hash 5
+ ! collision while insertion of key 10 at hash 6
+ * insertion of key 10 at hash 7
+Map       : [19, 1, 11, 3, 13, 5, 15, 10, nil, 9]
+Fill      : 9
+Collisions: 11
+\end{verbatim}
+
+\subsection*{b)}
+
+\begin{verbatim}
+ * insertion of key 1 at hash 1
+ * insertion of key 3 at hash 3
+ * insertion of key 5 at hash 5
+ * insertion of key 9 at hash 9
+ * insertion of key 11 at hash 0
+ * insertion of key 13 at hash 2
+ * insertion of key 15 at hash 4
+ * insertion of key 19 at hash 8
+ * insertion of key 10 at hash 10
+Map       : [11, 1, 13, 3, 15, 5, nil, nil, 19, 9, 10]
+Fill      : 9
+Collisions: 0
+\end{verbatim}
+
+\subsection*{c)}
+
+\subsubsection*{Einfüge-Reihenfolge für m=10}
+
+\begin{verbatim}
+ * insertion of key 0 at hash 0
+ * insertion of key 2 at hash 2
+ * insertion of key 4 at hash 4
+ * insertion of key 6 at hash 6
+ * insertion of key 8 at hash 8
+Map       : [0, nil, 2, nil, 4, nil, 6, nil, 8, nil]
+Fill      : 5
+Collisions: 0
+\end{verbatim}
+
+\subsubsection*{Einfüge-Reihenfolge für m=11}
+
+\begin{verbatim}
+ * insertion of key 0 at hash 0
+ * insertion of key 2 at hash 2
+ * insertion of key 4 at hash 4
+ * insertion of key 6 at hash 6
+ * insertion of key 8 at hash 8
+ * insertion of key 10 at hash 10
+ * insertion of key 12 at hash 1
+ * insertion of key 14 at hash 3
+ * insertion of key 16 at hash 5
+ * insertion of key 18 at hash 7
+Map       : [0, 12, 2, 14, 4, 16, 6, 18, 8, nil, 10]
+Fill      : 10
+Collisions: 0
+\end{verbatim}
+
+\subsubsection*{Einfügen einer für m=11 erlaubten Reiheinfolge in m=10}
+
+\begin{verbatim}
+ * insertion of key 0 at hash 0
+ * insertion of key 2 at hash 2
+ * insertion of key 4 at hash 4
+ * insertion of key 6 at hash 6
+ * insertion of key 8 at hash 8
+ ! collision while insertion of key 10 at hash 0
+ * insertion of key 10 at hash 1
+ ! collision while insertion of key 12 at hash 2
+ * insertion of key 12 at hash 3
+ ! collision while insertion of key 14 at hash 4
+ * insertion of key 14 at hash 5
+ ! collision while insertion of key 16 at hash 6
+ * insertion of key 16 at hash 7
+ ! collision while insertion of key 18 at hash 8
+ * insertion of key 18 at hash 9
+Map       : [0, 10, 2, 12, 4, 14, 6, 16, 8, 18]
+Fill      : 10
+Collisions: 5
+\end{verbatim}
+
+\subsection*{d)}
+
+Die maximale Länge für m=10 ist 5 und für m=11 10.
+
+\section*{H 11.6 Hashing}
+
+\subsection*{a)}
+
+Man braucht ein Array mit $10^7$ Einträgen, da es maximal $10^7$
+verschiedene Matrikelnummern geben kann und alle gleichzeitig vergeben
+werden könnten.
+
+$1 - 23100 / 10^7 = 0,99769 = 99,769\%$
+
+\subsection*{b)}
+
+\begin{tabular}[h!]{|l| m{1.5cm} | m{2cm} |l|}
+	\hline
+	Schlüssel & Faltung & Shift Faltung & Midsqaremethode \\
+	\hline
+	101010    & 
+	\begin{verbatim}
+	  01
+	  10
+	 +01
+	----
+	  12
+	%100
+	----
+	  12
+	\end{verbatim}
+	&
+	\begin{verbatim}
+	  10
+	  10
+	 +10
+	----
+	  30
+	%100
+	----
+	  30
+	\end{verbatim}
+	&
+	$101010^2 = 1020\textbf{30}20100$ \\
+
+	\hline
+
+	7081 &
+	\begin{verbatim}
+	  70
+	 +18
+	----
+	  88
+	%100
+	----
+	  88
+	\end{verbatim}
+	&
+	\begin{verbatim}
+	  70
+	 +81
+	----
+	 151 
+	%100
+	----
+	  51
+	\end{verbatim}
+	&
+	$7081^2 = 501\textbf{40}561$ \\
+	
+	\hline
+
+	999 &
+	\begin{verbatim}
+	  09
+	 +99
+	 ---
+	 108
+	%100
+	 ---
+	  08
+	\end{verbatim}
+	&
+	\begin{verbatim}
+	  09
+	 +99
+	 ---
+	 108
+	%100
+	 ---
+	  08
+	\end{verbatim}
+	&
+	$999^2 = 99\textbf{80}01$ \\
+	\hline
+\end{tabular}
+
+\subsection*{c)}
+
+$f(x) = \frac{(x^2 \mod{10^5}) - (x^2 \mod{10^3})} {10^3}$
+
+\subsection*{d)}
+
+$f(x) = \frac{ x             - (x \mod{10^4})} {10^4} +
+        \frac{(x \mod{10^4}) - (x \mod{10^2})} {10^2} + (x \mod{10^2})$
+
+\clearpage
+\section*{H 11.7 Externes Hashing}
+
+\subsection*{a)}
+
+Bucketfaktor b = 2
+
+\subsection*{b)}
+
+\begin{itemize}
+	\item Durch 1 Einfügung in Position 0
+	\item Durch 1 Einfügung in Position 1
+	\item Durch 5 Einfügungen und 2 Löschungen in Position 2
+	\item Durch 1 Einfügung in Position 3
+	\item Durch 4 Einfügungen und 1 Löschung in Position 4
+	\item Durch 3 Einfügungen und 1 Löschung in Position 5
+	\item Durch 4 Einfügungen und 1 Löschung in Position 6
+\end{itemize}
+
+\subsection*{c)}
+
+\lstinputlisting[language=Ruby]{../../../src/main/ruby/external_hash.rb}
+
+\subsubsection*{Ausgabe:}
+
+\begin{verbatim}
+Mallorca   => 0
+Sicilia    => 1
+Jeju       => 2
+Madagaskar => 2
+Malediven  => 2
+Jamaika    => 3
+Srilanka   => 4
+Bahamas    => 4
+Hainau     => 4
+Tahiti     => 5
+Fidschi    => 5
+Ibiza      => 6
+Kuba       => 6
+Island     => 6
+Taiwan     => 4
+\end{verbatim}
+
+\subsection*{d)}
+\begin{tabular}[!h]{|l|l|l|}
+	\hline
+	Index & Bucket 1 & Bucket 2 \\
+	\hline
+	\hline
+	0 & Mallorca   &            \\
+	\hline
+	1 & Sicilia    &            \\
+	\hline
+	2 & Jeju       & Malediven  \\
+	\hline
+	3 & Jamaika    &            \\
+	\hline
+	4 & Srilanka   & Bahamas    \\
+	  &            & Hainau     \\
+	\hline
+	5 & Fidschi    &            \\
+	\hline
+	6 & Ibiza      & Kuba       \\
+	\hline
+\end{tabular}
+
+\end{document}
