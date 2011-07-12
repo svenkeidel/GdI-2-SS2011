@@ -1,0 +1,104 @@
+\documentclass[a4paper]{article}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{../../graphviz/}}
+\DeclareGraphicsExtensions{.png}
+
+\usepackage{listingsutf8}
+\lstset{numbers=left, 
+		basicstyle=\footnotesize,
+		linewidth=\textwidth,
+		tabsize=2,
+		inputencoding=utf8/latin1}
+
+\begin{document}
+
+\section*{H 12.4 Geometrische Datenstrukturen}
+
+\subsection*{a)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.15]{quadtree01.png}
+	\end{center}
+	\caption{Quadtree der Mensa}
+	\label{fig:qtree01}
+\end{figure}
+
+\subsection*{b)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.2]{quadtree02.png}
+	\end{center}
+	\caption{Ergebnis des Schnitts der Quadtrees}
+	\label{fig:qtree02}
+\end{figure}
+
+\clearpage
+\subsection*{c)}
+
+\begin{figure}[!h]
+	\begin{center}
+		\includegraphics[scale=0.6]{adaptiver_2d_tree.png}
+	\end{center}
+	\caption{Adaptiver 2d Tree der Eingänge der Mensa}
+	\label{fig:adapt2dtree01}
+\end{figure}
+
+\subsection*{d)}
+
+\subsubsection*{Vorangehensweise:}
+\begin{itemize}
+	\item Koordinaten in Binärdarstellung verwandeln.
+	\item Bit Interleaving durchführen.
+	\item Die Bits des Ergebnisses der vorherigen Operation sind die
+		Bits entlang des Suchpfades des 2d Tries
+\end{itemize}
+
+\begin{tabular}[h!]{|c|c|c|}
+	\hline
+	Eingang & Binärdarstellung & nach Bit Interleaving \\
+	\hline
+	(1, 1) & $(1,1)_2 = (001,001)$ & 000011 \\
+	(2, 3) & $(2,3)_2 = (010,011)$ & 001101 \\
+	(4, 5) & $(4,5)_2 = (100,101)$ & 110001 \\
+	(5, 3) & $(5,3)_2 = (101,011)$ & 100111 \\
+	(6, 2) & $(6,2)_2 = (110,010)$ & 101100 \\
+	(6, 4) & $(6,4)_2 = (110,100)$ & 111000 \\
+	\hline
+\end{tabular}
+
+\clearpage
+\section*{H 12.5 Hilbertkurve}
+
+\subsection*{a)}
+
+\lstinputlisting[language=Ruby,
+                 caption={Hilbert.rb},
+				 captionpos=b,
+                 firstnumber=1,
+				 linerange=1-32]
+				 {../../../src/main/ruby/hilbert.rb}
+
+\subsection*{b)}
+TODO
+
+\subsection*{c)}
+
+\lstinputlisting[language=Ruby,
+                 caption={Hilbert.rb},
+				 captionpos=b,
+                 firstnumber=34,
+				 linerange=34-109]
+				 {../../../src/main/ruby/hilbert.rb}
+
+\subsection*{Ausgabe für Hilbert.to\_s(5)}
+
+siehe Anhang
+
+\end{document}

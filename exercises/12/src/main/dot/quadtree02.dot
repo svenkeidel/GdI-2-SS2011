@@ -1,0 +1,97 @@
+graph G {
+	ranksep=1.4
+
+	N01 [label="", shape=circle]
+
+	N11 [label="", shape=square, style=filled, fillcolor=white]
+	N12 [label="", shape=square, style=filled, fillcolor=white]
+	N13 [label="", shape=circle]
+	N14 [label="", shape=circle]
+
+	N01 -- N11 [label="nw"]
+	N01 -- N12 [label="no"]
+	N01 -- N13 [label="sw"]
+	N01 -- N14 [label="so"]
+
+	N26 [label="", shape=circle]
+	N27 [label="", shape=circle]
+	N28 [label="", shape=circle]
+	N29 [label="", shape=circle]
+
+	N13 -- N26
+	N13 -- N27
+	N13 -- N28
+	N13 -- N29
+
+	N30 [label="", shape=circle]
+	N31 [label="", shape=square, style=filled, fillcolor=white]
+	N32 [label="", shape=square, style=filled, fillcolor=white]
+	N33 [label="", shape=circle]
+
+	N14 -- N30
+	N14 -- N31
+	N14 -- N32
+	N14 -- N33
+
+	N38 [label="", shape=square, style=filled, fillcolor=white]
+	N39 [label="", shape=square, style=filled, fillcolor=white]
+	N40 [label="", shape=square, style=filled, fillcolor=white]
+	N41 [label="", shape=square, style=filled, fillcolor=black]
+
+	N26 -- N38
+	N26 -- N39
+	N26 -- N40
+	N26 -- N41
+
+	N42 [label="", shape=square, style=filled, fillcolor=black]
+	N43 [label="", shape=square, style=filled, fillcolor=black]
+	N44 [label="", shape=square, style=filled, fillcolor=black]
+	N45 [label="", shape=square, style=filled, fillcolor=white]
+
+	N27 -- N42
+	N27 -- N43
+	N27 -- N44
+	N27 -- N45
+
+	N46 [label="", shape=square, style=filled, fillcolor=white]
+	N47 [label="", shape=square, style=filled, fillcolor=black]
+	N48 [label="", shape=square, style=filled, fillcolor=white]
+	N49 [label="", shape=square, style=filled, fillcolor=white]
+	
+	N28 -- N46
+	N28 -- N47
+	N28 -- N48
+	N28 -- N49
+
+	N50 [label="", shape=square, style=filled, fillcolor=black]
+	N51 [label="", shape=square, style=filled, fillcolor=white]
+	N52 [label="", shape=square, style=filled, fillcolor=white]
+	N53 [label="", shape=square, style=filled, fillcolor=white]
+
+	N29 -- N50
+	N29 -- N51
+	N29 -- N52
+	N29 -- N53
+
+
+
+	N54 [label="", shape=square, style=filled, fillcolor=black]
+	N55 [label="", shape=square, style=filled, fillcolor=black]
+	N56 [label="", shape=square, style=filled, fillcolor=white]
+	N57 [label="", shape=square, style=filled, fillcolor=black]
+
+	N30 -- N54
+	N30 -- N55
+	N30 -- N56
+	N30 -- N57
+
+	N66 [label="", shape=square, style=filled, fillcolor=black]
+	N67 [label="", shape=square, style=filled, fillcolor=black]
+	N68 [label="", shape=square, style=filled, fillcolor=white]
+	N69 [label="", shape=square, style=filled, fillcolor=white]
+
+	N33 -- N66
+	N33 -- N67
+	N33 -- N68
+	N33 -- N69
+}
